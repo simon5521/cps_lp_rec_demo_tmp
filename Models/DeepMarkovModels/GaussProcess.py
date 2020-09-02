@@ -414,7 +414,7 @@ data = [ 0.385598354
 
 
 X = torch.tensor([float(i) for i in range(200)])
-X = torch.linspace(0.0,5.0,200)
+X = torch.linspace(0.0,2.5,200)
 y = torch.tensor(data)
 
 # note that this helper function does three different things:
@@ -423,13 +423,13 @@ y = torch.tensor(data)
 # (iii) plots samples from the GP prior (with no conditioning on observed data)
 
 def plot(plot_observed_data=False, plot_predictions=False, n_prior_samples=0,
-         model=None, kernel=None, n_test=500):
+         model=None, kernel=None, n_test=800):
 
     plt.figure(figsize=(12, 6))
     if plot_observed_data:
         plt.plot(X.numpy(), y.numpy(), 'kx')
     if plot_predictions:
-        Xtest = torch.linspace(0, 5, n_test)  # test inputs
+        Xtest = torch.linspace(0, 10, n_test)  # test inputs
         # compute predictive mean and variance
         with torch.no_grad():
             if type(model) == gp.models.VariationalSparseGP:
@@ -443,7 +443,7 @@ def plot(plot_observed_data=False, plot_predictions=False, n_prior_samples=0,
                          (mean + 2.0 * sd).numpy(),
                          color='C0', alpha=0.3)
     if n_prior_samples > 0:  # plot samples from the GP prior
-        Xtest = torch.linspace(0, 5, n_test)  # test inputs
+        Xtest = torch.linspace(0, 10, n_test)  # test inputs
         noise = (model.noise if type(model) != gp.models.VariationalSparseGP
                  else model.likelihood.variance)
         cov = kernel.forward(Xtest) + noise.expand(n_test).diag()
@@ -460,7 +460,7 @@ Xu = torch.arange(20.) / 4.0
 
 # initialize the kernel and model
 pyro.clear_param_store()
-kernel = gp.kernels.Brownian(input_dim=1)
+kernel = gp.kernels.Sum(gp.kernels.Periodic(input_dim=1),gp.kernels.Periodic(input_dim=1))
 # we increase the jitter for better numerical stability
 sgpr = gp.models.SparseGPRegression(X, y, kernel, Xu=Xu, jitter=1.0e-5)
 

@@ -14,7 +14,7 @@ sim_loc="Clark_Adam_scenario1/"
 print("initizing MQTT connection")
 client = mqtt.Client("Sumo Traffic Simulator")
 print("connecting to broker")
-client.connect("192.168.1.66", 1883)
+client.connect("192.168.1.68", 1883)
 client.loop_start()
 print("MQTT connection has established")
 
