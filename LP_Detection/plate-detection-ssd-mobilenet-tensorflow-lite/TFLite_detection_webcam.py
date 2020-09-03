@@ -8,6 +8,7 @@ import importlib.util
 import videoUtils.mjpeg_streamer
 import videoUtils.videoStream
 
+
 #pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
 MODEL_NAME = 'ssd_mobilenet_v2_quantized_TFLite_model'
