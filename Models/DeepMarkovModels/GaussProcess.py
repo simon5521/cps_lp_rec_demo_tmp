@@ -460,7 +460,7 @@ Xu = torch.arange(20.) / 4.0
 
 # initialize the kernel and model
 pyro.clear_param_store()
-kernel = gp.kernels.Sum(gp.kernels.Periodic(input_dim=1),gp.kernels.Periodic(input_dim=1))
+kernel = gp.kernels.Sum(gp.kernels.Periodic(input_dim=1),gp.kernels.Brownian(input_dim=1))
 # we increase the jitter for better numerical stability
 sgpr = gp.models.SparseGPRegression(X, y, kernel, Xu=Xu, jitter=1.0e-5)
 
