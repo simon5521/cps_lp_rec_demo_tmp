@@ -129,3 +129,41 @@ class CAR_NET_LOSS(Measurement):
   tag = Tag(null=False)
   nodeid = StringField(null=False)
 
+def load_det_rt(tag=tag):
+  points = cli.load_points(LP_DET_RT, {'tag': tag})
+  t=list()
+  rt=list()
+  for p in points:
+    t.append(p.time_point)
+    rt.append(p.runtime)
+  return t,rt
+
+
+def load_rec_rt(tag=tag):
+  points = cli.load_points(LP_REC_RT, {'tag': tag})
+  t=list()
+  rt=list()
+  for p in points:
+    t.append(p.time_point)
+    rt.append(p.runtime)
+  return t,rt
+
+
+def load_net_det_dly(tag=tag):
+  points = cli.load_points(NET_DET_DELAY, {'tag': tag})
+  t=list()
+  d=list()
+  for p in points:
+    t.append(p.time_point)
+    d.append(p.delay)
+  return t,d
+
+
+def load_net_rec_rt(tag=tag):
+  points = cli.load_points(NET_REC_DELAY, {'tag': tag})
+  t=list()
+  d=list()
+  for p in points:
+    t.append(p.time_point)
+    d.append(p.delay)
+  return t,d

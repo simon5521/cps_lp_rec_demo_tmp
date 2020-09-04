@@ -87,7 +87,7 @@ print(tag_values)
 
 from pinform.client import InfluxClient
 
-cli = InfluxClient(host="192.168.1.68", port=8086, database_name="smartcity")
+cli = InfluxClient(host="localhost", port=8086, database_name="smartcity")
 locid="virtual_loc_1"
 nodeid="virtual_tester_1"
 tag="pre_test_1"
