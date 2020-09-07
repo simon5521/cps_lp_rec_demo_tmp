@@ -10,7 +10,7 @@ locid="virtual_loc_1"
 nodeid="virtual_tester_1"
 tag="pre_test_1"
 dburl="localhost"
-dburl="192.168.1.68"
+#dburl="192.168.1.68"
 
 timeFormat = '%Y-%m-%dT%H:%M:%SZ'
 
@@ -24,33 +24,33 @@ def save_det_rt(rt):
     save(LP_DET_RT(tag=tag,nodeid=nodeid,runtime=rt))
 
 def save_rec_rt(rt):
-    save(LP_REC_RT(tag=tag, nodeid=nodeid, runtime=rt))
+    save(LP_REC_RT(time_point=datetime.datetime.now(),tag=tag, nodeid=nodeid, runtime=rt))
 
 def save_rec_net_dly(delay):
-    save(NET_REC_DELAY(tag=tag, nodeid=nodeid, delay=delay))
+    save(NET_REC_DELAY(time_point=datetime.datetime.now(),tag=tag, nodeid=nodeid, delay=delay))
 
 def save_det_net_dly(delay):
-    save(NET_DET_DELAY(tag=tag, nodeid=nodeid, delay=delay))
+    save(NET_DET_DELAY(time_point=datetime.datetime.now(),tag=tag, nodeid=nodeid, delay=delay))
 
 def save_lp(lp):
-  save(LP_DATA(tag=tag,nodeid=nodeid,locid=locid,lp=lp))
+  save(LP_DATA(time_point=datetime.datetime.now(),tag=tag,nodeid=nodeid,locid=locid,lp=lp))
 
 def save_car_data():
-  save(CAR_DATA(locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_DATA(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
 def save_car_loss():
-  save(CAR_LOSS(locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
 def save_car_net_loss():
-  save(CAR_NET_LOSS(locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_NET_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
 
 def save_car_rec_loss():
-  save(CAR_REC_LOSS(locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_REC_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
 
 def save_car_det_loss():
-  save(CAR_DET_LOSS(locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_DET_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
 
 

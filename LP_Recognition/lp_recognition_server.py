@@ -6,9 +6,9 @@ import time
 import matplotlib.pyplot as plt
 from DBManagement.db_manager import save_car_rec_loss,save_lp,save_rec_rt,save_rec_net_dly
 
-url='http://192.168.0.73:8081/cam.mjpg'
+#url='http://192.168.0.73:8081/cam.mjpg'
 url='http://192.168.1.51:8080/cam.mjpg'
-url='http://192.168.1.248:8080/cam.mjpg'
+#url='http://192.168.1.248:8080/cam.mjpg'
 config = ('--oem 1 --psm 13')
 
 use_preprocess=False
@@ -30,7 +30,7 @@ def image_preprocess(img):
 
 
 while True:
-
+    print("cycle")
     t1=time.time_ns()
 
     ret, frame = cap.read()
