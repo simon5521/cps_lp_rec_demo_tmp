@@ -21,7 +21,7 @@ def save(data):
     cli.save_points([data])
 
 def save_det_rt(rt):
-    save(LP_DET_RT(tag=tag,nodeid=nodeid,runtime=rt))
+    save(LP_DET_RT(time_point=datetime.datetime.now(),tag=tag,nodeid=nodeid,runtime=rt))
 
 def save_rec_rt(rt):
     save(LP_REC_RT(time_point=datetime.datetime.now(),tag=tag, nodeid=nodeid, runtime=rt))
@@ -52,7 +52,8 @@ def save_car_rec_loss():
 def save_car_det_loss():
   save(CAR_DET_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
-
+def close():
+  cli.close()
 
 class LP_DET_RT(Measurement):
   class Meta:
