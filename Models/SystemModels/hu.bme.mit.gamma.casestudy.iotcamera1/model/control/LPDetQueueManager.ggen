@@ -1,0 +1,11 @@
+import "interfaces/Interfaces.gcd"
+import external "LPDetQueueManager.sct"
+statechart {
+	statechart: LPDetQueueManager
+	mappings{
+		map Traffic=Traffic as required
+		map PreProcessedImg = Stream as required
+		map Img=Stream as provided
+		map Status=Status as provided
+	}
+}

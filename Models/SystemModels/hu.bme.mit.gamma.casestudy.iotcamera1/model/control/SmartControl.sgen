@@ -1,0 +1,15 @@
+GeneratorModel for yakindu::java {
+
+	statechart SmartControl {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.gamma.casestudy.iotcamera1"
+			targetFolder = "src-gen"
+		}
+
+		feature GeneralFeatures {
+			RuntimeService = true
+			TimerService = false
+			InterfaceObserverSupport = true
+		}
+}}

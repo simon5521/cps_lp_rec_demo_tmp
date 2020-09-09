@@ -1,0 +1,20 @@
+package SmartControl
+import "Interfaces"
+@PrioritizedTransitions = order-based
+statechart SmartControlStatechart [
+	port InPicStream : requires Stream
+	port LocalStream : provides Stream
+	port NetworkStream : provides Stream
+	port Status : requires Status
+] {
+	transition from Entry0 to SendToLocal
+	transition from SendToCloud to SendToLocal when Status.Free
+	transition from SendToCloud to SendToCloud when InPicStream.NewData / raise LocalStream.NewData;
+	transition from SendToLocal to SendToCloud when Status.Full
+	transition from SendToLocal to SendToLocal when InPicStream.NewData / raise LocalStream.NewData;
+	region mainregion {
+		initial Entry0
+		state SendToCloud
+		state SendToLocal
+	}
+}

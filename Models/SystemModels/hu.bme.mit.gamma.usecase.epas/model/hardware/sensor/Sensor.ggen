@@ -1,0 +1,9 @@
+import "interfaces/Interfaces.gcd"
+import external "Sensor.sct"
+statechart {
+	statechart: Sensor
+	mappings{
+		map HWFault = SensorFault as required
+		map SensorFault = SensorFault as provided
+	}
+}

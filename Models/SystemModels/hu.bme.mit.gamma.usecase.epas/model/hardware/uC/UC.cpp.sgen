@@ -1,0 +1,12 @@
+GeneratorModel for yakindu::cpp {
+
+	statechart UC {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.gamma.usecase.epas"
+			targetFolder = "src-gen-cpp"
+		}
+
+		
+	}
+}

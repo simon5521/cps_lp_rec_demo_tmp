@@ -1,0 +1,28 @@
+package LPDetQueueManager
+import "Interfaces"
+@PrioritizedTransitions = order-based
+statechart LPDetQueueManagerStatechart [
+	port Traffic : requires Traffic
+	port Status : provides Status
+	port Img : provides Stream
+	port PreProcessedImg : requires Stream
+] {
+	var QueueMaxLen : integer := 4
+	var QueueLen : integer := 0
+	transition from Choice1 to Full [QueueLen = QueueMaxLen]
+	transition from Choice1 to NotFull [else]
+	transition from Entry0 to NotFull
+	transition from Full to NotFull when PreProcessedImg.NewData / QueueLen := QueueLen - 1;
+	transition from NotFull to Choice1 when Traffic.NewCar / QueueLen := QueueLen + 1; raise Img.NewData;
+	transition from NotFull to NotFull when PreProcessedImg.NewData / QueueLen := QueueLen - 1;
+	region main_region {
+		initial Entry0
+		state NotFull {
+			entry / raise Status.Free;
+		}
+		state Full {
+			entry / raise Status.Full;
+		}
+		choice Choice1
+	}
+}

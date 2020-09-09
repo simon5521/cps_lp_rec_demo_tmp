@@ -1,0 +1,11 @@
+import "interfaces/Interfaces"
+import external "SmartControl.sct"
+statechart {
+	statechart: SmartControl
+	mappings{
+		map InPicStream=Stream as required
+		map LocalStream=Stream as provided
+		map NetworkStream=Stream as provided
+		map Status=Status as required
+	}
+}

@@ -1,0 +1,48 @@
+package IoTCamera
+
+import "interfaces/Interfaces.gcd"
+import "control/SmartControl.gcd"
+import "control/LPDetQueueManager.gcd"
+import "control/LPRecQueueManager.gcd"
+
+environment IoTCameraComp[
+	port LPNumbers:provides Stream
+	port LPCroppedImg:provides Stream
+	port RecognisedLP:provides Stream
+]{
+	//new auto with Poisson process with rate 0.2 car/sec
+	periodic source Traffic [port Cars:provides Traffic] dist exponential rate=1.0
+	
+	component LPRecQueueManager:LPRecQueueManagerStatechart
+	
+	component LPDetQueueManager:LPDetQueueManagerStatechart
+	
+	component SmartControl:SmartControlStatechart
+	
+	random delay DetectionDelay from [port inData:requires Stream] to [port outData:provides Stream] dist normal mean=0.0333,scale=0.001
+	
+	random delay RecognitionDelay from [port inData:requires Stream] to [port outData:provides Stream] dist exponential rate=0.5
+	
+	channel [Traffic.Cars] -o)- [LPDetQueueManager.Traffic]
+	
+	channel [LPDetQueueManager.Img] -o)- [DetectionDelay.inData]
+	
+	channel [DetectionDelay.outData] -o)- [LPDetQueueManager.PreProcessedImg,SmartControl.InPicStream]
+	
+	channel [SmartControl.LocalStream] -o)- [LPRecQueueManager.PreProcessedImg]
+	
+	bind LPCroppedImg->SmartControl.NetworkStream
+	
+	channel [LPRecQueueManager.PreProcessedImgOut] -o)- [RecognitionDelay.inData]
+	
+	channel [RecognitionDelay.outData] -o)- [LPRecQueueManager.ProcessedImg]
+	
+	channel [LPRecQueueManager.Status] -o)- [SmartControl.Status]
+	
+	bind LPNumbers->LPRecQueueManager.NetworkStream
+	
+}
+analysis LPNumberFreq{
+	in environment component IoTCamera : IoTCameraComp 
+	mean time of event [IoTCamera.LPNumbers.NewData]  
+}

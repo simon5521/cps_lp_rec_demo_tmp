@@ -1,0 +1,35 @@
+package Evaluation
+import "interfaces"
+@PrioritizedTransitions = order-based
+statechart EvaluationStatechart [
+	port Eval : provides Eval
+	port BMonitor : requires Monitor
+	port AMonitor : requires Monitor
+] {
+	var sides : integer
+	transition from Choice2 to LoA [sides = 0]
+	transition from Choice2 to Operation [else]
+	transition from Entry0 to Operation / sides := 2;
+	transition from Entry1 to Normal
+	transition from Normal to Warning when AMonitor.warning || BMonitor.warning
+	transition from Operation to Selfsteering when BMonitor.selfsteering || AMonitor.selfsteering / raise
+		Eval.SS;
+	transition from Operation to Choice2 when BMonitor.loa || AMonitor.loa / sides := sides - 1;
+	region evaluation {
+		state Operation {
+			region r1 {
+				initial Entry1
+				state Normal
+				state Warning
+			}
+		}
+		initial Entry0
+		state LoA {
+			entry / raise Eval.SLoA;
+		}
+		state Selfsteering {
+			entry / raise Eval.SS;
+		}
+		choice Choice2
+	}
+}

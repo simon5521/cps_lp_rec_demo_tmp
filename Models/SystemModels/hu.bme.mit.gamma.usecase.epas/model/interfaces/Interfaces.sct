@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
+  <sgraph:Statechart xmi:id="_5Uk6UNGTEemni-8RhNhyeA" specification="&#xA;interface Monitor:&#xA;&#x9;out event warning&#xA;&#x9;out event selfsteering&#xA;&#x9;out event loa&#xA;&#x9;&#xA;interface Eval:&#xA;&#x9;out event SS&#xA;&#x9;out event SLoA&#xA;&#x9;&#xA;interface SensorFault:&#xA;&#x9;out event det&#xA;&#x9;out event latent&#xA;&#x9;&#xA;interface UCFault:&#xA;&#x9;out event shutdown" name="interfaces"/>
+  <notation:Diagram xmi:id="_5VFQoNGTEemni-8RhNhyeA" type="org.yakindu.sct.ui.editor.editor.StatechartDiagramEditor" element="_5Uk6UNGTEemni-8RhNhyeA" measurementUnit="Pixel">
+    <children xsi:type="notation:Shape" xmi:id="_5V6-INGTEemni-8RhNhyeA" type="StatechartText" fontName="Verdana" lineColor="4210752">
+      <children xsi:type="notation:DecorationNode" xmi:id="_5V7lMNGTEemni-8RhNhyeA" type="StatechartName">
+        <styles xsi:type="notation:ShapeStyle" xmi:id="_5V7lMdGTEemni-8RhNhyeA"/>
+        <layoutConstraint xsi:type="notation:Location" xmi:id="_5V7lMtGTEemni-8RhNhyeA"/>
+      </children>
+      <children xsi:type="notation:Shape" xmi:id="_5V7lM9GTEemni-8RhNhyeA" type="StatechartTextExpression" fontName="Verdana" lineColor="4210752">
+        <layoutConstraint xsi:type="notation:Bounds" xmi:id="_5V7lNNGTEemni-8RhNhyeA"/>
+      </children>
+      <layoutConstraint xsi:type="notation:Bounds" xmi:id="_5V8zUNGTEemni-8RhNhyeA" x="10" y="10" width="200" height="400"/>
+    </children>
+    <styles xsi:type="notation:BooleanValueStyle" xmi:id="_5VFQodGTEemni-8RhNhyeA" name="inlineDefinitionSection"/>
+    <styles xsi:type="notation:DiagramStyle" xmi:id="_5VFQotGTEemni-8RhNhyeA"/>
+  </notation:Diagram>
+</xmi:XMI>

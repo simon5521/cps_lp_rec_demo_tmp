@@ -1,0 +1,12 @@
+import "interfaces/Interfaces.gcd"
+import external "LPRecQueueManager.sct"
+statechart {
+	statechart: LPRecQueueManager
+	mappings{
+		map PreProcessedImg=Stream as required
+		map PreProcessedImgOut= Stream as provided
+		map ProcessedImg=Stream as required
+		map Status = Status as provided
+		map NetworkStream = Stream as provided
+	}
+}

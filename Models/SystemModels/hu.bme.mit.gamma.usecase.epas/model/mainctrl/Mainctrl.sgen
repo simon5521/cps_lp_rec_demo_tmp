@@ -1,0 +1,17 @@
+GeneratorModel for yakindu::java {
+
+	statechart Mainctrl {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.gamma.usecase.epas"
+			targetFolder = "src-gen"
+		}
+
+		feature GeneralFeatures {
+			RuntimeService = true
+			TimerService = false
+			InterfaceObserverSupport = true
+		}
+		
+	}
+}

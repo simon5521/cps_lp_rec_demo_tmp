@@ -1,0 +1,13 @@
+import "interfaces/Interfaces.gcd"
+import external "Mainctrl.sct"
+
+statechart {
+	statechart: Mainctrl
+	mappings{
+		map Monitor = Monitor as provided
+		map S1HW = SensorFault as required
+		map S2HW = SensorFault as required
+		map S3HW = SensorFault as required
+		map UCHW =  UCFault as required
+	}
+}

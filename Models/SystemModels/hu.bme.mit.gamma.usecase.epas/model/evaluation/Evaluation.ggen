@@ -1,0 +1,10 @@
+import "interfaces/Interfaces.gcd"
+import external "Evaluation.sct"
+statechart {
+	statechart : Evaluation
+	mappings{
+		map AMonitor = Monitor as required
+		map BMonitor = Monitor as required
+		map Eval = Eval as provided
+	}
+}

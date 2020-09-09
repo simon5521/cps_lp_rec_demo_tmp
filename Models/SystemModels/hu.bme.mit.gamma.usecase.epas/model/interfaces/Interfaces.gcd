@@ -1,0 +1,17 @@
+package interfaces
+interface UCFault {
+	out event shutdown
+}
+interface Monitor {
+	out event loa
+	out event warning
+	out event selfsteering
+}
+interface Eval {
+	out event SLoA
+	out event SS
+}
+interface SensorFault {
+	out event det
+	out event latent
+}

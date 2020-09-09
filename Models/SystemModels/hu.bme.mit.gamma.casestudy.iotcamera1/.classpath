@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="iotcamera/gateway-gen"/>
+	<classpathentry kind="src" path="src-gen"/>
+	<classpathentry kind="lib" path="/home/simon5521/.p2/pool/plugins/py4j-java_0.10.9.bnd-LoVopg.jar" sourcepath="/home/simon5521/.p2/pool/plugins/py4j-java.source_0.10.9.bnd-LoVopg.jar">
+		<accessrules>
+			<accessrule kind="accessible" pattern="py4j/*"/>
+			<accessrule kind="accessible" pattern="py4j/commands/*"/>
+			<accessrule kind="accessible" pattern="py4j/model/*"/>
+			<accessrule kind="accessible" pattern="py4j/reflection/*"/>
+			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
+		</accessrules>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

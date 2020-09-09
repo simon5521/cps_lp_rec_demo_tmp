@@ -1,0 +1,11 @@
+package Interfaces
+interface Status {
+	out event Full
+	out event Free
+}
+interface Traffic {
+	out event NewCar
+}
+interface Stream {
+	out event NewData
+}

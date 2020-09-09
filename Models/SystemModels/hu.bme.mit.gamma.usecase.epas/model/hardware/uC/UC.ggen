@@ -1,0 +1,9 @@
+import "interfaces/Interfaces.gcd"
+import external "UC.sct"
+statechart{
+	statechart : UC
+	mappings {
+		map HWFault = UCFault as required
+		map Fault = UCFault as provided
+	}
+}

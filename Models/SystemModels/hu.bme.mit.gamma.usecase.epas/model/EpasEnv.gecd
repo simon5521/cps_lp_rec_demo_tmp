@@ -1,0 +1,73 @@
+package EpasEnv
+
+import "epas1"
+import "interfaces"
+import "UC"
+
+
+environment uCenv[
+	port fout : provides UCFault
+]{
+	bind fout -> ucsct.Fault
+	
+	source uc1 [ port uCfport : provides UCFault ] dist normal mean = 0.8, scale = 0.05
+	component ucsct : UCStatechart
+	//component ucsct2 : UCStatechart
+	
+	//random delay uCDelay from [port inPort:requires UCFault] to [port outPort:provides UCFault] dist exponential rate=0.01 
+	
+	//channel [uc1.uCfport] -o)- [ucsct2.HWFault]
+	channel [uc1.uCfport] -o)- [ucsct.HWFault]
+	//channel [ucsct2.Fault] -o)- [uCDelay.inPort]
+	//channel [uCDelay.outPort] -o)- [ucsct.HWFault]
+	//channel [ucsct2.Fault] -o)- [ucsct.HWFault]
+}
+
+
+environment EpasEnv1[
+	port fout : provides Eval
+]{
+
+	component epas : epas	
+	
+	environment component uC1env : uCenv
+	environment component uC2env : uCenv
+	
+	//random delay d1 from [port failureIn : requires UCFault] to [port failureOut : provides UCFault] dist normal mean=0.01, scale=0.001
+
+
+	source sf1 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	source sf2 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	source sf3 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	
+	source sf4 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	source sf5 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	source sf6 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	
+	  
+	
+	channel [sf1.sfport] -o)- [epas.S1AFault]
+	channel [sf2.sfport] -o)- [epas.S2AFault]
+	channel [sf3.sfport] -o)- [epas.S3AFault]
+	
+	channel [sf4.sfport] -o)- [epas.S1BFault]
+	channel [sf5.sfport] -o)- [epas.S2BFault]
+	channel [sf6.sfport] -o)- [epas.S3BFault]
+	
+	channel [uC1env.fout] -o)- [epas.UCAFault]
+	channel [uC2env.fout] -o)- [epas.UCBFault]
+	
+	bind fout -> epas.State
+	
+}
+
+
+requirement uncontrolled_self_steering_prevention {
+	
+	in environment component epasSystem : EpasEnv1
+	mean time of  event [epasSystem.fout.SS] greater than 0.01
+	assume event [epasSystem.fout.SLoA] not raised 
+	
+}
+
+

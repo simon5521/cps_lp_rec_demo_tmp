@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::cpp {
+
+	statechart Evaluation {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.gamma.usecase.epas"
+			targetFolder = "src-gen-cpp"
+		}
+		
+	}
+}

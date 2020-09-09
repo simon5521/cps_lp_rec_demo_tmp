@@ -1,0 +1,20 @@
+package Sensor
+import "interfaces"
+statechart SensorStatechart [
+	port SensorFault : provides SensorFault
+	port HWFault : requires SensorFault
+] {
+	transition from Entry0 to Ok
+	transition from Ok to Off when HWFault.det
+	transition from Ok to LatentFailure when HWFault.latent
+	region Sensor {
+		initial Entry0
+		state LatentFailure {
+			entry / raise SensorFault.latent;
+		}
+		state Off {
+			entry / raise SensorFault.det;
+		}
+		state Ok
+	}
+}

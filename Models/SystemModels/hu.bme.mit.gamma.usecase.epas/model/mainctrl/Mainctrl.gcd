@@ -1,0 +1,62 @@
+package Mainctrl
+import "interfaces"
+statechart MainctrlStatechart [
+	port S1HW : requires SensorFault
+	port Monitor : provides Monitor
+	port S3HW : requires SensorFault
+	port S2HW : requires SensorFault
+	port UCHW : requires UCFault
+] {
+	var latentsensors : integer
+	var onsensors : integer
+	var oksensors : integer
+	var offsensors : integer
+	transition from NormalOperation to Warning when S1HW.det
+	transition from Choice4 to Off [1 >= onsensors]
+	transition from Entry0 to main / offsensors := 0; oksensors := 3; onsensors := 3;
+	transition from Choice5 to working [else]
+	transition from NormalOperation to Warning when S3HW.det
+	transition from Entry2 to NormalOperation
+	transition from Entry1 to working
+	transition from Choice5 to SelfSteeringState [latentsensors >= oksensors] / raise Monitor.selfsteering;
+	transition from NormalOperation to Warning when S2HW.det
+	transition from Choice4 to On [else]
+	transition from working to ShutdownState when UCHW.shutdown
+	transition from On to Choice4 when(S2HW.det || S3HW.det) || S1HW.det / oksensors := oksensors - 1;
+		onsensors := onsensors - 1;
+	transition from Entry3 to On
+	transition from working to Choice5 when(S2HW.latent || S3HW.latent) || S1HW.latent / latentsensors :=
+		latentsensors + 1; oksensors := oksensors - 1;
+	region main_region {
+		state main {
+			region operation {
+				state On {
+					region r1 {
+						initial Entry2
+						state NormalOperation
+						state Warning {
+							entry / raise Monitor.warning;
+						}
+					}
+				}
+				initial Entry3
+				state Off {
+					entry / raise Monitor.loa;
+				}
+				choice Choice4
+			}
+			region evaluation {
+				initial Entry1
+				state working
+				state ShutdownState {
+					entry / raise Monitor.loa;
+				}
+				state SelfSteeringState {
+					entry / raise Monitor.selfsteering;
+				}
+				choice Choice5
+			}
+		}
+		initial Entry0
+	}
+}
