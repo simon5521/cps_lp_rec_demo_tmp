@@ -7,16 +7,19 @@ import time
 import importlib.util
 import videoUtils.mjpeg_streamer
 import videoUtils.videoStream
-
+import videoUtils.db_manager
 
 #pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
 MODEL_NAME = 'ssd_mobilenet_v2_quantized_TFLite_model'
 GRAPH_NAME = 'detect.tflite'
+EDGETPU_GRAPH_NAME = 'detect_edgetpu.tflite'
 LABELMAP_NAME = 'labelmap.txt'
-min_conf_threshold = float(0.6)
-use_TPU = False
+min_conf_threshold = float(0.9)
+use_TPU = True
 headlessMode = False
+
+videoUtils.db_manager.startClient()
 
 # Initialize video stream
 videostream = videoUtils.videoStream.VideoStream(resolution=(640, 480),framerate=30).start()
@@ -42,9 +45,7 @@ else:
 
 # If using Edge TPU, assign filename for Edge TPU model
 if use_TPU:
-    # If user has specified the name of the .tflite file, use that name, otherwise use default 'edgetpu.tflite'
-    if (GRAPH_NAME == 'detect.tflite'):
-        GRAPH_NAME = 'edgetpu.tflite'       
+    GRAPH_NAME = EDGETPU_GRAPH_NAME       
 
 # Get path to current working directory
 CWD_PATH = os.getcwd()
@@ -112,8 +113,8 @@ def detect(input_data):
     classes = interpreter.get_tensor(output_details[1]['index'])[0] # Class index of detected objects
     scores = interpreter.get_tensor(output_details[2]['index'])[0] # Confidence of detected objects
     return boxes, classes, scores
-
-def drawBoxes(boxes, classes, scores, image):
+                
+def DrawBoxesandSendCroppedImages(boxes, classes, scores, image):
     frame = image.copy()
     height, width, channels = frame.shape
     # Loop over all detections and draw detection box if confidence is above minimum threshold
@@ -136,22 +137,8 @@ def drawBoxes(boxes, classes, scores, image):
             label_ymin = max(ymin, labelSize[1] + 10) # Make sure not to draw label too close to top of window
             cv2.rectangle(frame, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
             cv2.putText(frame, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
-    return frame
-
-def sendCroppedImages(boxes, classes, scores, image):
-    frame = image.copy()
-    height, width, channels = frame.shape
-    # Loop over all detections and send cropped images if confidence is above minimum threshold
-    for i in range(len(scores)):
-        if ((scores[i] > min_conf_threshold) and (scores[i] <= 1.0)):
-
-            # Get coordinates and send cropped images
-            # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
-            ymin = int(max(1,(boxes[i][0] * height)))
-            xmin = int(max(1,(boxes[i][1] * width)))
-            ymax = int(min(height,(boxes[i][2] * height)))
-            xmax = int(min(width,(boxes[i][3] * width)))
             
+            #send cropped images
             cut_factor = 0.3 /2
             v_cut = (ymax - ymin) * cut_factor
             h_cut = (xmax - xmin) * cut_factor
@@ -163,6 +150,9 @@ def sendCroppedImages(boxes, classes, scores, image):
             except:
                 plate_imageBuffer.get()
                 plate_imageBuffer.put(croppedframe)
+                videoUtils.db_manager.save_car_det_loss()
+                
+    return frame
             
 
 try:
@@ -173,13 +163,16 @@ try:
         # Grab frame from video stream
         frame = videostream.read()
 
+        readtime = cv2.getTickCount() - t1
+        videoUtils.db_manager.save_det_net_dly(readtime)
+
+        t1 = cv2.getTickCount()
+
         input_data = preprocessImage(frame)
 
         boxes, classes, scores = detect(input_data)
         
-        sendCroppedImages(boxes, classes, scores, frame)
-        
-        frame = drawBoxes(boxes, classes, scores, frame)
+        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame)
 
         # Draw framerate in corner of frame
         cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
@@ -193,6 +186,11 @@ try:
         t2 = cv2.getTickCount()
         time1 = (t2-t1)/freq
         frame_rate_calc= 1/time1
+
+        
+        videoUtils.db_manager.save_det_rt(time1)
+
+        
 
         if(not headlessMode):
             cv2.imshow('Licence Plate Detector', frame)
