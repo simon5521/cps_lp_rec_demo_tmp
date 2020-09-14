@@ -1,8 +1,8 @@
 package epas1
 import "mainctrl/Mainctrl.gcd"
 import "interfaces/Interfaces.gcd"
-import "hardware/sensor/Sensor.gcd"
-import "hardware/uC/UC.gcd"
+import "sensor/Sensor.gcd"
+import "uC/UC.gcd"
 import "evaluation/Evaluation.gcd"
 cascade epas [
 	port State: provides Eval
@@ -16,21 +16,21 @@ cascade epas [
 	port UCBFault: requires UCFault
 	
 ] {
-	component S1A: SensorStatechart
-	component S2A: SensorStatechart
-	component S3A: SensorStatechart
+	component S1A: Sensor
+	component S2A: Sensor
+	component S3A: Sensor
 	
-	component S1B: SensorStatechart
-	component S2B: SensorStatechart
-	component S3B: SensorStatechart
+	component S1B: Sensor
+	component S2B: Sensor
+	component S3B: Sensor
 	
-	component UCA: UCStatechart
-	component UCB: UCStatechart
+	component UCA: UC
+	component UCB: UC
 	
-	component ACTRL: MainctrlStatechart
-	component BCTRL: MainctrlStatechart
+	component ACTRL: Mainctrl
+	component BCTRL: Mainctrl
 	
-	component Ev: EvaluationStatechart
+	component Ev: Evaluation
 	
 	bind S1AFault->S1A.HWFault
 	bind S2AFault->S2A.HWFault

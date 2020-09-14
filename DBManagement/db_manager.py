@@ -15,7 +15,9 @@ dburl="localhost"
 timeFormat = '%Y-%m-%dT%H:%M:%SZ'
 
 
+
 cli = InfluxClient(host=dburl, port=8086, database_name="smartcity")
+
 
 def save(data):
     cli.save_points([data])
@@ -35,14 +37,14 @@ def save_det_net_dly(delay):
 def save_lp(lp):
   save(LP_DATA(time_point=datetime.datetime.now(),tag=tag,nodeid=nodeid,locid=locid,lp=lp))
 
-def save_car_data():
+def save_car_data(locid=locid):
   save(CAR_DATA(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
 def save_car_loss():
-  save(CAR_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_LOSS(time_point=datetime.datetime.now(),nodeid=nodeid,tag=tag))
 
 def save_car_net_loss():
-  save(CAR_NET_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_NET_LOSS(time_point=datetime.datetime.now(),nodeid=nodeid,tag=tag))
 
 
 def save_car_rec_loss():

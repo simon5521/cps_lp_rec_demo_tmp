@@ -24,24 +24,24 @@
     <to href="SmartControl.gcd#//@components.0/@regions.0/@stateNodes.2"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_tXcKgITrEeqy_LD7Uhmb4Q"/>
-    <to href="SmartControl.gcd#//@components.0/@transitions.4"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_x1Jr8ITrEeqy_LD7Uhmb4Q"/>
+    <to href="SmartControl.gcd#//@components.0/@transitions.2"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_V9UpcITrEeqy_LD7Uhmb4Q"/>
-    <to href="SmartControl.gcd#//@components.0/@transitions.3"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_tXcKgITrEeqy_LD7Uhmb4Q"/>
+    <to href="SmartControl.gcd#//@components.0/@transitions.4"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_VAX5AITrEeqy_LD7Uhmb4Q"/>
     <to href="SmartControl.gcd#//@components.0/@transitions.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_x1Jr8ITrEeqy_LD7Uhmb4Q"/>
-    <to href="SmartControl.gcd#//@components.0/@transitions.2"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_ZOcb8ITrEeqy_LD7Uhmb4Q"/>
     <to href="SmartControl.gcd#//@components.0/@transitions.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#_V9UpcITrEeqy_LD7Uhmb4Q"/>
+    <to href="SmartControl.gcd#//@components.0/@transitions.3"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@scopes.1"/>
@@ -52,12 +52,20 @@
     <to href="SmartControl.gcd#//@components.0/@ports.1"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@scopes.2"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@scopes.0"/>
     <to href="SmartControl.gcd#//@components.0/@ports.2"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@scopes.0"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@scopes.2"/>
     <to href="SmartControl.gcd#//@components.0/@ports.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_SmartControl.NetworkStream.NewData"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_SmartControl.LocalStream.NewData"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_SmartControl.Status.Full"/>
@@ -68,16 +76,12 @@
     <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.0/@events.1/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_SmartControl.NetworkStream.NewData"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_SmartControl.InPicStream.NewData"/>
     <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_SmartControl.LocalStream.NewData"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@trigger/@triggers.0"/>
+    <to href="SmartControl.gcd#//@components.0/@transitions.2/@trigger"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
@@ -90,10 +94,6 @@
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@regions.0/@vertices.2/@outgoingTransitions.0/@trigger/@triggers.0"/>
     <to href="SmartControl.gcd#//@components.0/@transitions.3/@trigger"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@trigger/@triggers.0"/>
-    <to href="SmartControl.gcd#//@components.0/@transitions.2/@trigger"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/SmartControl.sct#SCT_/0/@regions.0/@vertices.2/@outgoingTransitions.1/@effect/@actions.0/@event"/>

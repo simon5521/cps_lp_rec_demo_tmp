@@ -5,6 +5,7 @@ import hu.bme.mit.gamma.casestudy.iotcamera1.interfaces.StreamInterface;
 
 public interface IoTCameraCompInterface {
 	
+	StreamInterface.Provided getRecognisedLP();
 	StreamInterface.Provided getLPCroppedImg();
 	StreamInterface.Provided getLPNumbers();
 	

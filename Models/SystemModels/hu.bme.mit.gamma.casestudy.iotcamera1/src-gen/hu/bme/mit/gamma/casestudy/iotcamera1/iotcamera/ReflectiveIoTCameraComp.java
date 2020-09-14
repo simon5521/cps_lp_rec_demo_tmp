@@ -31,7 +31,7 @@ public class ReflectiveIoTCameraComp implements ReflectiveComponentInterface {
 	}
 	
 	public String[] getPorts() {
-		return new String[] { "LPNumbers", "LPCroppedImg" };
+		return new String[] { "LPNumbers", "LPCroppedImg", "RecognisedLP" };
 	}
 	
 	public String[] getEvents(String port) {
@@ -39,6 +39,8 @@ public class ReflectiveIoTCameraComp implements ReflectiveComponentInterface {
 			case "LPNumbers":
 				return new String[] { "NewData" };
 			case "LPCroppedImg":
+				return new String[] { "NewData" };
+			case "RecognisedLP":
 				return new String[] { "NewData" };
 			default:
 				throw new IllegalArgumentException("Not known port: " + port);
@@ -63,6 +65,11 @@ public class ReflectiveIoTCameraComp implements ReflectiveComponentInterface {
 				break;
 			case "LPCroppedImg.NewData":
 				if (wrappedComponent.getLPCroppedImg().isRaisedNewData()) {
+					return true;
+				}
+				break;
+			case "RecognisedLP.NewData":
+				if (wrappedComponent.getRecognisedLP().isRaisedNewData()) {
 					return true;
 				}
 				break;
@@ -108,17 +115,17 @@ public class ReflectiveIoTCameraComp implements ReflectiveComponentInterface {
 		switch (component) {
 			case "LPRecQueueManager":
 				if (lPRecQueueManager == null) {
-					lPRecQueueManager = new ReflectiveLPRecQueueManagerStatechart(wrappedComponent.getLPRecQueueManager());
+					lPRecQueueManager = new ReflectiveLPRecQueueManager(wrappedComponent.getLPRecQueueManager());
 				}
 				return lPRecQueueManager;
 			case "LPDetQueueManager":
 				if (lPDetQueueManager == null) {
-					lPDetQueueManager = new ReflectiveLPDetQueueManagerStatechart(wrappedComponent.getLPDetQueueManager());
+					lPDetQueueManager = new ReflectiveLPDetQueueManager(wrappedComponent.getLPDetQueueManager());
 				}
 				return lPDetQueueManager;
 			case "SmartControl":
 				if (smartControl == null) {
-					smartControl = new ReflectiveSmartControlStatechart(wrappedComponent.getSmartControl());
+					smartControl = new ReflectiveSmartControl(wrappedComponent.getSmartControl());
 				}
 				return smartControl;
 		}

@@ -1,16 +1,16 @@
-package LPRecQueueManager
-import "Interfaces"
-@PrioritizedTransitions = order-based
-statechart LPRecQueueManagerStatechart [
+package lprecqueuemanager
+import "/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart LPRecQueueManager [
+	port NetworkStream : provides Stream
 	port Status : provides Status
+	port PreProcessedImg : requires Stream
 	port ProcessedImg : requires Stream
 	port PreProcessedImgOut : provides Stream
-	port PreProcessedImg : requires Stream
-	port NetworkStream : provides Stream
 ] {
-	var QueueLen : integer := 0
 	var QueueMaxLen : integer := 4
-	transition from Choice1 to Full [QueueLen = QueueMaxLen]
+	var QueueLen : integer := 0
+	transition from Choice1 to Full [QueueLen == QueueMaxLen]
 	transition from Choice1 to NotFull [else]
 	transition from Entry0 to NotFull
 	transition from Full to NotFull when ProcessedImg.NewData / QueueLen := QueueLen - 1; raise

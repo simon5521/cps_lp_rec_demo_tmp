@@ -10,6 +10,7 @@ import pyro.distributions as dist
 import torch.distributions.constraints as constraints
 from pyro.distributions.distribution import Distribution
 import math
+from influxdb import InfluxDBClient
 
 
 
@@ -26,28 +27,98 @@ actualTime=0.0
 
 print("connected to gateway")
 
+
+class Dataset():
+
+	def __init__(self,dbname,ip,port,query):
+
+		client = InfluxDBClient(ip, port, database=dbname)
+
+		result = client.query(query)
+
+		points = result.get_points()
+
+		self.points=points
+
+
+
+
 class PeriodicEventSource():
-	def __init__(self, name, dist, ecalls):
+	def __init__(self, name, dist, ecalls, dataset=None, kernel=None):
 		self.name=name
 		self.dist=dist
 		self.ecalls=ecalls
-	def sample(self,faults):
-		event_cntr=0
-		act_time=0.0
-		while act_time<simTime:
-			time=pyro.sample(self.name+"_sample_"+str(event_cntr),self.dist).item()
-			event_cntr=event_cntr+1
-			act_time=act_time+time
-			for call in self.ecalls:
-				faults.append(FailureEvent(self,act_time,call))
+		if dataset is not None:
+			points=dataset.points
+			x = []
+			t = []
+			y = []
+			i = 0
+			t0 = 0
+			for p in points:
+				if i == 0:
+					t0 = datetime.datetime.strptime(p.pop("time"), '%Y-%m-%dT%H:%M:%S.%fZ')
+					t.append(t0)
+				else:
+					t.append(datetime.datetime.strptime(p.pop("time"), '%Y-%m-%dT%H:%M:%S.%fZ'))
+				t[i] = t[i] - t0
+				x.append(t[i].total_seconds())
+				yi = list(p.values())
+				if len(yi) is 1:
+					y.append(yi[0])
+				else:
+					y.append(yi)
+				i = i + 1
 
-class ContEventSource():
-	def __init__(self,name,dist):
-		self.name=name
-		self.dist=dist
+			x = torch.tensor(x)
+			y = torch.tensor(y)
+			X = x
+
+			# initialize the inducing inputs
+			Xu = torch.arange(1.) / 6.0
+
+			kernel = gp.kernels.Sum(gp.kernels.Periodic(input_dim=1), gp.kernels.Brownian(input_dim=1))
+			# we increase the jitter for better numerical stability
+			sgpr = gp.models.SparseGPRegression(X=X, y=y, kernel=kernel, Xu=Xu, jitter=1.0e-5)
+
+			# the way we setup inference is similar to above
+			optimizer = torch.optim.Adam(sgpr.parameters(), lr=0.05)
+			loss_fn = pyro.infer.Trace_ELBO().differentiable_loss
+			losses = []
+			num_steps = 2000
+			for i in range(num_steps):
+				optimizer.zero_grad()
+				loss = loss_fn(sgpr.model, sgpr.guide)
+				if i % 20 == 0:
+					print("Step: ", i, " Loss: ", loss)
+				loss.backward()
+				optimizer.step()
+				losses.append(loss.item())
+			self.gp=sgpr
+		else:
+			self.gp=None
+
 	def sample(self,faults):
-		time=pyro.sample(self.name+"_sample",self.dist).item()
-		faults.append(FailureEvent(self,time))
+		if self.gp is None:
+			event_cntr=0
+			act_time=0.0
+			while act_time<simTime:
+				time=pyro.sample(self.name+"_sample_"+str(event_cntr),self.dist).item()
+				event_cntr=event_cntr+1
+				act_time=act_time+time
+				for call in self.ecalls:
+					faults.append(FailureEvent(self,act_time,call))
+		else:
+			event_cntr=0
+			act_time=0.0
+			while act_time<simTime:
+				mu,sig=self.gp.forward(torch.tensor([act_time]), full_cov=False, noiseless=False)
+				time=pyro.sample(self.name+"_sample_GP_"+str(event_cntr),pyro.distributions.Normal(mu,sig)).item()
+				event_cntr=event_cntr+1
+				act_time=act_time+time
+				for call in self.ecalls:
+					faults.append(FailureEvent(self,act_time,call))
+
 
 class EventSource():
 	def __init__(self, name, dist, ecalls):
@@ -60,16 +131,6 @@ class EventSource():
 			faults.append(FailureEvent(self,time,call))
 
 
-class DiscEventSource():
-		def __init__(self,name,dist):
-			self.name=name
-			self.dist=dist
-			self.calls=calls
-		def sample(self,faults):
-			exists=pyro.sample(self.name+"_sample",self.dist).item()
-			if exists==1.0:
-				faults.append(FailureEvent(self,0))
-
 class ZeroEventSource():
 		def __init__(self,name,dist,calls):
 			self.name=name
@@ -80,6 +141,8 @@ class ZeroEventSource():
 				for call in calls:
 					faults.append(FailureEvent(self,time,call))
 
+
+
 class FailureEvent():
 	def __init__(self,eventSource,failureTime):
 		self.eventSource=eventSource
@@ -88,6 +151,8 @@ class FailureEvent():
 		self.eventSource=eventSource
 		self.failureTime=failureTime
 		self.eventCall=eventCall
+
+
 
 
 faults=[]
@@ -106,69 +171,56 @@ lifetime = 0.001
 
 
 
-
-#sources = [
-#]
-
 sources = [
 		EventSource(
 		"uC1env_ucsct__UCFault_0",
 		pyro.distributions.Normal(torch.tensor(0.8),torch.tensor(0.05))
-		
 		,
 		[lambda:sctmodel.getUC1env().getUcsct().getHWFault().raiseShutdown(),]
 		),
 		EventSource(
 		"uC2env_ucsct__UCFault_1",
 		pyro.distributions.Normal(torch.tensor(0.8),torch.tensor(0.05))
-		
 		,
 		[lambda:sctmodel.getUC2env().getUcsct().getHWFault().raiseShutdown(),]
 		),
 		EventSource(
 		"epas__SensorFault_2",
 		pyro.distributions.Exponential(torch.tensor(0.9))
-		
 		,
 		[lambda:sctmodel.getEpas().getS1AFault().raiseDet(),]
 		),
 		EventSource(
 		"epas__SensorFault_3",
 		pyro.distributions.Exponential(torch.tensor(0.9))
-		
 		,
 		[lambda:sctmodel.getEpas().getS2AFault().raiseDet(),]
 		),
 		EventSource(
 		"epas__SensorFault_4",
 		pyro.distributions.Exponential(torch.tensor(0.9))
-		
 		,
 		[lambda:sctmodel.getEpas().getS3AFault().raiseDet(),]
 		),
 		EventSource(
 		"epas__SensorFault_5",
 		pyro.distributions.Exponential(torch.tensor(0.9))
-		
 		,
 		[lambda:sctmodel.getEpas().getS1BFault().raiseDet(),]
 		),
 		EventSource(
 		"epas__SensorFault_6",
 		pyro.distributions.Exponential(torch.tensor(0.9))
-		
 		,
 		[lambda:sctmodel.getEpas().getS2BFault().raiseDet(),]
 		),
 		EventSource(
 		"epas__SensorFault_7",
 		pyro.distributions.Exponential(torch.tensor(0.9))
-		
 		,
 		[lambda:sctmodel.getEpas().getS3BFault().raiseDet(),]
 		),
 ]
-
 
 
 print("failure sources have been created")
@@ -199,14 +251,12 @@ def simulateUntilStop():
 	return -1
 	
 
-
 #definition of delay classes
-#
+
 
 #definition of delay objects
-#delays=[
-#
-#]
+delays=[
+]
 
 
 print("random delays have been created")

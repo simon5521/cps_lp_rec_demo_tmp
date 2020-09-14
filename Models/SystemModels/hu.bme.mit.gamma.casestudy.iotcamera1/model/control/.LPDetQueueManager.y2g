@@ -4,8 +4,8 @@
   <gammaStatechart href="LPDetQueueManager.gcd#//@components.0"/>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_kAXHYITgEeqMco_UTryCEw"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_kAXHYITgEeqMco_UTryCEw"/>
     <to href="LPDetQueueManager.gcd#//@components.0"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_kAXHYITgEeqMco_UTryCEw"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_kAYVhoTgEeqMco_UTryCEw"/>
@@ -28,59 +28,59 @@
     <to href="LPDetQueueManager.gcd#//@components.0/@regions.0/@stateNodes.3"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_skxpYITpEeqy_LD7Uhmb4Q"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_PCNjYITpEeqy_LD7Uhmb4Q"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@transitions.1"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_kAb_4YTgEeqMco_UTryCEw"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.2"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_lHf_gITpEeqy_LD7Uhmb4Q"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@transitions.3"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_OdmacITpEeqy_LD7Uhmb4Q"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_NWTbMITpEeqy_LD7Uhmb4Q"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@transitions.4"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.scopes0.QueueMaxLen"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@variableDeclarations.0"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_OdmacITpEeqy_LD7Uhmb4Q"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_kAb_4YTgEeqMco_UTryCEw"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#_skxpYITpEeqy_LD7Uhmb4Q"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.scopes0.QueueLen"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@variableDeclarations.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.scopes0.QueueMaxLen"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@variableDeclarations.1"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.0/@members.0/@initialValue/@value"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.0/@members.1/@initialValue/@value"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@variableDeclarations.0/@expression"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.0/@members.1/@initialValue/@value"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.0/@members.0/@initialValue/@value"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@variableDeclarations.1/@expression"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.1"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.2"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@ports.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.4"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.1"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@ports.1"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.3"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.4"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@ports.2"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.2"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@scopes.3"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@ports.3"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
@@ -88,20 +88,20 @@
     <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.0/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.Status.Full"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.0/@events.0/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.PreProcessedImg.NewData"/>
     <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.Status.Free"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.0/@events.1/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.Img.NewData"/>
     <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.Status.Full"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.0/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_LPDetQueueManager.Status.Free"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd#//@interfaces.0/@events.1/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@trigger/@triggers.0"/>
@@ -152,6 +152,26 @@
     <to href="LPDetQueueManager.gcd#//@components.0/@transitions.3/@effects.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@varRef"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@expression/@leftOperand"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@rhs/@leftOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@expression/@rightOperand/@value"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@rhs/@rightOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@expression"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@varRef"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@transitions.4/@effects.0/@lhs"/>
   </traces>
@@ -180,24 +200,12 @@
     <to href="LPDetQueueManager.gcd#//@components.0/@transitions.4/@effects.1"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@varRef"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@lhs"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@scopes.0/@members.0/@effect/@actions.0/@event"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@regions.0/@stateNodes.1/@entryActions.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@expression/@leftOperand"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@rhs/@leftOperand"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@expression/@rightOperand/@value"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@rhs/@rightOperand"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@expression"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0/@rhs"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@transitions.5/@effects.0"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@scopes.0/@members.0/@effect/@actions.0"/>
+    <to href="LPDetQueueManager.gcd#//@components.0/@regions.0/@stateNodes.1/@entryActions.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.2/@scopes.0/@members.0/@effect/@actions.0/@event"/>
@@ -206,13 +214,5 @@
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.2/@scopes.0/@members.0/@effect/@actions.0"/>
     <to href="LPDetQueueManager.gcd#//@components.0/@regions.0/@stateNodes.2/@entryActions.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@scopes.0/@members.0/@effect/@actions.0/@event"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@regions.0/@stateNodes.1/@entryActions.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.iotcamera1/model/control/LPDetQueueManager.sct#SCT_/0/@regions.0/@vertices.1/@scopes.0/@members.0/@effect/@actions.0"/>
-    <to href="LPDetQueueManager.gcd#//@components.0/@regions.0/@stateNodes.1/@entryActions.0"/>
   </traces>
 </hu.bme.mit.gamma.yakindu.transformation:Y2GTrace>

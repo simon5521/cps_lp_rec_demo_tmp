@@ -8,14 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="iotcamera/gateway-gen"/>
 	<classpathentry kind="src" path="src-gen"/>
-	<classpathentry kind="lib" path="/home/simon5521/.p2/pool/plugins/py4j-java_0.10.9.bnd-LoVopg.jar" sourcepath="/home/simon5521/.p2/pool/plugins/py4j-java.source_0.10.9.bnd-LoVopg.jar">
-		<accessrules>
-			<accessrule kind="accessible" pattern="py4j/*"/>
-			<accessrule kind="accessible" pattern="py4j/commands/*"/>
-			<accessrule kind="accessible" pattern="py4j/model/*"/>
-			<accessrule kind="accessible" pattern="py4j/reflection/*"/>
-			<accessrule ignoreifbetter="true" kind="nonaccessible" pattern="**/*"/>
-		</accessrules>
-	</classpathentry>
+	<classpathentry kind="lib" path="lib/py4j0.10.9.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

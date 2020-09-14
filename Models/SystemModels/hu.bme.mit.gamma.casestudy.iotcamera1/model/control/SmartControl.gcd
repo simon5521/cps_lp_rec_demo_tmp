@@ -1,11 +1,11 @@
-package SmartControl
-import "Interfaces"
-@PrioritizedTransitions = order-based
-statechart SmartControlStatechart [
+package smartcontrol
+import "/hu.bme.mit.gamma.casestudy.iotcamera1/model/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart SmartControl [
 	port InPicStream : requires Stream
 	port LocalStream : provides Stream
-	port NetworkStream : provides Stream
 	port Status : requires Status
+	port NetworkStream : provides Stream
 ] {
 	transition from Entry0 to SendToLocal
 	transition from SendToCloud to SendToLocal when Status.Free

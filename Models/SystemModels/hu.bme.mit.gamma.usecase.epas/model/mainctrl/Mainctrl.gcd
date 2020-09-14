@@ -1,9 +1,10 @@
-package Mainctrl
-import "interfaces"
-statechart MainctrlStatechart [
+package mainctrl
+import "/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart Mainctrl [
+	port S3HW : requires SensorFault
 	port S1HW : requires SensorFault
 	port Monitor : provides Monitor
-	port S3HW : requires SensorFault
 	port S2HW : requires SensorFault
 	port UCHW : requires UCFault
 ] {
@@ -11,52 +12,53 @@ statechart MainctrlStatechart [
 	var onsensors : integer
 	var oksensors : integer
 	var offsensors : integer
-	transition from NormalOperation to Warning when S1HW.det
-	transition from Choice4 to Off [1 >= onsensors]
-	transition from Entry0 to main / offsensors := 0; oksensors := 3; onsensors := 3;
-	transition from Choice5 to working [else]
-	transition from NormalOperation to Warning when S3HW.det
-	transition from Entry2 to NormalOperation
+	transition from Choice4 to SelfSteeringState [latentsensors >= oksensors] / raise
+		Monitor.selfsteering;
+	transition from Choice4 to working [else]
+	transition from Choice5 to Off [0 = onsensors]
+	transition from Choice5 to Warning [else]
+	transition from Entry0 to On
 	transition from Entry1 to working
-	transition from Choice5 to SelfSteeringState [latentsensors >= oksensors] / raise Monitor.selfsteering;
+	transition from Entry2 to main / onsensors := 3; oksensors := 3; offsensors := 0;
+	transition from Entry3 to NormalOperation
+	transition from NormalOperation to Warning when S1HW.det
 	transition from NormalOperation to Warning when S2HW.det
-	transition from Choice4 to On [else]
+	transition from NormalOperation to Warning when S3HW.det
+	transition from On to Choice5 when (S3HW.det || S1HW.det) || S2HW.det / onsensors := onsensors -
+		1; oksensors := oksensors - 1;
+	transition from working to Choice4 when (S2HW.latent || S3HW.latent) || S1HW.latent /
+		latentsensors := latentsensors + 1; oksensors := oksensors - 1;
 	transition from working to ShutdownState when UCHW.shutdown
-	transition from On to Choice4 when(S2HW.det || S3HW.det) || S1HW.det / oksensors := oksensors - 1;
-		onsensors := onsensors - 1;
-	transition from Entry3 to On
-	transition from working to Choice5 when(S2HW.latent || S3HW.latent) || S1HW.latent / latentsensors :=
-		latentsensors + 1; oksensors := oksensors - 1;
 	region main_region {
 		state main {
-			region operation {
-				state On {
-					region r1 {
-						initial Entry2
-						state NormalOperation
-						state Warning {
-							entry / raise Monitor.warning;
-						}
-					}
-				}
-				initial Entry3
-				state Off {
-					entry / raise Monitor.loa;
-				}
-				choice Choice4
-			}
 			region evaluation {
 				initial Entry1
+				state SelfSteeringState {
+					entry / raise Monitor.selfsteering;
+				}
 				state working
 				state ShutdownState {
 					entry / raise Monitor.loa;
 				}
-				state SelfSteeringState {
-					entry / raise Monitor.selfsteering;
+				choice Choice4
+			}
+			region operation {
+				state On {
+					region r1 {
+						initial Entry3
+						state Warning {
+							entry / raise Monitor.warning;
+						}
+						state NormalOperation
+					}
+				}
+				initial Entry0
+				state Off {
+					entry / raise Monitor.loa;
 				}
 				choice Choice5
 			}
 		}
-		initial Entry0
+		initial Entry2
 	}
 }

@@ -1,19 +1,19 @@
-package Evaluation
-import "interfaces"
-@PrioritizedTransitions = order-based
-statechart EvaluationStatechart [
-	port Eval : provides Eval
+package evaluation
+import "/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart Evaluation [
 	port BMonitor : requires Monitor
 	port AMonitor : requires Monitor
+	port Eval : provides Eval
 ] {
 	var sides : integer
 	transition from Choice2 to LoA [sides = 0]
 	transition from Choice2 to Operation [else]
 	transition from Entry0 to Operation / sides := 2;
 	transition from Entry1 to Normal
-	transition from Normal to Warning when AMonitor.warning || BMonitor.warning
-	transition from Operation to Selfsteering when BMonitor.selfsteering || AMonitor.selfsteering / raise
-		Eval.SS;
+	transition from Normal to Warning when BMonitor.warning || AMonitor.warning
+	transition from Operation to Selfsteering when AMonitor.selfsteering || BMonitor.selfsteering /
+		raise Eval.SS;
 	transition from Operation to Choice2 when BMonitor.loa || AMonitor.loa / sides := sides - 1;
 	region evaluation {
 		state Operation {
@@ -24,11 +24,11 @@ statechart EvaluationStatechart [
 			}
 		}
 		initial Entry0
-		state LoA {
-			entry / raise Eval.SLoA;
-		}
 		state Selfsteering {
 			entry / raise Eval.SS;
+		}
+		state LoA {
+			entry / raise Eval.SLoA;
 		}
 		choice Choice2
 	}
