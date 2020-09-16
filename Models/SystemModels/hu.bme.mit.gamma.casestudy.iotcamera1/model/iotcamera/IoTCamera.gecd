@@ -13,15 +13,15 @@ environment IoTCameraComp[
 	//new auto with Poisson process with rate 0.2 car/sec
 	periodic source Traffic [port Cars:provides Traffic] dist exponential rate=1.0
 	
-	component LPRecQueueManager:LPRecQueueManagerStatechart
+	component LPRecQueueManager:LPRecQueueManager
 	
-	component LPDetQueueManager:LPDetQueueManagerStatechart
+	component LPDetQueueManager:LPDetQueueManager
 	
-	component SmartControl:SmartControlStatechart
+	component SmartControl:SmartControl
 	
 	random delay DetectionDelay from [port inData:requires Stream] to [port outData:provides Stream] dist normal mean=0.0333,scale=0.001
 	
-	random delay RecognitionDelay from [port inData:requires Stream] to [port outData:provides Stream] dist exponential rate=0.5
+	random delay RecognitionDelay from [port ind:requires Stream] to [port outd:provides Stream] dist exponential rate=0.5
 	
 	channel [Traffic.Cars] -o)- [LPDetQueueManager.Traffic]
 	
@@ -33,9 +33,9 @@ environment IoTCameraComp[
 	
 	bind LPCroppedImg->SmartControl.NetworkStream
 	
-	channel [LPRecQueueManager.PreProcessedImgOut] -o)- [RecognitionDelay.inData]
+	channel [LPRecQueueManager.PreProcessedImgOut] -o)- [RecognitionDelay.ind]
 	
-	channel [RecognitionDelay.outData] -o)- [LPRecQueueManager.ProcessedImg]
+	channel [RecognitionDelay.outd] -o)- [LPRecQueueManager.ProcessedImg]
 	
 	channel [LPRecQueueManager.Status] -o)- [SmartControl.Status]
 	

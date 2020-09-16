@@ -1,0 +1,17 @@
+package uc
+import "/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart UC [
+	port Fault : provides UCFault
+	port HWFault : requires UCFault
+] {
+	transition from Entry0 to On
+	transition from On to Off when HWFault.shutdown
+	region UC {
+		initial Entry0
+		state On
+		state Off {
+			entry / raise Fault.shutdown;
+		}
+	}
+}

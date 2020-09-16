@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 encoding//model/evaluation/Evaluation.sct=UTF-8
-encoding//model/hardware/sensor/Sensor.sct=UTF-8
-encoding//model/hardware/uC/UC.sct=UTF-8
 encoding//model/interfaces/Interfaces.sct=UTF-8
 encoding//model/mainctrl/Mainctrl.sct=UTF-8
+encoding//model/sensor/Sensor.sct=UTF-8
+encoding//model/uC/UC.sct=UTF-8

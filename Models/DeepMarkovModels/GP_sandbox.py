@@ -108,7 +108,7 @@ class PeriodicEventSource():
 			act_time=0.0
 			while act_time<simTime:
 				mu,sig=self.gp.forward(torch.tensor([act_time]), full_cov=False, noiseless=False)
-				time=pyro.sample(self.name+"_sample_"+str(event_cntr),pyro.distributions.Normal(mu,sig)).item()
+				time=pyro.sample(self.name+"_sample_GP_"+str(event_cntr),pyro.distributions.Normal(mu,sig)).item()
 				event_cntr=event_cntr+1
 				act_time=act_time+time
 				for call in self.ecalls:

@@ -7,8 +7,8 @@ public interface MonitorInterface {
 	
 	interface Provided extends Listener.Required {
 		
-		public boolean isRaisedLoa();
 		public boolean isRaisedWarning();
+		public boolean isRaisedLoa();
 		public boolean isRaisedSelfsteering();
 		
 		void registerListener(Listener.Provided listener);
@@ -25,8 +25,8 @@ public interface MonitorInterface {
 	interface Listener {
 		
 		interface Provided  {
-			void raiseLoa();
 			void raiseWarning();
+			void raiseLoa();
 			void raiseSelfsteering();
 		}
 		

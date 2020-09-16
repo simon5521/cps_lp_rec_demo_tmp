@@ -50,13 +50,13 @@ public class ReflectiveEpasEnv1 implements ReflectiveComponentInterface {
 	public boolean isRaisedEvent(String port, String event, Object[] parameters) {
 		String portEvent = port + "." + event;
 		switch (portEvent) {
-			case "fout.SS":
-				if (wrappedComponent.getFout().isRaisedSS()) {
+			case "fout.SLoA":
+				if (wrappedComponent.getFout().isRaisedSLoA()) {
 					return true;
 				}
 				break;
-			case "fout.SLoA":
-				if (wrappedComponent.getFout().isRaisedSLoA()) {
+			case "fout.SS":
+				if (wrappedComponent.getFout().isRaisedSS()) {
 					return true;
 				}
 				break;

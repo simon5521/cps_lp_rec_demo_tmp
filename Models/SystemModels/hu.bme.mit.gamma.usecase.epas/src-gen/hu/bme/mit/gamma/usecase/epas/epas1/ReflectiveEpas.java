@@ -71,41 +71,41 @@ public class ReflectiveEpas implements ReflectiveComponentInterface {
 	public void raiseEvent(String port, String event, Object[] parameters) {
 		String portEvent = port + "." + event;
 		switch (portEvent) {
-			case "S1AFault.latent":
-				wrappedComponent.getS1AFault().raiseLatent();
-				break;
 			case "S1AFault.det":
 				wrappedComponent.getS1AFault().raiseDet();
 				break;
-			case "S2AFault.latent":
-				wrappedComponent.getS2AFault().raiseLatent();
+			case "S1AFault.latent":
+				wrappedComponent.getS1AFault().raiseLatent();
 				break;
 			case "S2AFault.det":
 				wrappedComponent.getS2AFault().raiseDet();
 				break;
-			case "S3AFault.latent":
-				wrappedComponent.getS3AFault().raiseLatent();
+			case "S2AFault.latent":
+				wrappedComponent.getS2AFault().raiseLatent();
 				break;
 			case "S3AFault.det":
 				wrappedComponent.getS3AFault().raiseDet();
 				break;
-			case "S1BFault.latent":
-				wrappedComponent.getS1BFault().raiseLatent();
+			case "S3AFault.latent":
+				wrappedComponent.getS3AFault().raiseLatent();
 				break;
 			case "S1BFault.det":
 				wrappedComponent.getS1BFault().raiseDet();
 				break;
-			case "S2BFault.latent":
-				wrappedComponent.getS2BFault().raiseLatent();
+			case "S1BFault.latent":
+				wrappedComponent.getS1BFault().raiseLatent();
 				break;
 			case "S2BFault.det":
 				wrappedComponent.getS2BFault().raiseDet();
 				break;
-			case "S3BFault.latent":
-				wrappedComponent.getS3BFault().raiseLatent();
+			case "S2BFault.latent":
+				wrappedComponent.getS2BFault().raiseLatent();
 				break;
 			case "S3BFault.det":
 				wrappedComponent.getS3BFault().raiseDet();
+				break;
+			case "S3BFault.latent":
+				wrappedComponent.getS3BFault().raiseLatent();
 				break;
 			case "UCAFault.shutdown":
 				wrappedComponent.getUCAFault().raiseShutdown();
@@ -121,13 +121,13 @@ public class ReflectiveEpas implements ReflectiveComponentInterface {
 	public boolean isRaisedEvent(String port, String event, Object[] parameters) {
 		String portEvent = port + "." + event;
 		switch (portEvent) {
-			case "State.SS":
-				if (wrappedComponent.getState().isRaisedSS()) {
+			case "State.SLoA":
+				if (wrappedComponent.getState().isRaisedSLoA()) {
 					return true;
 				}
 				break;
-			case "State.SLoA":
-				if (wrappedComponent.getState().isRaisedSLoA()) {
+			case "State.SS":
+				if (wrappedComponent.getState().isRaisedSS()) {
 					return true;
 				}
 				break;
@@ -173,57 +173,57 @@ public class ReflectiveEpas implements ReflectiveComponentInterface {
 		switch (component) {
 			case "S1A":
 				if (s1A == null) {
-					s1A = new ReflectiveSensorStatechart(wrappedComponent.getS1A());
+					s1A = new ReflectiveSensor(wrappedComponent.getS1A());
 				}
 				return s1A;
 			case "S2A":
 				if (s2A == null) {
-					s2A = new ReflectiveSensorStatechart(wrappedComponent.getS2A());
+					s2A = new ReflectiveSensor(wrappedComponent.getS2A());
 				}
 				return s2A;
 			case "S3A":
 				if (s3A == null) {
-					s3A = new ReflectiveSensorStatechart(wrappedComponent.getS3A());
+					s3A = new ReflectiveSensor(wrappedComponent.getS3A());
 				}
 				return s3A;
 			case "S1B":
 				if (s1B == null) {
-					s1B = new ReflectiveSensorStatechart(wrappedComponent.getS1B());
+					s1B = new ReflectiveSensor(wrappedComponent.getS1B());
 				}
 				return s1B;
 			case "S2B":
 				if (s2B == null) {
-					s2B = new ReflectiveSensorStatechart(wrappedComponent.getS2B());
+					s2B = new ReflectiveSensor(wrappedComponent.getS2B());
 				}
 				return s2B;
 			case "S3B":
 				if (s3B == null) {
-					s3B = new ReflectiveSensorStatechart(wrappedComponent.getS3B());
+					s3B = new ReflectiveSensor(wrappedComponent.getS3B());
 				}
 				return s3B;
 			case "UCA":
 				if (uCA == null) {
-					uCA = new ReflectiveUCStatechart(wrappedComponent.getUCA());
+					uCA = new ReflectiveUC(wrappedComponent.getUCA());
 				}
 				return uCA;
 			case "UCB":
 				if (uCB == null) {
-					uCB = new ReflectiveUCStatechart(wrappedComponent.getUCB());
+					uCB = new ReflectiveUC(wrappedComponent.getUCB());
 				}
 				return uCB;
 			case "ACTRL":
 				if (aCTRL == null) {
-					aCTRL = new ReflectiveMainctrlStatechart(wrappedComponent.getACTRL());
+					aCTRL = new ReflectiveMainctrl(wrappedComponent.getACTRL());
 				}
 				return aCTRL;
 			case "BCTRL":
 				if (bCTRL == null) {
-					bCTRL = new ReflectiveMainctrlStatechart(wrappedComponent.getBCTRL());
+					bCTRL = new ReflectiveMainctrl(wrappedComponent.getBCTRL());
 				}
 				return bCTRL;
 			case "Ev":
 				if (ev == null) {
-					ev = new ReflectiveEvaluationStatechart(wrappedComponent.getEv());
+					ev = new ReflectiveEvaluation(wrappedComponent.getEv());
 				}
 				return ev;
 		}

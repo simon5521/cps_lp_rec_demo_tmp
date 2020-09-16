@@ -1,19 +1,32 @@
 # text recognition
+import datetime
+
 import cv2
 import pytesseract
 import numpy as np
 import time
+import re
 import matplotlib.pyplot as plt
+from torch.distributions.utils import lazy_property
+import multiprocessing
+import queue
+
+
 from DBManagement.db_manager import save_car_rec_loss,save_lp,save_rec_rt,save_rec_net_dly
 
-#url='http://192.168.0.73:8081/cam.mjpg'
-url='http://192.168.1.51:8080/cam.mjpg'
-#url='http://192.168.1.248:8080/cam.mjpg'
-config = ('--oem 1 --psm 13')
 
-use_preprocess=False
+#url='http://192.168.0.73:8081/cam.mjpg'
+#url='http://192.168.1.51:8081/cam.mjpg'
+#url='http://192.168.1.248:8080/cam.mjpg'
+url='http://192.168.1.231:8081/cam.mjpg'
+config = ('--oem 1 --psm 11')
+
+lp_pattern="[A-Z][A-Z][A-Z]\s?\-\s?\d\d\d"
+
+use_preprocess=True
 
 cap = cv2.VideoCapture(url)
+
 
 def image_preprocess(img):
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -24,9 +37,11 @@ def image_preprocess(img):
     img = gray
     img = cv2.erode(gray, kernel, iterations=1)
     img = cv2.dilate(img, kernel, iterations=1)
-    plt.imshow(gray)
-    plt.show()
+    #plt.imshow(gray)
+    #plt.show()
     return img
+
+
 
 
 while True:
@@ -39,10 +54,11 @@ while True:
 
     nettime_ns=t2-t1
 
-    save_rec_net_dly(nettime_ns)
 
     if not ret :
         continue
+
+    save_rec_net_dly(nettime_ns)
 
     print("found frame")
     # cv2.imshow('Video', frame)
@@ -62,7 +78,14 @@ while True:
 
     save_rec_rt(rectime_ns)
 
-    save_lp(text)
+    lp=re.findall(lp_pattern,text)
 
-    print(text)
+    if len(lp)>0 :
+        lp_num=lp[0]
+        save_lp(lp_num)
+        print("LP found: ", lp_num)
+    else:
+        print("No LP found")
+
+    print(datetime.datetime.now())
 

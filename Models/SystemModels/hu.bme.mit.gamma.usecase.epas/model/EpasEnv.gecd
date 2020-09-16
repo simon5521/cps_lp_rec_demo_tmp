@@ -2,16 +2,16 @@ package EpasEnv
 
 import "epas1"
 import "interfaces"
-import "UC"
+import "uC/UC.gcd"
 
 
 environment uCenv[
-	port fout : provides UCFault
+	port faultout : provides UCFault
 ]{
-	bind fout -> ucsct.Fault
+	bind faultout -> ucsct.Fault
 	
 	source uc1 [ port uCfport : provides UCFault ] dist normal mean = 0.8, scale = 0.05
-	component ucsct : UCStatechart
+	component ucsct : UC
 	//component ucsct2 : UCStatechart
 	
 	//random delay uCDelay from [port inPort:requires UCFault] to [port outPort:provides UCFault] dist exponential rate=0.01 
@@ -36,26 +36,26 @@ environment EpasEnv1[
 	//random delay d1 from [port failureIn : requires UCFault] to [port failureOut : provides UCFault] dist normal mean=0.01, scale=0.001
 
 
-	source sf1 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
-	source sf2 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
-	source sf3 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	source sf1 [ port sfport1 : provides  SensorFault  ] dist exponential rate=0.9
+	source sf2 [ port sfport2 : provides  SensorFault  ] dist exponential rate=0.9
+	source sf3 [ port sfport3 : provides  SensorFault  ] dist exponential rate=0.9
 	
-	source sf4 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
-	source sf5 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
-	source sf6 [ port sfport : provides  SensorFault  ] dist exponential rate=0.9
+	source sf4 [ port sfport4 : provides  SensorFault  ] dist exponential rate=0.9
+	source sf5 [ port sfport5 : provides  SensorFault  ] dist exponential rate=0.9
+	source sf6 [ port sfport6 : provides  SensorFault  ] dist exponential rate=0.9
 	
 	  
 	
-	channel [sf1.sfport] -o)- [epas.S1AFault]
-	channel [sf2.sfport] -o)- [epas.S2AFault]
-	channel [sf3.sfport] -o)- [epas.S3AFault]
+	channel [sf1.sfport1] -o)- [epas.S1AFault]
+	channel [sf2.sfport2] -o)- [epas.S2AFault]
+	channel [sf3.sfport3] -o)- [epas.S3AFault]
 	
-	channel [sf4.sfport] -o)- [epas.S1BFault]
-	channel [sf5.sfport] -o)- [epas.S2BFault]
-	channel [sf6.sfport] -o)- [epas.S3BFault]
+	channel [sf4.sfport4] -o)- [epas.S1BFault]
+	channel [sf5.sfport5] -o)- [epas.S2BFault]
+	channel [sf6.sfport6] -o)- [epas.S3BFault]
 	
-	channel [uC1env.fout] -o)- [epas.UCAFault]
-	channel [uC2env.fout] -o)- [epas.UCBFault]
+	channel [uC1env.faultout] -o)- [epas.UCAFault]
+	channel [uC2env.faultout] -o)- [epas.UCBFault]
 	
 	bind fout -> epas.State
 	

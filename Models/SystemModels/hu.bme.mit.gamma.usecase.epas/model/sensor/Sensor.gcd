@@ -1,19 +1,20 @@
-package Sensor
-import "interfaces"
-statechart SensorStatechart [
-	port SensorFault : provides SensorFault
+package sensor
+import "/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart Sensor [
 	port HWFault : requires SensorFault
+	port SensorFault : provides SensorFault
 ] {
 	transition from Entry0 to Ok
 	transition from Ok to Off when HWFault.det
 	transition from Ok to LatentFailure when HWFault.latent
 	region Sensor {
 		initial Entry0
-		state LatentFailure {
-			entry / raise SensorFault.latent;
-		}
 		state Off {
 			entry / raise SensorFault.det;
+		}
+		state LatentFailure {
+			entry / raise SensorFault.latent;
 		}
 		state Ok
 	}

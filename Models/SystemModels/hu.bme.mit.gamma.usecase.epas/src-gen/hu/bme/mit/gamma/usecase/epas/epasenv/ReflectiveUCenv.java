@@ -27,12 +27,12 @@ public class ReflectiveUCenv implements ReflectiveComponentInterface {
 	}
 	
 	public String[] getPorts() {
-		return new String[] { "fout" };
+		return new String[] { "faultout" };
 	}
 	
 	public String[] getEvents(String port) {
 		switch (port) {
-			case "fout":
+			case "faultout":
 				return new String[] { "shutdown" };
 			default:
 				throw new IllegalArgumentException("Not known port: " + port);
@@ -50,8 +50,8 @@ public class ReflectiveUCenv implements ReflectiveComponentInterface {
 	public boolean isRaisedEvent(String port, String event, Object[] parameters) {
 		String portEvent = port + "." + event;
 		switch (portEvent) {
-			case "fout.shutdown":
-				if (wrappedComponent.getFout().isRaisedShutdown()) {
+			case "faultout.shutdown":
+				if (wrappedComponent.getFaultout().isRaisedShutdown()) {
 					return true;
 				}
 				break;
@@ -97,7 +97,7 @@ public class ReflectiveUCenv implements ReflectiveComponentInterface {
 		switch (component) {
 			case "ucsct":
 				if (ucsct == null) {
-					ucsct = new ReflectiveUCStatechart(wrappedComponent.getUcsct());
+					ucsct = new ReflectiveUC(wrappedComponent.getUcsct());
 				}
 				return ucsct;
 		}

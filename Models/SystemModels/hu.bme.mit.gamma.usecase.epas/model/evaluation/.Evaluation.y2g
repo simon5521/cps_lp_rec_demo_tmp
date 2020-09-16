@@ -4,8 +4,8 @@
   <gammaStatechart href="Evaluation.gcd#//@components.0"/>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_fy1dkNVFEemxm9eGinoW5Q"/>
-    <to href="Evaluation.gcd#//@components.0"/>
     <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_fy1dkNVFEemxm9eGinoW5Q"/>
+    <to href="Evaluation.gcd#//@components.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_fy2EqdVFEemxm9eGinoW5Q"/>
@@ -28,6 +28,14 @@
     <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_NwOXQNVGEemxm9eGinoW5Q"/>
+    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_Z1ijQNVGEemxm9eGinoW5Q"/>
+    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_5_bGQNVFEemxm9eGinoW5Q"/>
     <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.1"/>
   </traces>
@@ -36,20 +44,8 @@
     <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.2"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_Z1ijQNVGEemxm9eGinoW5Q"/>
-    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.2"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_NwOXQNVGEemxm9eGinoW5Q"/>
-    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.3"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_WwK4UNVHEemvGJPGARiGeg"/>
     <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.4"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_9hVGwNVFEemxm9eGinoW5Q"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.3"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_bUszcNVHEemvGJPGARiGeg"/>
@@ -60,6 +56,18 @@
     <to href="Evaluation.gcd#//@components.0/@transitions.5"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_iAyQ8NVHEemvGJPGARiGeg"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_9hVGwNVFEemxm9eGinoW5Q"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_lP2N8NVHEemvGJPGARiGeg"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_2he_wNVFEemxm9eGinoW5Q"/>
     <to href="Evaluation.gcd#//@components.0/@transitions.2"/>
   </traces>
@@ -68,68 +76,60 @@
     <to href="Evaluation.gcd#//@components.0/@transitions.4"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_lP2N8NVHEemvGJPGARiGeg"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.1"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#_iAyQ8NVHEemvGJPGARiGeg"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.scopes3.sides"/>
     <to href="Evaluation.gcd#//@components.0/@variableDeclarations.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@scopes.2"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@scopes.1"/>
     <to href="Evaluation.gcd#//@components.0/@ports.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@scopes.1"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@scopes.0"/>
     <to href="Evaluation.gcd#//@components.0/@ports.1"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@scopes.0"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@scopes.2"/>
     <to href="Evaluation.gcd#//@components.0/@ports.2"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.AMonitor.selfsteering"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.2/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.AMonitor.warning"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.1/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.Eval.SS"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.1/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.BMonitor.selfsteering"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.2/@event"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.BMonitor.loa"/>
-    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.0/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.BMonitor.warning"/>
     <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.1/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.BMonitor.loa"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.Eval.SS"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.1/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.Eval.SLoA"/>
     <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.AMonitor.warning"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.1/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.AMonitor.selfsteering"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.2/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.AMonitor.loa"/>
     <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.0/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@trigger/@triggers.1"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.6/@trigger/@leftOperand"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_Evaluation.BMonitor.selfsteering"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/interfaces/Interfaces.gcd#//@interfaces.1/@events.2/@event"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.0/@outgoingTransitions.0/@trigger/@triggers.0"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.4/@trigger/@leftOperand"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.5/@trigger/@leftOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@trigger/@triggers.1"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.6/@trigger/@leftOperand"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@trigger/@triggers.0"/>
@@ -137,15 +137,15 @@
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.0/@outgoingTransitions.0/@trigger/@triggers.1"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.4/@trigger/@rightOperand"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.4/@trigger/@leftOperand"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.1"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.5/@trigger/@leftOperand"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.5/@trigger/@rightOperand"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.5/@trigger/@rightOperand"/>
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.0/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.4/@trigger/@rightOperand"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.4/@outgoingTransitions.1/@trigger"/>
@@ -164,6 +164,26 @@
     <to href="Evaluation.gcd#//@components.0/@transitions.0/@guard"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.0/@outgoingTransitions.0/@effect/@actions.0/@varRef"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.2/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.0/@outgoingTransitions.0/@effect/@actions.0/@expression/@value"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.2/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.0/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.2/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@event"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.5/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Evaluation.gcd#//@components.0/@transitions.5/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.1/@effect/@actions.0/@varRef"/>
     <to href="Evaluation.gcd#//@components.0/@transitions.6/@effects.0/@lhs"/>
     <to href="Evaluation.gcd#//@components.0/@transitions.6/@effects.0/@rhs/@leftOperand"/>
@@ -177,39 +197,19 @@
     <to href="Evaluation.gcd#//@components.0/@transitions.6/@effects.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@event"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.5/@effects.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.5/@effects.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.0/@outgoingTransitions.0/@effect/@actions.0/@varRef"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.2/@effects.0/@lhs"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.0/@outgoingTransitions.0/@effect/@actions.0/@expression/@value"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.2/@effects.0/@rhs"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.0/@outgoingTransitions.0/@effect/@actions.0"/>
-    <to href="Evaluation.gcd#//@components.0/@transitions.2/@effects.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.3/@scopes.0/@members.0/@effect/@actions.0/@event"/>
-    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.2/@entryActions.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
-    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.3/@scopes.0/@members.0/@effect/@actions.0"/>
-    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.2/@entryActions.0"/>
-  </traces>
-  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.2/@scopes.0/@members.0/@effect/@actions.0/@event"/>
-    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.3/@entryActions.0"/>
+    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.2/@entryActions.0"/>
   </traces>
   <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
     <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.2/@scopes.0/@members.0/@effect/@actions.0"/>
+    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.2/@entryActions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.3/@scopes.0/@members.0/@effect/@actions.0/@event"/>
+    <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.3/@entryActions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.usecase.epas/model/evaluation/Evaluation.sct#SCT_/0/@regions.0/@vertices.3/@scopes.0/@members.0/@effect/@actions.0"/>
     <to href="Evaluation.gcd#//@components.0/@regions.0/@stateNodes.3/@entryActions.0"/>
   </traces>
 </hu.bme.mit.gamma.yakindu.transformation:Y2GTrace>
