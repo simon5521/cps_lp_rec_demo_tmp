@@ -1,17 +1,26 @@
 #!/usr/bin/python3
 import cv2
 from threading import Thread
+import time
 class VideoStream:
     """Camera object that controls video streaming from the Picamera"""
-    def __init__(self,resolution=(640,480),framerate=30):
+    def __init__(self,src = 0, resolution=(640,480), cropx = 0, cropy = 0):
         # Initialize the PiCamera and the camera image stream
-        self.stream = cv2.VideoCapture(0)
-        ret = self.stream.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
-        ret = self.stream.set(3,resolution[0])
-        ret = self.stream.set(4,resolution[1])
-            
+        self.stream = cv2.VideoCapture(src)
+        #ret = self.stream.set(3,resolution[0])
+        #ret = self.stream.set(4,resolution[1])
+        time.sleep(1)
         # Read first frame from the stream
         (self.grabbed, self.frame) = self.stream.read()
+        self.cropx = cropx 
+        self.cropy = cropy 
+        height, width, channels = self.frame.shape
+        self.resolution = resolution
+        if(cropy == 0):
+            self.cropy = height
+        if(cropx == 0):
+            self.cropx = width
+        self.frame = self.frame[self.cropy:(self.resolution[1] + self.cropy), self.cropx:(self.resolution[0] + self.cropx)]
 
     # Variable to control when the camera is stopped
         self.stopped = False
@@ -32,6 +41,7 @@ class VideoStream:
 
             # Otherwise, grab the next frame from the stream
             (self.grabbed, self.frame) = self.stream.read()
+            self.frame = self.frame[self.cropy:(self.resolution[1] + self.cropy), self.cropx:(self.resolution[0] + self.cropx)]
 
     def read(self):
     # Return the most recent frame
