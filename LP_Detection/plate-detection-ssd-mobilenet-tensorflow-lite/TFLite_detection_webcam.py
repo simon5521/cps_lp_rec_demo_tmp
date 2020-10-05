@@ -8,6 +8,8 @@ import importlib.util
 import videoUtils.mjpeg_streamer
 import videoUtils.videoStream
 import videoUtils.db_manager
+import videoUtils.mqtt_client
+import videoUtils.LED_controll
 
 #pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
@@ -15,14 +17,19 @@ MODEL_NAME = 'ssd_mobilenet_v2_quantized_TFLite_model'
 GRAPH_NAME = 'detect.tflite'
 EDGETPU_GRAPH_NAME = 'detect_edgetpu.tflite'
 LABELMAP_NAME = 'labelmap.txt'
-min_conf_threshold = float(0.9)
+min_conf_threshold = float(0.7)
 use_TPU = True
-headlessMode = False
+headlessMode = True
+useDatabase = True
 
-videoUtils.db_manager.startClient()
+if(useDatabase):
+    videoUtils.db_manager.startClient()
+
+mqtt_client_buffer = videoUtils.mqtt_client.start_mqtt_client(broker = "192.168.1.24", port = 1883, topics = ["sumo/camera0", "sumo/camera1"], username = None, password= None)
+LED_buffer = videoUtils.LED_controll.start_LED()
 
 # Initialize video stream
-videostream = videoUtils.videoStream.VideoStream(resolution=(640, 480),framerate=30).start()
+videostream = videoUtils.videoStream.VideoStream(src = "http://192.168.1.90:8080/stream/video.mjpeg", resolution=(640, 480), cropx = 300, cropy = 600).start()
 time.sleep(1)
 
 #initialize mjpeg streamers
@@ -45,7 +52,7 @@ else:
 
 # If using Edge TPU, assign filename for Edge TPU model
 if use_TPU:
-    GRAPH_NAME = EDGETPU_GRAPH_NAME       
+    GRAPH_NAME = EDGETPU_GRAPH_NAME
 
 # Get path to current working directory
 CWD_PATH = os.getcwd()
@@ -114,7 +121,7 @@ def detect(input_data):
     scores = interpreter.get_tensor(output_details[2]['index'])[0] # Confidence of detected objects
     return boxes, classes, scores
                 
-def DrawBoxesandSendCroppedImages(boxes, classes, scores, image):
+def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
     frame = image.copy()
     height, width, channels = frame.shape
     # Loop over all detections and draw detection box if confidence is above minimum threshold
@@ -138,33 +145,48 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image):
             cv2.rectangle(frame, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
             cv2.putText(frame, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
             
-            #send cropped images
-            cut_factor = 0.3 /2
-            v_cut = (ymax - ymin) * cut_factor
-            h_cut = (xmax - xmin) * cut_factor
-            
-            croppedframe = frame[int(ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut)]
-            
-            try:
-                plate_imageBuffer.put_nowait(croppedframe)
-            except:
-                plate_imageBuffer.get()
-                plate_imageBuffer.put(croppedframe)
-                videoUtils.db_manager.save_car_det_loss()
+            if(send):
+                #send cropped images
+                cut_factor = 0.3 /2
+                v_cut = (ymax - ymin) * cut_factor
+                h_cut = (xmax - xmin) * cut_factor
+                h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
+                
+                croppedframe = frame[int(ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
+                
+                try:
+                    plate_imageBuffer.put_nowait(croppedframe)
+                except:
+                    plate_imageBuffer.get()
+                    plate_imageBuffer.put(croppedframe)
+                    if(useDatabase):
+                        videoUtils.db_manager.save_car_det_loss()
                 
     return frame
             
 
 try:
     while True:
+        cameraid = -1
+        try:
+            cameraid = int(mqtt_client_buffer.get_nowait())
+        except:
+            pass
+        LED_buffer.put(cameraid)
+
+
+
+
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
 
         # Grab frame from video stream
         frame = videostream.read()
 
+
         readtime = cv2.getTickCount() - t1
-        videoUtils.db_manager.save_det_net_dly(readtime)
+        if(useDatabase):
+            videoUtils.db_manager.save_det_net_dly(readtime)
 
         t1 = cv2.getTickCount()
 
@@ -172,7 +194,7 @@ try:
 
         boxes, classes, scores = detect(input_data)
         
-        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame)
+        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame, cameraid>=0)
 
         # Draw framerate in corner of frame
         cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
@@ -187,8 +209,8 @@ try:
         time1 = (t2-t1)/freq
         frame_rate_calc= 1/time1
 
-        
-        videoUtils.db_manager.save_det_rt(time1)
+        if(useDatabase):
+            videoUtils.db_manager.save_det_rt(time1)
 
         
 
