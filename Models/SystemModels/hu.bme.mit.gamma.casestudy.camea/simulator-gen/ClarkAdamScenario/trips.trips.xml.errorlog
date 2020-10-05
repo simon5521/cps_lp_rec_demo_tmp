@@ -1,0 +1,8 @@
+Warning: Vehicle '1_bus_16:1' is not allowed to depart on any lane of its first edge.
+Warning: Vehicle '2_bus_105:0' is not allowed to depart on any lane of its first edge.
+Warning: Vehicle '4_bus_916:0' is not allowed to depart on any lane of its first edge.
+Warning: busStop '263342276' on lane '332258799_0' is too short for vehicle '8_tram_19:0'.
+Warning: No connection between edge '584422096' and edge '332258799' found.
+Warning: Vehicle '8_tram_19:0' has no valid route from edge '584422096' to stop edge '332258799'.
+Warning: Teleporting vehicle '8_tram_19:0'; waited too long (wrong lane), lane='584422096_0', time=652.00.
+Warning: Vehicle '8_tram_19:0' ends teleporting on edge '332258799', time 652.00.

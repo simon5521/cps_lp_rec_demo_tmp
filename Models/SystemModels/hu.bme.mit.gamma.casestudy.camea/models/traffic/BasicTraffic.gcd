@@ -1,0 +1,14 @@
+package basictraffic
+import "/hu.bme.mit.gamma.casestudy.camea/models/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart BasicTraffic [
+	port InPort : requires Traffic
+	port OutPort : provides Stream
+] {
+	transition from Entry0 to StateA
+	transition from StateA to StateA when InPort.NewCar / raise OutPort.NewData;
+	region main_region {
+		initial Entry0
+		state StateA
+	}
+}

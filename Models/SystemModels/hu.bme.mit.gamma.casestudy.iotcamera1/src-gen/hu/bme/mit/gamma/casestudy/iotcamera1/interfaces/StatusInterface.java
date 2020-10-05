@@ -7,8 +7,8 @@ public interface StatusInterface {
 	
 	interface Provided extends Listener.Required {
 		
-		public boolean isRaisedFree();
 		public boolean isRaisedFull();
+		public boolean isRaisedFree();
 		
 		void registerListener(Listener.Provided listener);
 		List<Listener.Provided> getRegisteredListeners();
@@ -24,8 +24,8 @@ public interface StatusInterface {
 	interface Listener {
 		
 		interface Provided  {
-			void raiseFree();
 			void raiseFull();
+			void raiseFree();
 		}
 		
 		interface Required  {

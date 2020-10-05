@@ -27,7 +27,7 @@ close()
 
 client = InfluxDBClient("localhost", 8086, database="smartcity")
 
-query="select runtime, time from lp_det_rt where time> now()-5h"
+query="select runtime, time from lp_det_rt where time> now()-3d-3h-25m"
 
 result = client.query(query)
 
@@ -136,3 +136,4 @@ print("inducing points:\n{}".format(sgpr.Xu.data.numpy()))
 
 for i in range(10):
     print(sgpr.forward(torch.tensor([i/10.0]), full_cov=False, noiseless=False))
+

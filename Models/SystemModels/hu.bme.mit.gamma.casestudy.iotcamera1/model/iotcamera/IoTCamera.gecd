@@ -10,6 +10,7 @@ environment IoTCameraComp[
 	port LPCroppedImg:provides Stream
 	port RecognisedLP:provides Stream
 ]{
+	
 	//new auto with Poisson process with rate 0.2 car/sec
 	periodic source Traffic [port Cars:provides Traffic] dist exponential rate=1.0
 	

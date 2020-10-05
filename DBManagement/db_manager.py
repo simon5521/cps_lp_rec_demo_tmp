@@ -8,7 +8,7 @@ from pinform.client import InfluxClient
 
 locid="virtual_loc_1"
 nodeid="virtual_tester_1"
-tag="pre_test_1"
+tag="realtest2"
 dburl="localhost"
 #dburl="192.168.1.68"
 
@@ -48,13 +48,13 @@ def save_car_net_loss():
 
 
 def save_car_rec_loss():
-  save(CAR_REC_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
+  save(CAR_REC_LOSS(time_point=datetime.datetime.now(),nodeid=nodeid,tag=tag))
 
 
 def save_car_det_loss():
   save(CAR_DET_LOSS(time_point=datetime.datetime.now(),locid=locid,nodeid=nodeid,tag=tag))
 
-def close():
+def close( ):
   cli.close()
 
 class LP_DET_RT(Measurement):

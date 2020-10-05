@@ -414,7 +414,7 @@ data = [ 0.385598354
 
 
 X = torch.tensor([float(i) for i in range(200)])
-X = torch.linspace(0.0,2.5,200)
+X = torch.linspace(0.0,80,200)
 y = torch.tensor(data)
 
 # note that this helper function does three different things:
@@ -429,7 +429,7 @@ def plot(plot_observed_data=False, plot_predictions=False, n_prior_samples=0,
     if plot_observed_data:
         plt.plot(X.numpy(), y.numpy(), 'kx')
     if plot_predictions:
-        Xtest = torch.linspace(0, 10, n_test)  # test inputs
+        Xtest = torch.linspace(0, 80, n_test)  # test inputs
         # compute predictive mean and variance
         with torch.no_grad():
             if type(model) == gp.models.VariationalSparseGP:
@@ -443,7 +443,7 @@ def plot(plot_observed_data=False, plot_predictions=False, n_prior_samples=0,
                          (mean + 2.0 * sd).numpy(),
                          color='C0', alpha=0.3)
     if n_prior_samples > 0:  # plot samples from the GP prior
-        Xtest = torch.linspace(0, 10, n_test)  # test inputs
+        Xtest = torch.linspace(0, 80, n_test)  # test inputs
         noise = (model.noise if type(model) != gp.models.VariationalSparseGP
                  else model.likelihood.variance)
         cov = kernel.forward(Xtest) + noise.expand(n_test).diag()
@@ -451,7 +451,7 @@ def plot(plot_observed_data=False, plot_predictions=False, n_prior_samples=0,
                       .sample(sample_shape=(n_prior_samples,))
         plt.plot(Xtest.numpy(), samples.numpy().T, lw=2, alpha=0.4)
 
-    plt.xlim(0.5, 5.)
+    plt.xlim(0.5, 80)
     plt.show()
 
 
@@ -465,10 +465,10 @@ kernel = gp.kernels.Sum(gp.kernels.Periodic(input_dim=1),gp.kernels.Brownian(inp
 sgpr = gp.models.SparseGPRegression(X, y, kernel, Xu=Xu, jitter=1.0e-5)
 
 # the way we setup inference is similar to above
-optimizer = torch.optim.Adam(sgpr.parameters(), lr=0.005)
+optimizer = torch.optim.Adam(sgpr.parameters(), lr=0.03)
 loss_fn = pyro.infer.Trace_ELBO().differentiable_loss
 losses = []
-num_steps = 2000
+num_steps = 2500
 for i in range(num_steps):
     optimizer.zero_grad()
     loss = loss_fn(sgpr.model, sgpr.guide)

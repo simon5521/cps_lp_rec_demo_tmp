@@ -1,0 +1,78 @@
+package systemwithtraffic
+import "Interfaces"
+import "paralellqueuemanager"
+import "queuemanager"
+import "traffic"
+environment LPCameraSystem[
+	port DetLoss : provides Stream
+	port DetNetLoss : provides Stream
+	port RecLoss : provides Stream
+	port LPNum : provides Stream
+] {
+	
+	component LPDetection : QueueManager
+	component LPNetworking : QueueManager
+	component LPRecognition : ParalellQueueManager
+	
+	
+	// system connections
+	
+	channel [TrafficSimulator.cars] -o)- [LPDetection.InStream]
+	
+	channel [LPDetection.OutStream] -o)- [LPNetworking.InStream]
+	
+	channel [LPNetworking.OutStream] -o)- [LPRecognition.InStream]
+	
+	
+	// binding ports
+	
+	bind DetLoss -> LPDetection.DataLoss
+	
+	bind DetNetLoss -> LPNetworking.DataLoss
+	
+	bind RecLoss -> LPRecognition.DataLoss
+	
+	bind LPNum -> LPRecognition.OutStream
+	
+	// environment components
+	
+	environment component TrafficSimulator : TrafficComp
+	
+	
+	
+	random delay DetectionDelay 
+		from [port CarImgIn : requires Stream] to [port LPImgOut : provides Stream] 
+		with normal mean=0.03, scale=0.005
+	
+	
+	random delay NetDelay 
+		from [port LPImgIn : requires Stream] to [port LPImgNetOut : provides Stream] 
+		with normal mean=0.001, scale=0.0001
+	
+	
+	random delay RecognitionDelay 
+		from [port LPImgNetIn : requires Stream] to [port LPNumOut : provides Stream] 
+		with normal mean=1.0, scale=0.2
+	
+	//connections of the delay objects
+	
+	channel [LPDetection.ToHW] -o)- [DetectionDelay.CarImgIn]
+	
+	channel [DetectionDelay.LPImgOut] -o)- [LPDetection.FromHW]
+	
+	channel [LPNetworking.ToHW] -o)- [NetDelay.LPImgIn]
+	
+	channel [NetDelay.LPImgNetOut] -o)- [LPNetworking.FromHW]
+	
+	channel [LPRecognition.ToHW] -o)- [RecognitionDelay.LPImgNetIn]
+	
+	channel [RecognitionDelay.LPNumOut] -o)- [LPRecognition.FromHW]
+	
+	
+}
+analysis RecLossAnalysis {
+	in environment component System : LPCameraSystem 
+	frequency of event [System.RecLoss.NewData] 
+	simulation time = 120.0
+	simulation number = 50
+}

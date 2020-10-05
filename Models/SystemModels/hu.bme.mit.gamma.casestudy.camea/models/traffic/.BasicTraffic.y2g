@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ASCII"?>
+<hu.bme.mit.gamma.yakindu.transformation:Y2GTrace xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hu.bme.mit.gamma.yakindu.transformation="http://www.mit.bme.hu/gamma/yakindu/transformation/Traceability">
+  <yakinduStatechart href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R9rnEPeJEeqH3JDUP7HQiQ"/>
+  <gammaStatechart href="BasicTraffic.gcd#//@components.0"/>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R9rnEPeJEeqH3JDUP7HQiQ"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R9rnEPeJEeqH3JDUP7HQiQ"/>
+    <to href="BasicTraffic.gcd#//@components.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R9tcQ_eJEeqH3JDUP7HQiQ"/>
+    <to href="BasicTraffic.gcd#//@components.0/@regions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R99T4feJEeqH3JDUP7HQiQ"/>
+    <to href="BasicTraffic.gcd#//@components.0/@regions.0/@stateNodes.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R9_wI_eJEeqH3JDUP7HQiQ"/>
+    <to href="BasicTraffic.gcd#//@components.0/@regions.0/@stateNodes.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_UT5QgPeJEeqH3JDUP7HQiQ"/>
+    <to href="BasicTraffic.gcd#//@components.0/@transitions.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#_R-DagPeJEeqH3JDUP7HQiQ"/>
+    <to href="BasicTraffic.gcd#//@components.0/@transitions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_/0/@scopes.0"/>
+    <to href="BasicTraffic.gcd#//@components.0/@ports.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_/0/@scopes.1"/>
+    <to href="BasicTraffic.gcd#//@components.0/@ports.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_BasicTraffic.OutPort.NewData"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/interfaces/Interfaces.gcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_BasicTraffic.InPort.NewCar"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/interfaces/Interfaces.gcd#//@interfaces.1/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="BasicTraffic.gcd#//@components.0/@transitions.1/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@event"/>
+    <to href="BasicTraffic.gcd#//@components.0/@transitions.1/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.casestudy.camea/models/traffic/BasicTraffic.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="BasicTraffic.gcd#//@components.0/@transitions.1/@effects.0"/>
+  </traces>
+</hu.bme.mit.gamma.yakindu.transformation:Y2GTrace>

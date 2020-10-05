@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Aug 30 15:46:00 2020 by Eclipse SUMO netconvert Version 1.6.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="/usr/share/sumo/data/typemap/osmNetconvert.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
+    </railway>
+
+    <report>
+        <verbose value="true"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="1702751" name="16=&gt; Széll Kálmán tér M" line="16" type="bus" vClass="bus" completeness="0.10">
+        <route edges="-172699280 156974370 519640239 516397654 504637556 172699277#0 172699277#1 466393862#0 466393862#1 466393862#2"/>
+        <busStop id="436615359" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="1702752" name="16 =&gt; Deák Ferenc tér M" line="16" type="bus" vClass="bus" completeness="0.07">
+        <route edges="-156974362 156974368#0 156974368#1 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="436615360" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="1726526" name="105 =&gt; Gyöngyösi utca M" line="105" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-156974362 156974368#0 156974368#1 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="436615360" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="1726534" name="105 =&gt; Apor Vilmos tér" line="105" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-172699280 156974370 519640239 516397654 504637556 172699277#0 172699277#1 156974364"/>
+        <busStop id="436615359" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="4541327" name="916 =&gt; Uránia" line="916" type="bus" vClass="bus" completeness="0.06">
+        <route edges="-156974362 156974368#0 156974368#1 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="436615360" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="4541328" name="916 =&gt; Széll Kálmán tér M" line="916" type="bus" vClass="bus" completeness="0.07">
+        <route edges="-172699280 156974370 519640239 516397654 504637556 172699277#0 172699277#1 466393862#0 466393862#1 466393862#2"/>
+        <busStop id="436615359" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="4581994" name="990 =&gt; Rákoskert =&gt; Rákoskeresztúr, városközpont" line="990" type="bus" vClass="bus" completeness="0.01">
+        <route edges="-572309213 -8031412 620937260#1 504637556 519640249 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="-2894342918" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="4582018" name="990 =&gt; Normafa" line="990" type="bus" vClass="bus" completeness="0.01">
+        <route edges="-172699280 156974370 519640239 172699278#0 8031412 572309213"/>
+        <busStop id="2894342919" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="4675515" name="19 =&gt; Csóka utca" line="19" type="tram" vClass="tram" completeness="0.09">
+        <route edges="584422096 389797449#0 389797449#1 389797449#2 781643175#0 781643175#2"/>
+        <busStop id="811130540" name="Halász utca"/>
+        <busStop id="263342276" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="557036" name="19 =&gt; Bécsi út / Vörösvári út" line="19" type="tram" vClass="tram" completeness="0.12">
+        <route edges="156522830 332258799 724431307#0 724431307#2 724431307#3 332258800 389797453#1 584422095"/>
+        <busStop id="263342274" name="Várkert Bazár"/>
+        <busStop id="263342276" name="Clark Ádám tér"/>
+        <busStop id="263344571" name="Halász utca"/>
+    </ptLine>
+    <ptLine id="557062" name="41 =&gt; Bécsi út / Vörösvári út" line="41" type="tram" vClass="tram" completeness="0.08">
+        <route edges="156522830 332258799 724431307#0 724431307#2 724431307#3 332258800 389797453#1 584422095"/>
+        <busStop id="263342274" name="Várkert Bazár"/>
+        <busStop id="263342276" name="Clark Ádám tér"/>
+        <busStop id="263344571" name="Halász utca"/>
+    </ptLine>
+    <ptLine id="557067" name="41 =&gt; Kamaraerdei Ifjúsági Park" line="41" type="tram" vClass="tram" completeness="0.05">
+        <route edges="584422096 389797449#0 389797449#1 389797449#2 781643175#0 781643175#2"/>
+        <busStop id="811130540" name="Halász utca"/>
+        <busStop id="690201138" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="5742159" name="990 =&gt; Keleti pályaudvar M" line="990" type="bus" vClass="bus" completeness="0.02">
+        <route edges="-572309213 -8031412 620937260#1 504637556 519640249 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="-2894342918" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="5742160" name="990 =&gt; Normafa" line="990" type="bus" vClass="bus" completeness="0.02">
+        <route edges="-172699280 156974370 519640239 172699278#0 8031412 572309213"/>
+        <busStop id="2894342919" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="5742161" name="990 =&gt; Rákoskeresztúr, városközpont" line="990" type="bus" vClass="bus" completeness="0.01">
+        <route edges="-572309213 -8031412 620937260#1 504637556 519640249 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="-2894342918" name="Clark Ádám tér"/>
+    </ptLine>
+    <ptLine id="5742162" name="990 =&gt; Rákoskert =&gt; Rákoskeresztúr, városközpont" line="990" type="bus" vClass="bus" completeness="0.01">
+        <route edges="-572309213 -8031412 620937260#1 504637556 519640249 431070345 504637557 519640244 172699279 172699280"/>
+        <busStop id="-2894342918" name="Clark Ádám tér"/>
+    </ptLine>
+</ptLines>

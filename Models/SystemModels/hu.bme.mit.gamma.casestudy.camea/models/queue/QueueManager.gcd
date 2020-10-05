@@ -1,0 +1,32 @@
+package queuemanager
+import "/hu.bme.mit.gamma.casestudy.camea/models/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart QueueManager [
+	port InStream : requires Stream
+	port ToHW : provides Stream
+	port FromHW : requires Stream
+	port OutStream : provides Stream
+	port DataLoss : provides Stream
+] {
+	var q_size : integer := 0
+	var b_size : integer := 20
+	transition from Choice1 to Working [else] / q_size := q_size - 1; raise ToHW.NewData;
+	transition from Choice1 to NoData [q_size == 0]
+	transition from Choice2 to Full [b_size - 1 == q_size]
+	transition from Choice2 to Working [else]
+	transition from Entry0 to NoData
+	transition from Full to Full when InStream.NewData / raise DataLoss.NewData;
+	transition from Full to Working when FromHW.NewData / q_size := q_size - 1; raise ToHW.NewData;
+		raise OutStream.NewData;
+	transition from NoData to Working when InStream.NewData / raise ToHW.NewData;
+	transition from Working to Choice2 when InStream.NewData / q_size := q_size + 1;
+	transition from Working to Choice1 when FromHW.NewData / raise OutStream.NewData;
+	region main_region {
+		initial Entry0
+		state Full
+		state Working
+		state NoData
+		choice Choice1
+		choice Choice2
+	}
+}

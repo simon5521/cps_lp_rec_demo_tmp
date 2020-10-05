@@ -67,6 +67,14 @@ class CAR_NET_LOSS(Measurement):
   nodeid = StringField(null=False)
 
 
+class CAR_DATA(Measurement):
+  class Meta:
+    measurement_name = 'car_data'
+
+  tag = Tag(null=False)
+  nodeid = StringField(null=False)
+  locid = StringField(null=False)
+
 """
 today_ohlc = OHLC(time_point=datetime.datetime.now(), symbol='AAPL', open=80.2, high=86.0, low=78.9, close=81.25)
 from pinform.client import InfluxClient
@@ -99,9 +107,9 @@ dp5=LP_DATA(time_point=datetime.datetime.now(),nodeid=nodeid,locid=locid,lp="AVR
 dp6=LP_DATA(time_point=datetime.datetime.now(),nodeid=nodeid,locid=locid,lp="AVR127",tag=tag)
 dp7=LP_DATA(time_point=datetime.datetime.now(),nodeid=nodeid,locid=locid,lp="AVR129",tag=tag)
 
-cli.save_points([dp1,dp2,dp3,dp5,dp4,dp6,dp7])
+#cli.save_points([dp1,dp2,dp3,dp5,dp4,dp6,dp7])
 
 ohlc_points = cli.load_points(LP_DATA, {'tag':tag})
 
 for p in ohlc_points:
-  print(p.lp," | ",p.time_point)
+  print(p.lp," | ",p.time_point," | ",p.tag)

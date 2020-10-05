@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Aug 30 15:46:00 2020 by Eclipse SUMO duarouter Version 1.6.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="/home/simon5521/Sumo/2020-08-30-15-45-58/osm.net.xml"/>
+        <route-files value="/home/simon5521/Sumo/2020-08-30-15-45-58/osm.tram.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/simon5521/Sumo/2020-08-30-15-45-58/osm.tram.trips.xml.tmp"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="tram_tram" vClass="tram"/>
+    <trip id="tram0" type="tram_tram" depart="0.00" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram1" type="tram_tram" depart="135.05" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram2" type="tram_tram" depart="270.10" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram3" type="tram_tram" depart="405.15" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram4" type="tram_tram" depart="540.20" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram5" type="tram_tram" depart="675.25" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram6" type="tram_tram" depart="810.31" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram7" type="tram_tram" depart="945.36" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram8" type="tram_tram" depart="1080.41" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram9" type="tram_tram" depart="1215.46" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram10" type="tram_tram" depart="1350.51" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram11" type="tram_tram" depart="1485.56" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram12" type="tram_tram" depart="1620.61" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram13" type="tram_tram" depart="1755.66" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram14" type="tram_tram" depart="1890.71" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram15" type="tram_tram" depart="2025.76" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram16" type="tram_tram" depart="2160.82" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram17" type="tram_tram" depart="2295.87" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram18" type="tram_tram" depart="2430.92" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram19" type="tram_tram" depart="2565.97" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram20" type="tram_tram" depart="2701.02" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram21" type="tram_tram" depart="2836.07" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram22" type="tram_tram" depart="2971.12" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram23" type="tram_tram" depart="3106.17" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram24" type="tram_tram" depart="3241.22" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram25" type="tram_tram" depart="3376.27" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+    <trip id="tram26" type="tram_tram" depart="3511.33" departLane="best" departSpeed="max" from="156522830" to="584422095"/>
+</routes>
