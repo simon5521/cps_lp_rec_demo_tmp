@@ -10,6 +10,7 @@ import videoUtils.videoStream
 import videoUtils.db_manager
 import videoUtils.mqtt_client
 import videoUtils.LED_controll
+import uuid
 
 #pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
@@ -34,7 +35,7 @@ time.sleep(1)
 
 #initialize mjpeg streamers
 camera_imageBuffer, mjpeg_camera_process = videoUtils.mjpeg_streamer.start_mjpeg_server(port=8080, buffer_size = 3)
-plate_imageBuffer, mjpeg_plate_process = videoUtils.mjpeg_streamer.start_mjpeg_server(port=8081, buffer_size = 15)
+dds_streamer_input_buffer, dds_streamer_output_buffer = videoUtils.DDS_streamer.start_dds_streamer(uuid.uuid1())
 time.sleep(1)
 
 # Import TensorFlow libraries
@@ -153,12 +154,15 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
                 h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
                 
                 croppedframe = frame[int(ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
+
+                jpeglist = cv2.imencode(".jpg",croppedframe, [int(cv2.IMWRITE_JPEG_QUALITY), 80])[1].reshape(-1).tolist()
+                dds_streamer_output_buffer.put({"pixels":jpeglist})
                 
                 try:
-                    plate_imageBuffer.put_nowait(croppedframe)
+                    dds_streamer_output_buffer.put_nowait({"pixels":jpeglist})
                 except:
-                    plate_imageBuffer.get()
-                    plate_imageBuffer.put(croppedframe)
+                    dds_streamer_output_buffer.get()
+                    dds_streamer_output_buffer.put({"pixels":jpeglist})
                     if(useDatabase):
                         videoUtils.db_manager.save_car_det_loss()
                 
@@ -222,11 +226,10 @@ try:
         
 finally:
     mjpeg_camera_process.terminate()
-    mjpeg_plate_process.terminate()
-    
+
 # Clean up
 mjpeg_camera_process.terminate()
-mjpeg_plate_process.terminate()
+
 if(not headlessMode):
     cv2.destroyAllWindows()
     videostream.stop()
