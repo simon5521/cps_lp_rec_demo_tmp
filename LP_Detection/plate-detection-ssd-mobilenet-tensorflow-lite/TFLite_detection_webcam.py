@@ -156,8 +156,7 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
                 croppedframe = frame[int(ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
 
                 jpeglist = cv2.imencode(".jpg",croppedframe, [int(cv2.IMWRITE_JPEG_QUALITY), 80])[1].reshape(-1).tolist()
-                dds_streamer_output_buffer.put({"pixels":jpeglist})
-                
+
                 try:
                     dds_streamer_output_buffer.put_nowait({"pixels":jpeglist})
                 except:
