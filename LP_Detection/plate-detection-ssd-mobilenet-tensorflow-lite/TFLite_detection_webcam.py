@@ -8,8 +8,8 @@ import importlib.util
 import videoUtils.mjpeg_streamer
 import videoUtils.videoStream
 import videoUtils.db_manager
-import videoUtils.mqtt_client
 import videoUtils.LED_controll
+import videoUtils.DDS_streamer
 import uuid
 
 #pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
@@ -26,16 +26,12 @@ useDatabase = True
 if(useDatabase):
     videoUtils.db_manager.startClient()
 
-mqtt_client_buffer = videoUtils.mqtt_client.start_mqtt_client(broker = "192.168.1.24", port = 1883, topics = ["sumo/camera0", "sumo/camera1"], username = None, password= None)
 LED_buffer = videoUtils.LED_controll.start_LED()
-
-# Initialize video stream
-videostream = videoUtils.videoStream.VideoStream(src = "http://192.168.1.90:8080/stream/video.mjpeg", resolution=(640, 480), cropx = 300, cropy = 600).start()
 time.sleep(1)
 
 #initialize mjpeg streamers
 camera_imageBuffer, mjpeg_camera_process = videoUtils.mjpeg_streamer.start_mjpeg_server(port=8080, buffer_size = 3)
-dds_streamer_input_buffer, dds_streamer_output_buffer = videoUtils.DDS_streamer.start_dds_streamer(uuid.uuid1())
+dds_streamer_input_buffer, dds_streamer_output_buffer = videoUtils.DDS_streamer.start_dds_streamer(uuid.uuid1(), "ImagesExample.xml", data_writer = "MyPublisher::ImageWriter", data_reader = "MySubscriber::RawReader", input_buffer_size = 10, output_buffer_size = 10)
 time.sleep(1)
 
 # Import TensorFlow libraries
@@ -170,11 +166,8 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
 
 try:
     while True:
-        cameraid = -1
-        try:
-            cameraid = int(mqtt_client_buffer.get_nowait())
-        except:
-            pass
+        data = dds_streamer_input_buffer.get()
+        cameraid = int(data["source"])
         LED_buffer.put(cameraid)
 
 
@@ -183,8 +176,8 @@ try:
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
 
-        # Grab frame from video stream
-        frame = videostream.read()
+        structured_pixels = np.array(data["pixels"], dtype="uint8").reshape((len(data["pixels"]), 1))
+        frame = cv2.imdecode(structured_pixels, flags = 1)
 
 
         readtime = cv2.getTickCount() - t1
@@ -197,13 +190,14 @@ try:
 
         boxes, classes, scores = detect(input_data)
         
-        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame, cameraid>=0)
+        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame, data["validdata"])
 
         # Draw framerate in corner of frame
         cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
         
         try:
-            camera_imageBuffer.put_nowait(frame)
+            if(data["debug"]):
+                camera_imageBuffer.put_nowait(frame)
         except:
             pass
 
@@ -231,4 +225,3 @@ mjpeg_camera_process.terminate()
 
 if(not headlessMode):
     cv2.destroyAllWindows()
-    videostream.stop()
