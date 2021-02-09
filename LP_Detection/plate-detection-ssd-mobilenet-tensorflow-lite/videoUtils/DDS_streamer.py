@@ -34,7 +34,7 @@ def start_subscriber(host_id, config_xml, domain_participant_sub, data_reader):
             for sample in input.samples.valid_data_iter:
                 # You can get all the fields in a get_dictionary()
                 data = sample.get_dictionary()
-                if((data["source"] != host_id) and ((data["destination"] == None) or (data["destination"] == host_id))):
+                if((data["source"] != host_id) and ((data["destination"] == "") or (data["destination"] == host_id))):
                     try:
                         dds_streamer_input_buffer.put_nowait(data)
                     except:
