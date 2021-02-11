@@ -3,17 +3,8 @@ import os
 import sys
 
 
-import matplotlib.pyplot as plt
 
 
-
-try:
-    sys.path.append(glob.glob('../carla/dist/carla-*%d.%d-%s.egg' % (
-        sys.version_info.major,
-        sys.version_info.minor,
-        'win-amd64' if os.name == 'nt' else 'linux-x86_64'))[0])
-except IndexError:
-    pass
 
 import carla
 
@@ -34,11 +25,13 @@ def process_img(image):
 
 actor_list = []
 try:
+    print("connect to carla")
     client = carla.Client('localhost', 2000)
     client.set_timeout(2.0)
+    print("get word")
 
     world = client.get_world()
-
+    print("get blueprints")
     blueprint_library = world.get_blueprint_library()
 
     IM_WIDTH = 640
@@ -50,15 +43,18 @@ try:
     # change the dimensions of the image
     blueprint.set_attribute('image_size_x', f'{IM_WIDTH}')
     blueprint.set_attribute('image_size_y', f'{IM_HEIGHT}')
-    blueprint.set_attribute('fov', '110')
+    blueprint.set_attribute('fov', '30')
+    blueprint.set_attribute('sensor_tick', '1.0/20.0')
 
     # Adjust sensor relative to vehicle
-    spawn_point = carla.Transform(carla.Location(x=2.5, z=0.7))
-
+    spawn_point = carla.Transform(carla.Location(x=15,y=-2, z=0.7,),carla.Rotation(0,90,0))
+    print("spawn sensor")
     # spawn the sensor and attach to vehicle.
     sensor = world.spawn_actor(blueprint, spawn_point)
-
+    print("listen...")
     sensor.listen(lambda data: process_img(data))
+    while(1):
+        1
 
 
 finally:
