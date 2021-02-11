@@ -1,0 +1,40 @@
+package paralellqueuemanager
+import "/hu.bme.mit.gamma.casestudy.camea/models/interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart ParalellQueueManager [
+	port DataLoss : provides Stream
+	port InStream : requires Stream
+	port FromHW : requires Stream
+	port ToHW : provides Stream
+	port OutStream : provides Stream
+] {
+	var act_proc_num : integer := 0
+	var proc_num : integer := 6
+	var q_size : integer := 0
+	var b_size : integer := 20
+	transition from AllProcWorking to Choice1 when InStream.NewData / q_size := q_size + 1;
+	transition from AllProcWorking to Choice3 when FromHW.NewData / raise OutStream.NewData;
+	transition from Choice1 to Full [b_size == q_size]
+	transition from Choice1 to AllProcWorking [else]
+	transition from Choice2 to AllProcWorking [act_proc_num == proc_num]
+	transition from Choice2 to NotAllProcWorking [else]
+	transition from Choice3 to NotAllProcWorking [q_size == 0] / act_proc_num := act_proc_num - 1;
+	transition from Choice3 to AllProcWorking [else] / q_size := q_size - 1; raise ToHW.NewData;
+	transition from Entry0 to NotAllProcWorking
+	transition from Full to Full when InStream.NewData / raise DataLoss.NewData;
+	transition from Full to AllProcWorking when FromHW.NewData / q_size := q_size - 1; raise
+		ToHW.NewData; raise OutStream.NewData;
+	transition from NotAllProcWorking to Choice2 when InStream.NewData / act_proc_num := act_proc_num
+		+ 1; raise ToHW.NewData;
+	transition from NotAllProcWorking to NotAllProcWorking when FromHW.NewData / act_proc_num :=
+		act_proc_num - 1; raise OutStream.NewData;
+	region main_region {
+		initial Entry0
+		state Full
+		state AllProcWorking
+		state NotAllProcWorking
+		choice Choice1
+		choice Choice2
+		choice Choice3
+	}
+}

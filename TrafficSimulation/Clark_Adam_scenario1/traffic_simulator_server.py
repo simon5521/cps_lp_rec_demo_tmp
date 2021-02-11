@@ -12,7 +12,7 @@ locid1="Alagut"
 locid2="Hunyadi_Janos_utca"
 
 #speed of the simulation
-sim_speed=10.0 #sim_step/sec
+sim_speed=20.0 #sim_step/sec
 #location of the sinulation configuration files
 #sim_loc="Clark_Adam_scenario1/"
 sim_loc="Clark_Adam_scenario1\\"
@@ -26,31 +26,33 @@ client.loop_start()
 print("MQTT connection has established")
 
 
-print("starting sumo gui")
-sumoBinary = "sumo-gui"
-sumoCmd = [sumoBinary, "-c", "osm.sumocfg"]
-traci.start(sumoCmd)
-print("sumo gui has been started")
+while True:
+    print("starting sumo gui")
+    sumoBinary = "sumo-gui"
+    sumoCmd = [sumoBinary, "-c", "osm.sumocfg"]#,"--scale",'0.9'
+    traci.start(sumoCmd)
+    print("sumo gui has been started")
 
-print("starting the simulation")
+    print("starting the simulation")
 
-# warming up the simulation (because the simulation start without car)
-traci.simulationStep(200)
+    # warming up the simulation (because the simulation start without car)
+    traci.simulationStep(1500)
+    print("warm up has been finished")
 
-while True :
+    for i in range(6000):
+            #wait 20 ms
+            sleep(1/sim_speed)
 
-        #wait 20 ms
-        sleep(1/sim_speed)
+            #execute a simulation step
+            traci.simulationStep()
 
-        #execute a simulation step
-        traci.simulationStep()
+            if traci.lanearea.getLastStepVehicleNumber("Camera1")>0:
+                client.publish("sumo/camera0","0")
+                save_car_data(locid1)
 
-        if traci.lanearea.getLastStepVehicleNumber("Camera1")>0:
-            client.publish("sumo/camera1","newcar")
-            save_car_data(locid1)
+            if traci.lanearea.getLastStepVehicleNumber("Camera2")>0:
+                client.publish("sumo/camera1","1")
+                save_car_data(locid2)
 
-        if traci.lanearea.getLastStepVehicleNumber("Camera2")>0:
-            client.publish("sumo/camera2","newcar")
-            save_car_data(locid2)
-
+    traci.close()
 

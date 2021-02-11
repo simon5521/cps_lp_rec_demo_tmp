@@ -1,0 +1,12 @@
+import "interfaces/Interfaces"
+import external "QueueManager.sct"
+
+statechart {
+	statechart : QueueManager mappings {
+		map DataLoss = Stream as provided
+		map FromHW = Stream as required
+		map InStream = Stream as required
+		map OutStream = Stream as provided
+		map ToHW = Stream as provided
+	}
+}

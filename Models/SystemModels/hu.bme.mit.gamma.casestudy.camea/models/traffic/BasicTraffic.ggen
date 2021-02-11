@@ -1,0 +1,8 @@
+import "Interfaces"
+import external "BasicTraffic.sct"
+statechart{
+	statechart:BasicTraffic mappings {
+		map InPort = Traffic as required
+		map OutPort = Stream as provided
+	}
+} 
