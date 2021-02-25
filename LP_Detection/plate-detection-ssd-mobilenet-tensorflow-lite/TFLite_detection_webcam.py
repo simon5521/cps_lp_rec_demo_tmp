@@ -135,7 +135,7 @@ def detect(input_data):
 
 
 def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
-    frame = image.copy()
+    frame = data['pixels'].copy()
     height, width, channels = frame.shape
     # Loop over all detections and draw detection box if confidence is above minimum threshold
     for i in range(len(scores)):
@@ -197,7 +197,7 @@ try:
     while True:
         data = decoder_output_buffer.get()
         data['cameraid'] = int(data["source"])
-        LED_buffer.put(cameraid)
+        LED_buffer.put(data['cameraid'])
 
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
