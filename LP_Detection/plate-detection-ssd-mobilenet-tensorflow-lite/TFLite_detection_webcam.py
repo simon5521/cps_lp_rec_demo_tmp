@@ -1,18 +1,20 @@
 #!/usr/bin/python3
+import importlib.util
 import os
-import cv2
-import numpy as np
 import sys
 import time
-import importlib.util
-import videoUtils.mjpeg_streamer
-import videoUtils.videoStream
-import videoUtils.db_manager
-import videoUtils.LED_controll
-import videoUtils.DDS_streamer
 import uuid
 
-#pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
+import cv2
+import numpy as np
+
+import videoUtils.db_manager
+from videoUtils.DDS_streamer import start_dds_streamer
+from videoUtils.encode_decode import start_decoder, start_encoder
+from videoUtils.LED_controll import start_LED
+from videoUtils.mjpeg_streamer import start_mjpeg_server
+
+# pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
 MODEL_NAME = 'ssd_mobilenet_v2_quantized_TFLite_model'
 GRAPH_NAME = 'detect.tflite'
@@ -26,12 +28,20 @@ useDatabase = True
 if(useDatabase):
     videoUtils.db_manager.startClient()
 
-LED_buffer = videoUtils.LED_controll.start_LED()
+LED_buffer = start_LED()
 time.sleep(1)
 
-#initialize mjpeg streamers
-camera_imageBuffer, mjpeg_camera_process = videoUtils.mjpeg_streamer.start_mjpeg_server(port=8080, buffer_size = 3)
-dds_streamer_input_buffer, dds_streamer_output_buffer = videoUtils.DDS_streamer.start_dds_streamer(uuid.uuid1(), "ImagesExample.xml", data_writer = "MyPublisher::ImageWriter", data_reader = "MySubscriber::RawReader", input_buffer_size = 10, output_buffer_size = 10)
+# initialize mjpeg streamers
+camera_imageBuffer, mjpeg_camera_process = start_mjpeg_server(
+    port=8080, buffer_size=3)
+dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
+    uuid.uuid1(), "ImagesExample.xml",
+    data_writer="MyPublisher::ImageWriter",
+    data_reader="MySubscriber::RawReader",
+    input_buffer_size=10, output_buffer_size=10)
+encoder_input_buffer = start_encoder(dds_streamer_output_buffer, encoder_input_buffer_size=10)
+decoder_output_buffer = start_decoder(dds_streamer_input_buffer, decoder_output_buffer_size=10)
+
 time.sleep(1)
 
 # Import TensorFlow libraries
@@ -55,10 +65,10 @@ if use_TPU:
 CWD_PATH = os.getcwd()
 
 # Path to .tflite file, which contains the model that is used for object detection
-PATH_TO_CKPT = os.path.join(CWD_PATH,MODEL_NAME,GRAPH_NAME)
+PATH_TO_CKPT = os.path.join(CWD_PATH, MODEL_NAME, GRAPH_NAME)
 
 # Path to label map file
-PATH_TO_LABELS = os.path.join(CWD_PATH,MODEL_NAME,LABELMAP_NAME)
+PATH_TO_LABELS = os.path.join(CWD_PATH, MODEL_NAME, LABELMAP_NAME)
 
 # Load the label map
 with open(PATH_TO_LABELS, 'r') as f:
@@ -96,6 +106,7 @@ input_std = 127.5
 frame_rate_calc = 1
 freq = cv2.getTickFrequency()
 
+
 def preprocessImage(image):
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = image.copy()
@@ -107,18 +118,23 @@ def preprocessImage(image):
         input_data = (np.float32(input_data) - input_mean) / input_std
     return input_data
 
+
 def detect(input_data):
     # Perform the actual detection by running the model with the image as input
-    interpreter.set_tensor(input_details[0]['index'],input_data)
+    interpreter.set_tensor(input_details[0]['index'], input_data)
     interpreter.invoke()
 
     # Retrieve detection results
-    boxes = interpreter.get_tensor(output_details[0]['index'])[0] # Bounding box coordinates of detected objects
-    classes = interpreter.get_tensor(output_details[1]['index'])[0] # Class index of detected objects
-    scores = interpreter.get_tensor(output_details[2]['index'])[0] # Confidence of detected objects
+    # Bounding box coordinates of detected objects
+    boxes = interpreter.get_tensor(output_details[0]['index'])[0]
+    classes = interpreter.get_tensor(output_details[1]['index'])[
+        0]  # Class index of detected objects
+    scores = interpreter.get_tensor(output_details[2]['index'])[
+        0]  # Confidence of detected objects
     return boxes, classes, scores
-                
-def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
+
+
+def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
     frame = image.copy()
     height, width, channels = frame.shape
     # Loop over all detections and draw detection box if confidence is above minimum threshold
@@ -127,61 +143,69 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
 
             # Get bounding box coordinates and draw box
             # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
-            ymin = int(max(1,(boxes[i][0] * height)))
-            xmin = int(max(1,(boxes[i][1] * width)))
-            ymax = int(min(height,(boxes[i][2] * height)))
-            xmax = int(min(width,(boxes[i][3] * width)))
-            
-            cv2.rectangle(frame, (xmin,ymin), (xmax,ymax), (10, 255, 0), 2)
+            ymin = int(max(1, (boxes[i][0] * height)))
+            xmin = int(max(1, (boxes[i][1] * width)))
+            ymax = int(min(height, (boxes[i][2] * height)))
+            xmax = int(min(width, (boxes[i][3] * width)))
+
+            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
 
             # Draw label
-            object_name = labels[int(classes[i])] # Look up object name from "labels" array using class index
-            label = '%s: %d%%' % (object_name, int(scores[i]*100)) # Example: 'person: 72%'
-            labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2) # Get font size
-            label_ymin = max(ymin, labelSize[1] + 10) # Make sure not to draw label too close to top of window
-            cv2.rectangle(frame, (xmin, label_ymin-labelSize[1]-10), (xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED) # Draw white box to put label text in
-            cv2.putText(frame, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
-            
+            # Look up object name from "labels" array using class index
+            object_name = labels[int(classes[i])]
+            label = '%s: %d%%' % (object_name, int(
+                scores[i]*100))  # Example: 'person: 72%'
+            labelSize, baseLine = cv2.getTextSize(
+                label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2)  # Get font size
+            # Make sure not to draw label too close to top of window
+            label_ymin = max(ymin, labelSize[1] + 10)
+            # Draw white box to put label text in
+            cv2.rectangle(frame, (xmin, label_ymin-labelSize[1]-10), (
+                xmin+labelSize[0], label_ymin+baseLine-10), (255, 255, 255), cv2.FILLED)
+            cv2.putText(frame, label, (xmin, label_ymin-7),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)  # Draw label text
+
             if(send):
-                #send cropped images
-                cut_factor = 0.3 /2
+                # send cropped images
+                cut_factor = 0.3 / 2
                 v_cut = (ymax - ymin) * cut_factor
                 h_cut = (xmax - xmin) * cut_factor
                 h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
-                
-                croppedframe = frame[int(ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
 
-                jpeglist = cv2.imencode(".jpg",croppedframe, [int(cv2.IMWRITE_JPEG_QUALITY), 80])[1].reshape(-1).tolist()
+                croppedframe = frame[int(
+                    ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
+                data['pixels'] = croppedframe
+                data['position'] = {
+                    'ymin': ymin,
+                    'xmin': xmin,
+                    'ymax': ymax,
+                    'xmax': xmax
+                }
 
                 try:
-                    dds_streamer_output_buffer.put_nowait({"pixels":jpeglist})
+                    encoder_input_buffer.put_nowait(data)
                 except:
-                    dds_streamer_output_buffer.get()
-                    dds_streamer_output_buffer.put({"pixels":jpeglist})
+                    encoder_input_buffer.get()
+                    encoder_input_buffer.put(data)
                     if(useDatabase):
                         videoUtils.db_manager.save_car_det_loss()
-                
+
     return frame
-            
+
 
 try:
     while True:
-        data = dds_streamer_input_buffer.get()
-        cameraid = int(data["source"])
+        data = decoder_output_buffer.get()
+        data['cameraid'] = int(data["source"])
         LED_buffer.put(cameraid)
-
-
-
 
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
 
-        structured_pixels = np.array(data["pixels"], dtype="uint8").reshape((len(data["pixels"]), 1))
-        frame = cv2.imdecode(structured_pixels, flags = 1)
-
+        frame = data["pixels"]
 
         readtime = cv2.getTickCount() - t1
-        if(useDatabase):
+        if useDatabase:
             videoUtils.db_manager.save_det_net_dly(readtime)
 
         t1 = cv2.getTickCount()
@@ -189,14 +213,16 @@ try:
         input_data = preprocessImage(frame)
 
         boxes, classes, scores = detect(input_data)
-        
-        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame, data["validdata"])
+
+        frame = DrawBoxesandSendCroppedImages(
+            boxes, classes, scores, data, data["validdata"])
 
         # Draw framerate in corner of frame
-        cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
-        
+        cv2.putText(frame, 'FPS: {0:.2f}'.format(
+            frame_rate_calc), (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2, cv2.LINE_AA)
+
         try:
-            if(data["debug"]):
+            if data["debug"]:
                 camera_imageBuffer.put_nowait(frame)
         except:
             pass
@@ -204,24 +230,22 @@ try:
         # Calculate framerate
         t2 = cv2.getTickCount()
         time1 = (t2-t1)/freq
-        frame_rate_calc= 1/time1
+        frame_rate_calc = 1/time1
 
-        if(useDatabase):
+        if useDatabase:
             videoUtils.db_manager.save_det_rt(time1)
 
-        
-
-        if(not headlessMode):
+        if not headlessMode:
             cv2.imshow('Licence Plate Detector', frame)
             # Press 'q' to quit
             if cv2.waitKey(1) == ord('q'):
                 break
-        
+
 finally:
     mjpeg_camera_process.terminate()
 
 # Clean up
 mjpeg_camera_process.terminate()
 
-if(not headlessMode):
+if not headlessMode:
     cv2.destroyAllWindows()
