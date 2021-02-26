@@ -39,17 +39,18 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 			<member name="width" type="int32"/>
 		</struct>
         <struct name= "Position" extensibility= "final">
-			<member name="x" type="float"/>
-			<member name="y" type="float"/>
+			<member name="ymin" type="float"/>
+			<member name="xmin" type="float"/>
+			<member name="ymax" type="float"/>
+			<member name="xmax" type="float"/>
 		</struct>
 		<const name="MAX_IMAGE_SIZE" type="int32" value="1000000"/>
 		<struct name= "RGBImage" extensibility= "mutable">
             <member name="cameraid" type="int32"/>
 			<member name="source" stringMaxLength="128" type="string"/>
             <member name="destination" stringMaxLength="128" type="string"/>
-			<member name="resolution" type="nonBasic" nonBasicTypeName= "Resolution"/>
             <member name="position" type="nonBasic" nonBasicTypeName= "Position"/>
-			<member name="pixels" sequenceMaxLength="MAX_IMAGE_SIZE" type="byte"/>
+			<member name="pixels" stringMaxLength="MAX_IMAGE_SIZE" type="string"/>
             <member name="platenumber" stringMaxLength="128" type="string"/>
 			<member name="debug" type="boolean"/>
 			<member name="validdata" type="boolean"/>
@@ -57,14 +58,14 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 		<struct name= "RAWRGBImage" extensibility= "mutable">
 			<member name="source" stringMaxLength="128" type="string"/>
 			<member name="destination" stringMaxLength="128" type="string"/>
-			<member name="pixels" sequenceMaxLength="MAX_IMAGE_SIZE" type="byte"/>
+			<member name="pixels" stringMaxLength="MAX_IMAGE_SIZE" type="string"/>
             <member name="debug" type="boolean"/>
 			<member name="validdata" type="boolean"/>
 		</struct>
 		<struct name= "CAMERAControll" extensibility= "mutable">
 			<member name="source" stringMaxLength="128" type="string"/>
             <member name="destination" stringMaxLength="128" type="string"/>
-            <member name="debug" type="boolean"/>
+			<member name="debug" stringMaxLength="128" type="string"/>
 			<member name="validdata" type="boolean"/>
 		</struct>
 	</types>
