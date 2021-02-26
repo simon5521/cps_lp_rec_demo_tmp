@@ -8,9 +8,8 @@ import importlib.util
 import videoUtils.mjpeg_streamer
 import videoUtils.videoStream
 import videoUtils.db_manager
+import videoUtils.mqtt_client
 import videoUtils.LED_controll
-import videoUtils.DDS_streamer
-import uuid
 
 #pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
@@ -26,12 +25,16 @@ useDatabase = True
 if(useDatabase):
     videoUtils.db_manager.startClient()
 
+mqtt_client_buffer = videoUtils.mqtt_client.start_mqtt_client(broker = "192.168.1.24", port = 1883, topics = ["sumo/camera0", "sumo/camera1"], username = None, password= None)
 LED_buffer = videoUtils.LED_controll.start_LED()
+
+# Initialize video stream
+videostream = videoUtils.videoStream.VideoStream(src = "http://192.168.1.90:8080/stream/video.mjpeg", resolution=(640, 480), cropx = 300, cropy = 600).start()
 time.sleep(1)
 
 #initialize mjpeg streamers
 camera_imageBuffer, mjpeg_camera_process = videoUtils.mjpeg_streamer.start_mjpeg_server(port=8080, buffer_size = 3)
-dds_streamer_input_buffer, dds_streamer_output_buffer = videoUtils.DDS_streamer.start_dds_streamer(uuid.uuid1(), "ImagesExample.xml", data_writer = "MyPublisher::ImageWriter", data_reader = "MySubscriber::RawReader", input_buffer_size = 10, output_buffer_size = 10)
+plate_imageBuffer, mjpeg_plate_process = videoUtils.mjpeg_streamer.start_mjpeg_server(port=8081, buffer_size = 15)
 time.sleep(1)
 
 # Import TensorFlow libraries
@@ -150,14 +153,12 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
                 h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
                 
                 croppedframe = frame[int(ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
-
-                jpeglist = cv2.imencode(".jpg",croppedframe, [int(cv2.IMWRITE_JPEG_QUALITY), 80])[1].reshape(-1).tolist()
-
+                
                 try:
-                    dds_streamer_output_buffer.put_nowait({"pixels":jpeglist})
+                    plate_imageBuffer.put_nowait(croppedframe)
                 except:
-                    dds_streamer_output_buffer.get()
-                    dds_streamer_output_buffer.put({"pixels":jpeglist})
+                    plate_imageBuffer.get()
+                    plate_imageBuffer.put(croppedframe)
                     if(useDatabase):
                         videoUtils.db_manager.save_car_det_loss()
                 
@@ -166,8 +167,11 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, image, send = True):
 
 try:
     while True:
-        data = dds_streamer_input_buffer.get()
-        cameraid = int(data["source"])
+        cameraid = -1
+        try:
+            cameraid = int(mqtt_client_buffer.get_nowait())
+        except:
+            pass
         LED_buffer.put(cameraid)
 
 
@@ -176,8 +180,8 @@ try:
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
 
-        structured_pixels = np.array(data["pixels"], dtype="uint8").reshape((len(data["pixels"]), 1))
-        frame = cv2.imdecode(structured_pixels, flags = 1)
+        # Grab frame from video stream
+        frame = videostream.read()
 
 
         readtime = cv2.getTickCount() - t1
@@ -190,14 +194,13 @@ try:
 
         boxes, classes, scores = detect(input_data)
         
-        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame, data["validdata"])
+        frame = DrawBoxesandSendCroppedImages(boxes, classes, scores, frame, cameraid>=0)
 
         # Draw framerate in corner of frame
         cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
         
         try:
-            if(data["debug"]):
-                camera_imageBuffer.put_nowait(frame)
+            camera_imageBuffer.put_nowait(frame)
         except:
             pass
 
@@ -219,9 +222,11 @@ try:
         
 finally:
     mjpeg_camera_process.terminate()
-
+    mjpeg_plate_process.terminate()
+    
 # Clean up
 mjpeg_camera_process.terminate()
-
+mjpeg_plate_process.terminate()
 if(not headlessMode):
     cv2.destroyAllWindows()
+    videostream.stop()

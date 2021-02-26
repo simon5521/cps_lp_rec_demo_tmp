@@ -10,6 +10,7 @@ def on_message(client, userdata, message):
     global mqtt_client_Buffer
     top = message.topic
     msg = str(message.payload.decode("utf-8"))
+    #ide kell rakni a vezérlőt !!!!!
     mqtt_client_Buffer.put(msg)
 
 def on_connect(client, userdata, flags, rc):

@@ -6,7 +6,7 @@ import sys
 import matplotlib.pyplot as plt
 
 
-
+"""
 try:
     sys.path.append(glob.glob('../carla/dist/carla-*%d.%d-%s.egg' % (
         sys.version_info.major,
@@ -15,14 +15,14 @@ try:
 except IndexError:
     print("import error")
     pass
-
+"""
 import carla
 
 import random
 import time
 import numpy as np
 import cv2
-
+import os
 
 
 def process_img(image):
@@ -33,38 +33,51 @@ def process_img(image):
     cv2.waitKey(1)
     return i3/255.0  # normalize
 
-actor_list = []
-try:
-    client = carla.Client('localhost', 2000)
-    client.set_timeout(2.0)
 
-    world = client.get_world()
+if __name__ == '__main__':
 
-    blueprint_library = world.get_blueprint_library()
+    actor_list = []
+    try:
 
-    IM_WIDTH = 640
-    IM_HEIGHT = 480
+        print("start carla")
+        os.system("/opt/carla-simulator/CarlaUE4.sh -quality-level=Epic > ~/Documents/carlalog.txt &")
+        time.sleep(10.0)
 
-    # https://carla.readthedocs.io/en/latest/cameras_and_sensors
-    # get the blueprint for this sensor
-    blueprint = blueprint_library.find('sensor.camera.rgb')
-    # change the dimensions of the image
-    blueprint.set_attribute('image_size_x', f'{IM_WIDTH}')
-    blueprint.set_attribute('image_size_y', f'{IM_HEIGHT}')
-    blueprint.set_attribute('fov', '110')
+        print("load Town4")
+        os.system("python3 /opt/carla-simulator/PythonAPI/util/config.py --map Town04")
 
-    # Adjust sensor relative to vehicle
-    spawn_point = carla.Transform(carla.Location(x=2.5, z=0.7))
+        print("start Sumo")
+        os.system("cd /opt/carla-simulator/Co-Simulation/Sumo && python3 run_synchronization.py examples/Town04.sumocfg --sumo-gui > ~/Documents/sumolog.txt &")
+        print("start camera client")
+        time.sleep(5.0)
+        print("initising")
+        client = carla.Client('localhost', 2000)
+        client.set_timeout(10.0)
+        print("get world")
+        world = client.get_world()
+        print("get world")
+        blueprint_library = world.get_blueprint_library()
 
-    # spawn the sensor and attach to vehicle.
-    sensor = world.spawn_actor(blueprint, spawn_point)
+        IM_WIDTH = 640
+        IM_HEIGHT = 480
 
-    sensor.listen(lambda data: process_img(data))
+        # https://carla.readthedocs.io/en/latest/cameras_and_sensors
+        # get the blueprint for this sensor
+        blueprint = blueprint_library.find('sensor.camera.rgb')
+        # change the dimensions of the image
+        blueprint.set_attribute('image_size_x', f'{IM_WIDTH}')
+        blueprint.set_attribute('image_size_y', f'{IM_HEIGHT}')
+        blueprint.set_attribute('fov', '60')
 
+        # Adjust sensor relative to vehicle
+        spawn_point = carla.Transform(carla.Location(x=3.5, y=2.5, z=0.7), carla.Rotation(yaw=90))
 
-finally:
+        # spawn the sensor and attach to vehicle.
+        sensor = world.spawn_actor(blueprint, spawn_point)
+        print("listening")
+        sensor.listen(lambda data: process_img(data))
+    except Error:
+        print("error")
+    while (1):
+        time.sleep(1.0)
 
-    print('destroying actors')
-    for actor in actor_list:
-        actor.destroy()
-    print('done.')
