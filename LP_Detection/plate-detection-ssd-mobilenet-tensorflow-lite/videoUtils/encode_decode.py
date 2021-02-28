@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import base64
 from multiprocessing import Process, Queue
 
 import cv2
@@ -6,19 +7,15 @@ import numpy as np
 
 
 def encode_immage(encoder_input_buffer, encoder_output_buffer):
-    hexlist = ["{:#04x}".format(x)[2:] for x in range(256)]
-    lut = np.array(hexlist)
-    inverse_lut = {}
-    for index, hex_num in enumerate(hexlist):
-        inverse_lut[hex_num] = index
-
     while(True):
         frame = encoder_input_buffer.get()
         _, numpy_jpeg_array = cv2.imencode('.jpg', frame['pixels'], [
                                            int(cv2.IMWRITE_JPEG_QUALITY), 30])
-        im_str = ''.join(lut[numpy_jpeg_array].reshape(-1).tolist())
+        im_bytes = numpy_jpeg_array.tobytes()
+        im_b64 = base64.b64encode(im_bytes)
+        base64_message = im_b64.decode('ascii')
 
-        frame['pixels'] = im_str
+        frame['pixels'] = base64_message
 
         try:
             encoder_output_buffer.put_nowait(frame)
@@ -28,21 +25,14 @@ def encode_immage(encoder_input_buffer, encoder_output_buffer):
 
 
 def decode_immage(decoder_input_buffer, decoder_output_buffer):
-    hexlist = ["{:#04x}".format(x)[2:] for x in range(256)]
-    lut = np.array(hexlist)
-    inverse_lut = {}
-    for index, hex_num in enumerate(hexlist):
-        inverse_lut[hex_num] = index
-
     while True:
         frame = decoder_input_buffer.get()
 
-        im_str = frame['pixels']
-        chunks = [im_str[i:i+2] for i in range(0, len(im_str), 2)]
-        jpeg_array = list(map(lambda x: inverse_lut[x], chunks))
-        numpy_jpeg_array = (
-            (np.array(jpeg_array, dtype=np.uint8)).reshape((len(jpeg_array), 1)))
-        frame['pixels'] = cv2.imdecode(numpy_jpeg_array, flags=1)
+        base64_message = frame['pixels']
+        im_b64 = base64_message.encode('ascii')
+        im_bytes = base64.b64decode(im_b64)
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
+        frame['pixels'] = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
         try:
             decoder_output_buffer.put_nowait(frame)
