@@ -2,11 +2,25 @@ FROM python:3
 
 WORKDIR /usr/src/app
 
+COPY ./requirements.txt .
 
-RUN pip install pytesseract
-RUN pip install easyocr
-RUN pip install rticonnextdds_connector
-RUN pip install opencv-python
-RUN pip install numpy
-RUN pip install influxdb
-RUN pip install paho-mqtt
+RUN apt-get update \
+    && apt-get install -y \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        unzip \
+        yasm \
+        pkg-config \
+        libswscale-dev \
+        libtbb2 \
+        libtbb-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libavformat-dev \
+        libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install -r requirements.txt
