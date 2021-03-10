@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2020. aug. 30., vasárnap, 16:36:24 CEST by Eclipse SUMO netedit Version 1.6.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/simon5521/Sumo/2020-08-30-15-45-58/osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/simon5521/Sumo/2020-08-30-15-45-58/osm.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/home/simon5521/Sumo/2020-08-30-15-45-58/osm_stops.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-2894342918" lane="-8031412_0" startPos="58.37" endPos="73.37" name="Clark Ádám tér" friendlyPos="1" lines="990"/>
+    <busStop id="263342274" lane="156522830_0" startPos="254.00" endPos="279.00" name="Várkert Bazár" friendlyPos="1" lines="19 41">
+        <access lane="591081212_0" pos="459.32" length="12.70" friendlyPos="1"/>
+    </busStop>
+    <busStop id="263342276" lane="332258799_0" startPos="36.33" endPos="48.82" name="Clark Ádám tér" friendlyPos="1" lines="19 41">
+        <access lane="-464432627_0" pos="71.66" length="17.41" friendlyPos="1"/>
+        <access lane="126118120#2_0" pos="0.00" length="14.90" friendlyPos="1"/>
+        <access lane="126118120#3_0" pos="0.00" length="12.96" friendlyPos="1"/>
+        <access lane="303003944#0_0" pos="0.00" length="13.32" friendlyPos="1"/>
+        <access lane="67153269_0" pos="52.10" length="13.89" friendlyPos="1"/>
+    </busStop>
+    <busStop id="263344571" lane="584422095_0" startPos="296.42" endPos="321.42" name="Halász utca" friendlyPos="1" lines="19 41">
+        <access lane="466393862#2_0" pos="100.53" length="375.03" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2894342919" lane="8031412_0" startPos="41.21" endPos="56.21" name="Clark Ádám tér" friendlyPos="1" lines="990"/>
+    <busStop id="436615359" lane="172699277#1_0" startPos="5.21" endPos="20.21" name="Clark Ádám tér" friendlyPos="1" lines="16 105 916"/>
+    <busStop id="436615360" lane="617134040#0_0" startPos="0.00" endPos="5.47" name="Clark Ádám tér" friendlyPos="1"/>
+    <busStop id="690201138" lane="781643175#2_0" startPos="22.88" endPos="47.88" name="Clark Ádám tér" friendlyPos="1" lines="41">
+        <access lane="-464432627_0" pos="101.07" length="21.76" friendlyPos="1"/>
+        <access lane="-67153269_0" pos="48.32" length="25.78" friendlyPos="1"/>
+        <access lane="591081212_0" pos="0.00" length="4.60" friendlyPos="1"/>
+        <access lane="67153254_0" pos="0.34" length="8.75" friendlyPos="1"/>
+        <access lane="67153269_0" pos="35.83" length="20.74" friendlyPos="1"/>
+    </busStop>
+    <busStop id="811130540" lane="584422096_0" startPos="334.90" endPos="359.90" name="Halász utca" friendlyPos="1" lines="19 41">
+        <access lane="466393862#2_0" pos="135.02" length="420.17" friendlyPos="1"/>
+    </busStop>
+    <e2Detector id="Camera1" lane="156974364_0" pos="130.02" length="0.50" freq="1.00" file="Camera1.xml" timeThreshold="0.10" speedThreshold="0.10" jamThreshold="1.00"/>
+    <e2Detector id="Camera2" lane="466393862#1_0" pos="84.66" length="0.50" freq="1.00" file="Camera2.xml" timeThreshold="0.10" speedThreshold="0.10" jamThreshold="1.00"/>
+</additional>
