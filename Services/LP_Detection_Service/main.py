@@ -7,7 +7,7 @@ import uuid
 
 import cv2
 import numpy as np
-
+import videoUtils
 import videoUtils.db_manager
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_decoder, start_encoder
@@ -16,7 +16,7 @@ from videoUtils.mjpeg_streamer import start_mjpeg_server
 
 # pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
-MODEL_NAME = 'LP_Detection_Srevice/ssd_mobilenet_v2_quantized_TFLite_model'
+MODEL_NAME = 'LP_Detection_Service/ssd_mobilenet_v2_quantized_TFLite_model'
 GRAPH_NAME = 'detect.tflite'
 EDGETPU_GRAPH_NAME = 'detect_edgetpu.tflite'
 LABELMAP_NAME = 'labelmap.txt'
@@ -35,7 +35,7 @@ time.sleep(1)
 camera_imageBuffer, mjpeg_camera_process = start_mjpeg_server(
     port=8080, buffer_size=3)
 dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
-    uuid.uuid1(), "DDS_Config.xml",
+    uuid.uuid1(), "DDS_config.xml",
     data_writer="MyPublisher::ImageWriter",
     data_reader="MySubscriber::RawReader",
     input_buffer_size=10, output_buffer_size=10)

@@ -6,7 +6,7 @@ import pyro
 import pyro.contrib.gp as gp
 import pyro.distributions as dist
 from influxdb import InfluxDBClient
-from DBManagement.db_manager import *
+from loggingUtils.db_manager import *
 import datetime
 """
 save_det_rt(0.12)
