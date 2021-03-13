@@ -9,4 +9,4 @@ python_dateutil>=2.7.5
 pinform
 rticonnextdds_connector
 paho-mqtt
-Pillow
+Pillow==6.2.2
