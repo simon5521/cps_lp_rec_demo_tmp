@@ -1,12 +1,9 @@
 pytz>=2018.7
 typing>=3.6.2
 rfc3339>=6.0
-numpy>=1.16.5
-pandas>=0.22.0
 influxdb>=5.2.1
 six>=1.12.0
 python_dateutil>=2.7.5
 pinform
 rticonnextdds_connector
 paho-mqtt
-Pillow==6.2.2

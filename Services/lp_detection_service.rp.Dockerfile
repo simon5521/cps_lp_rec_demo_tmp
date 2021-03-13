@@ -14,7 +14,7 @@ RUN apt-get update; apt-get install  -y python3-setuptools && apt-get install -y
 RUN apt-get update; apt-get install -y python3-opencv
 
 FROM CV2_STAGE AS PIP_STAGE
-
+RUN apt-get update && apt-get install python3-numpy && apt-get install python-pandas && apt-get install python3-pil
 COPY ./LP_Detection_Service/requirements.txt .
 RUN pip3 install -r requirements.txt
 
