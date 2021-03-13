@@ -15,7 +15,6 @@ RUN apt-get update; apt-get install -y python3-opencv
 
 FROM CV2_STAGE AS PIP_STAGE
 
-RUN apt update && apt install libjpeg8-dev zlib1g-dev
 COPY ./LP_Detection_Service/requirements.txt .
 RUN pip3 install -r requirements.txt
 
