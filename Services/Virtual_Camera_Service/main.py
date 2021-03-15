@@ -47,9 +47,8 @@ def is_port_in_use(port):
 
 CID = 0
 dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
-                str(CID), 'ImagesExample.xml',
+                str(CID), 'DDS_config.xml',
                 data_writer='MyPublisher::RawWriter',
-                data_reader='MySubscriber::CameraControllReader',
                 input_buffer_size=10, output_buffer_size=10)
 
 encoder_input_buffer = start_encoder(dds_streamer_output_buffer, encoder_input_buffer_size=10)
@@ -111,7 +110,7 @@ if __name__ == '__main__':
     while (1):
         try:
             data = dds_streamer_input_buffer.get()
-    	    if data['debug'] == 'True':
+            if data['debug'] == 'True':
                 debug = True
             if data['debug'] == 'False':
                 debug = False

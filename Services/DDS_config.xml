@@ -68,7 +68,6 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 			<member name="debug" stringMaxLength="128" type="string"/>
 			<member name="validdata" type="boolean"/>
 		</struct>
-		</struct>
 		<struct name= "Loggingtags" extensibility= "mutable">
 			<member name="nodeid" stringMaxLength="128" type="string"/>
 			<member name="service_type" stringMaxLength="128" type="string"/>
@@ -77,8 +76,7 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 		<struct name= "Loggingfields" extensibility= "mutable">
 			<member name="data" stringMaxLength="128" type="string"/>
 		</struct>
-		</struct>
-		<struct name= "LoggingData" extensibility= "mutable">
+		<struct name= "LOGGINGData" extensibility= "mutable">
 			<member name="measurement" stringMaxLength="128" type="string"/>
 			<member name="tags" type="nonBasic" nonBasicTypeName= "Loggingtags"/>
 			<member name="time" stringMaxLength="128" type="string"/>
@@ -93,11 +91,11 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 			<register_type name="RGBImage" type_ref="RGBImage" />
 			<register_type name="RAWRGBImage" type_ref="RAWRGBImage" />
 			<register_type name="CAMERAControll" type_ref="CAMERAControll" />
-			<register_type name="LoggingData" type_ref="LoggingData" />
+			<register_type name="LOGGINGData" type_ref="LOGGINGData" />
 			<topic name="Image" register_type_ref="RGBImage"/>
 			<topic name="RawImage" register_type_ref="RAWRGBImage"/>
 			<topic name="CameraControll" register_type_ref="CAMERAControll"/>
-			<topic name="LoggingData" register_type_ref="LoggingData"/>
+			<topic name="LoggingData" register_type_ref="LOGGINGData"/>
 		</domain>
 	</domain_library>
 

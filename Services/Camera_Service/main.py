@@ -9,7 +9,7 @@ from videoUtils.encode_decode import start_encoder
 
 CID = 0
 dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
-                str(CID), 'DDS_Config.xml',
+                str(CID), 'DDS_config.xml',
                 data_writer='MyPublisher::RawWriter',
                 data_reader='MySubscriber::CameraControllReader',
                 input_buffer_size=10, output_buffer_size=10)
