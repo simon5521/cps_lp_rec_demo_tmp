@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t lp_detection_service:initial -f lp_detection_service.rp.Dockerfile ./
+docker build -t lp_detection_service:initial -f lp_detection_service.Dockerfile ./
