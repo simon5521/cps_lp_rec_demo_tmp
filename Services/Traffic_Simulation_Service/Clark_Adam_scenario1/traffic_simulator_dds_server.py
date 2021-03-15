@@ -5,12 +5,12 @@ import videoUtils.DDS_streamer
 
 if __name__ == '__main__':
 
-    #tools = os.path.join('/usr/share/sumo', 'tools')
-    tools = os.path.join('C:\\Users\\simon5521\\Programs\\Sumo', 'tools')
+    tools = os.path.join('/usr/share/sumo', 'tools')
+    #tools = os.path.join('C:\\Users\\simon5521\\Programs\\Sumo', 'tools')
     sys.path.append(tools)
     import traci
 
-    from DBManagement.db_manager import save_car_data
+    from loggingUtils.db_manager import save_car_data
     locid1="Alagut"
     locid2="Hunyadi_Janos_utca"
 

@@ -126,3 +126,4 @@ while True:
       y[pi.time_point.second]=y[pi.time_point.second]+1
   plt.plot(y,x,"b*")
   plt.pause(1)
+  datetime.datetime.strftime()

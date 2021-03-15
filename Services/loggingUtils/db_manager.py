@@ -16,11 +16,12 @@ timeFormat = '%Y-%m-%dT%H:%M:%SZ'
 
 
 
-cli = InfluxClient(host=dburl, port=8086, database_name="smartcity")
+#cli = InfluxClient(host=dburl, port=8086, database_name="smartcity")
 
 
 def save(data):
-    cli.save_points([data])
+    a=1
+    #cli.save_points([data])
 
 def save_det_rt(rt):
     save(LP_DET_RT(time_point=datetime.datetime.now(),tag=tag,nodeid=nodeid,runtime=rt))

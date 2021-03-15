@@ -23,7 +23,7 @@ def encode_immage(encoder_input_buffer, encoder_output_buffer, logging_buffer):
             encoder_output_buffer.get()
             encoder_output_buffer.put(frame)
             if logging_buffer != None:
-                logging_buffer.put{'measurement': '', 'component': 'encoder', 'data': 'encoder_output_buffer'}
+                logging_buffer.put({'measurement': '', 'component': 'encoder', 'data': 'encoder_output_buffer'})
 
 
 def decode_immage(decoder_input_buffer, decoder_output_buffer, logging_buffer):
@@ -42,7 +42,7 @@ def decode_immage(decoder_input_buffer, decoder_output_buffer, logging_buffer):
             decoder_output_buffer.get()
             decoder_output_buffer.put(frame)
             if logging_buffer != None:
-                logging_buffer.put{'measurement': '', 'component': 'encoder', 'data': 'decoder_output_buffer'}
+                logging_buffer.put({'measurement': '', 'component': 'encoder', 'data': 'decoder_output_buffer'})
 
 
 def start_encoder(encoder_output_buffer, encoder_input_buffer_size=10, logging_buffer=None):
