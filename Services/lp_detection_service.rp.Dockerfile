@@ -17,7 +17,7 @@ RUN apt-get update; apt-get install -y python3-opencv
 
 FROM CV2_STAGE AS TF_STAGE
 RUN echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | tee /etc/apt/sources.list.d/coral-edgetpu.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     apt-get update && \
     apt install libedgetpu1-std && \
     apt install python3-pycoral
