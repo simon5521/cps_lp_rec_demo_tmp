@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run -v /dev/bus/usb:/dev/bus/usb --network="host" --privileged lp_detection_service:initial
