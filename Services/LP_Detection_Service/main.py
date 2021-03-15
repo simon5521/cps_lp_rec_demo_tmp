@@ -23,7 +23,7 @@ LABELMAP_NAME = 'labelmap.txt'
 min_conf_threshold = float(0.7)
 use_TPU = True
 headlessMode = True
-useDatabase = True
+useDatabase = False
 
 if(useDatabase):
     videoUtils.db_manager.startClient()
