@@ -6,7 +6,7 @@ from multiprocessing import Process, Queue
 dds_streamer_input_buffer = Queue(3)
 dds_streamer_output_buffer = Queue(3)
 
-def start_publisher(host_id, config_xml, domain_participant_pub, data_writer):
+def start_publisher(host_id, config_xml, domain_participant_pub, data_writer, logging_buffer):
     global dds_streamer_input_buffer, dds_streamer_output_buffer
     with rti.open_connector(
             config_name=domain_participant_pub,
@@ -20,7 +20,7 @@ def start_publisher(host_id, config_xml, domain_participant_pub, data_writer):
             output.instance.set_dictionary(data_to_send)
             output.write()
 
-def start_subscriber(host_id, config_xml, domain_participant_sub, data_reader):
+def start_subscriber(host_id, config_xml, domain_participant_sub, data_reader, logging_buffer):
     global dds_streamer_input_buffer, dds_streamer_output_buffer
     with rti.open_connector(
             config_name=domain_participant_sub,
@@ -40,19 +40,21 @@ def start_subscriber(host_id, config_xml, domain_participant_sub, data_reader):
                     except:
                         dds_streamer_input_buffer.get()
                         dds_streamer_input_buffer.put(data)
+                        if logging_buffer != None:
+                            logging_buffer.put{'measurement': '', 'component': 'dds_streamer', 'data': 'dds_streamer_input_buffer'}
 
-def start_dds_streamer(host_id, config_xml, domain_participant_pub = "MyParticipantLibrary::ImagePubParticipant", data_writer = None, domain_participant_sub = "MyParticipantLibrary::ImageSubParticipant", data_reader = None, input_buffer_size = 10, output_buffer_size = 10):
+def start_dds_streamer(host_id, config_xml, domain_participant_pub = "MyParticipantLibrary::ImagePubParticipant", data_writer = None, domain_participant_sub = "MyParticipantLibrary::ImageSubParticipant", data_reader = None, input_buffer_size = 10, output_buffer_size = 10, logging_buffer=None):
     global dds_streamer_input_buffer, dds_streamer_output_buffer
     dds_streamer_input_buffer = Queue(input_buffer_size)
     dds_streamer_output_buffer = Queue(output_buffer_size)
     
     if(data_writer != None):
-        dds_publisher_process = Process(name='dds_streamer_' + str(host_id), target=start_publisher, args=(host_id, config_xml, domain_participant_pub, data_writer))
+        dds_publisher_process = Process(name='dds_streamer_' + str(host_id), target=start_publisher, args=(host_id, config_xml, domain_participant_pub, data_writer, logging_buffer))
         dds_publisher_process.daemon = True
         dds_publisher_process.start()
 
     if(data_reader != None):
-        dds_subscriber_process = Process(name='dds_streamer_' + str(host_id), target=start_subscriber, args=(host_id, config_xml, domain_participant_sub, data_reader))
+        dds_subscriber_process = Process(name='dds_streamer_' + str(host_id), target=start_subscriber, args=(host_id, config_xml, domain_participant_sub, data_reader, logging_buffer))
         dds_subscriber_process.daemon = True
         dds_subscriber_process.start()
 

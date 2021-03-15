@@ -68,6 +68,22 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 			<member name="debug" stringMaxLength="128" type="string"/>
 			<member name="validdata" type="boolean"/>
 		</struct>
+		</struct>
+		<struct name= "Loggingtags" extensibility= "mutable">
+			<member name="nodeid" stringMaxLength="128" type="string"/>
+			<member name="service_type" stringMaxLength="128" type="string"/>
+			<member name="component" stringMaxLength="128" type="string"/>
+		</struct>
+		<struct name= "Loggingfields" extensibility= "mutable">
+			<member name="data" stringMaxLength="128" type="string"/>
+		</struct>
+		</struct>
+		<struct name= "LoggingData" extensibility= "mutable">
+			<member name="measurement" stringMaxLength="128" type="string"/>
+			<member name="tags" type="nonBasic" nonBasicTypeName= "Loggingtags"/>
+			<member name="time" stringMaxLength="128" type="string"/>
+			<member name="fields" type="nonBasic" nonBasicTypeName= "Loggingfields"/>
+		</struct>
 	</types>
 
 
@@ -77,9 +93,11 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 			<register_type name="RGBImage" type_ref="RGBImage" />
 			<register_type name="RAWRGBImage" type_ref="RAWRGBImage" />
 			<register_type name="CAMERAControll" type_ref="CAMERAControll" />
+			<register_type name="LoggingData" type_ref="LoggingData" />
 			<topic name="Image" register_type_ref="RGBImage"/>
 			<topic name="RawImage" register_type_ref="RAWRGBImage"/>
 			<topic name="CameraControll" register_type_ref="CAMERAControll"/>
+			<topic name="LoggingData" register_type_ref="LoggingData"/>
 		</domain>
 	</domain_library>
 
@@ -91,6 +109,7 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 				<data_writer name="ImageWriter" topic_ref="Image" />
 				<data_writer name="RawWriter" topic_ref="RawImage" />
 				<data_writer name="CameraControllWriter" topic_ref="CameraControll" />
+				<data_writer name="LogWriter" topic_ref="LoggingData" />
 			</publisher>
 		</domain_participant>
 
@@ -99,6 +118,7 @@ This code contains trade secrets of Real-Time Innovations, Inc.
 				<data_reader name="ImageReader" topic_ref="Image" />
 				<data_reader name="RawReader" topic_ref="RawImage" />
 				<data_reader name="CameraControllReader" topic_ref="CameraControll" />
+				<data_reader name="LogReader" topic_ref="LoggingData" />
 			</subscriber>
 		</domain_participant>
 	</domain_participant_library>

@@ -7,12 +7,10 @@ import uuid
 
 import cv2
 import numpy as np
-import videoUtils
-import videoUtils.db_manager
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_decoder, start_encoder
-from videoUtils.LED_controll import start_LED
 from videoUtils.mjpeg_streamer import start_mjpeg_server
+from loggingUtils.DDS_Logging import start_dds_logger
 
 # pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
@@ -23,24 +21,22 @@ LABELMAP_NAME = 'labelmap.txt'
 min_conf_threshold = float(0.7)
 use_TPU = True
 headlessMode = True
-useDatabase = True
+nodeid = uuid.uuid1()
 
-if(useDatabase):
-    videoUtils.db_manager.startClient()
-
-LED_buffer = start_LED()
+logging_buffer = start_dds_logger(nodeid, 'LP_Detection')
 time.sleep(1)
 
 # initialize mjpeg streamers
 camera_imageBuffer, mjpeg_camera_process = start_mjpeg_server(
     port=8080, buffer_size=3)
 dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
-    uuid.uuid1(), "DDS_config.xml",
+    nodeid, "DDS_config.xml",
     data_writer="MyPublisher::ImageWriter",
     data_reader="MySubscriber::RawReader",
-    input_buffer_size=10, output_buffer_size=10)
-encoder_input_buffer = start_encoder(dds_streamer_output_buffer, encoder_input_buffer_size=10)
-decoder_output_buffer = start_decoder(dds_streamer_input_buffer, decoder_output_buffer_size=10)
+    input_buffer_size=10, output_buffer_size=10,
+    logging_buffer=logging_buffer)
+encoder_input_buffer = start_encoder(dds_streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
+decoder_output_buffer = start_decoder(dds_streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
 
 time.sleep(1)
 
@@ -187,8 +183,8 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
                 except:
                     encoder_input_buffer.get()
                     encoder_input_buffer.put(data)
-                    if(useDatabase):
-                        videoUtils.db_manager.save_car_det_loss()
+                    #videoUtils.db_manager.save_car_det_loss()
+                    logging_buffer.put{'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'}
 
     return frame
 
@@ -197,7 +193,6 @@ try:
     while True:
         data = decoder_output_buffer.get()
         data['cameraid'] = int(data["source"])
-        LED_buffer.put(data['cameraid'])
 
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
@@ -205,8 +200,8 @@ try:
         frame = data["pixels"]
 
         readtime = cv2.getTickCount() - t1
-        if useDatabase:
-            videoUtils.db_manager.save_det_net_dly(readtime)
+        #videoUtils.db_manager.save_det_net_dly(readtime)
+        logging_buffer.put{'measurement': '', 'component': 'detector', 'data': str(readtime)}
 
         t1 = cv2.getTickCount()
 
@@ -232,8 +227,8 @@ try:
         time1 = (t2-t1)/freq
         frame_rate_calc = 1/time1
 
-        if useDatabase:
-            videoUtils.db_manager.save_det_rt(time1)
+        # videoUtils.db_manager.save_det_rt(time1)
+        logging_buffer.put{'measurement': '', 'component': 'detector', 'data': str(time1)}
 
         if not headlessMode:
             cv2.imshow('Licence Plate Detector', frame)

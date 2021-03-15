@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 
 
-def encode_immage(encoder_input_buffer, encoder_output_buffer):
+def encode_immage(encoder_input_buffer, encoder_output_buffer, logging_buffer):
     while(True):
         frame = encoder_input_buffer.get()
         _, numpy_jpeg_array = cv2.imencode('.jpg', frame['pixels'], [
@@ -22,9 +22,11 @@ def encode_immage(encoder_input_buffer, encoder_output_buffer):
         except:
             encoder_output_buffer.get()
             encoder_output_buffer.put(frame)
+            if logging_buffer != None:
+                logging_buffer.put{'measurement': '', 'component': 'encoder', 'data': 'encoder_output_buffer'}
 
 
-def decode_immage(decoder_input_buffer, decoder_output_buffer):
+def decode_immage(decoder_input_buffer, decoder_output_buffer, logging_buffer):
     while True:
         frame = decoder_input_buffer.get()
 
@@ -39,13 +41,15 @@ def decode_immage(decoder_input_buffer, decoder_output_buffer):
         except:
             decoder_output_buffer.get()
             decoder_output_buffer.put(frame)
+            if logging_buffer != None:
+                logging_buffer.put{'measurement': '', 'component': 'encoder', 'data': 'decoder_output_buffer'}
 
 
-def start_encoder(encoder_output_buffer, encoder_input_buffer_size=10):
+def start_encoder(encoder_output_buffer, encoder_input_buffer_size=10, logging_buffer=None):
     encoder_input_buffer = Queue(encoder_input_buffer_size)
 
     encoder_process = Process(name='image_encoder', target=encode_immage,
-                              args=(encoder_input_buffer, encoder_output_buffer))
+                              args=(encoder_input_buffer, encoder_output_buffer, logging_buffer))
 
     encoder_process.daemon = True
     encoder_process.start()
@@ -53,11 +57,11 @@ def start_encoder(encoder_output_buffer, encoder_input_buffer_size=10):
     return encoder_input_buffer
 
 
-def start_decoder(decoder_input_buffer, decoder_output_buffer_size=10):
+def start_decoder(decoder_input_buffer, decoder_output_buffer_size=10, logging_buffer=None):
     decoder_output_buffer = Queue(decoder_output_buffer_size)
 
     decoder_process = Process(name='image_decoder', target=decode_immage,
-                              args=(decoder_input_buffer, decoder_output_buffer))
+                              args=(decoder_input_buffer, decoder_output_buffer, logging_buffer))
 
     decoder_process.daemon = True
     decoder_process.start()
