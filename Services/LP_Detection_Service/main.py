@@ -21,7 +21,7 @@ LABELMAP_NAME = 'labelmap.txt'
 min_conf_threshold = float(0.7)
 use_TPU = True
 headlessMode = True
-nodeid = uuid.uuid1()
+nodeid = str(uuid.uuid1())
 
 logging_buffer = start_dds_logger(nodeid, 'LP_Detection')
 time.sleep(1)
