@@ -22,8 +22,8 @@ def start_publisher(host_id, service_type, config_xml, domain_participant_pub, d
             data_to_send = {
                                 "measurement": raw_data["measurement"],
                                 "tags": {
-                                    "nodeid": host_id
-                                    "service_type": service_type
+                                    "nodeid": host_id,
+                                    "service_type": service_type,
                                     "component": raw_data["component"]
                                 },
                                 "time": datetime.datetime.now().strftime(TIME_FORMAT),
