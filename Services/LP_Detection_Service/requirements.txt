@@ -1,6 +1,8 @@
 pytz>=2018.7
 typing>=3.6.2
 rfc3339>=6.0
+apa102
+httpserver
 influxdb>=5.2.1
 six>=1.12.0
 python_dateutil>=2.7.5
