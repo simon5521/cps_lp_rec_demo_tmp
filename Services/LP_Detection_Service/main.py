@@ -184,7 +184,7 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
                     encoder_input_buffer.get()
                     encoder_input_buffer.put(data)
                     #videoUtils.db_manager.save_car_det_loss()
-                    logging_buffer.put{'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'}
+                    logging_buffer.put({'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'})
 
     return frame
 
@@ -201,7 +201,7 @@ try:
 
         readtime = cv2.getTickCount() - t1
         #videoUtils.db_manager.save_det_net_dly(readtime)
-        logging_buffer.put{'measurement': '', 'component': 'detector', 'data': str(readtime)}
+        logging_buffer.put({'measurement': '', 'component': 'detector', 'data': str(readtime)})
 
         t1 = cv2.getTickCount()
 
@@ -228,7 +228,7 @@ try:
         frame_rate_calc = 1/time1
 
         # videoUtils.db_manager.save_det_rt(time1)
-        logging_buffer.put{'measurement': '', 'component': 'detector', 'data': str(time1)}
+        logging_buffer.put({'measurement': '', 'component': 'detector', 'data': str(time1)})
 
         if not headlessMode:
             cv2.imshow('Licence Plate Detector', frame)

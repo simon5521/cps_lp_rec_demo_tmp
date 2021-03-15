@@ -17,9 +17,10 @@ def start_subscriber(config_xml, domain_participant_sub, data_reader):
                 # You can get all the fields in a get_dictionary()
                 data = sample.get_dictionary()
                 # write data to database
+                print(data)
 
-def start_dds_log_reader(config_xml = "DDS_config.xml", domain_participant_sub = "MyParticipantLibrary::ImageSubParticipant", data_reader = "MyPublisher::LogWriter"):
-    dds_subscriber_process = Process(name='dds_streamer_' + str(host_id), target=start_subscriber, args=(domain_participant_sub, data_reader))
+def start_dds_log_reader(config_xml = "DDS_config.xml", domain_participant_sub = "MyParticipantLibrary::ImageSubParticipant", data_reader = "MySubscriber::LogReader"):
+    dds_subscriber_process = Process(name='dds_streamer_' + str("logging_process"), target=start_subscriber, args=(config_xml, domain_participant_sub, data_reader))
     dds_subscriber_process.daemon = True
     dds_subscriber_process.start()
 
