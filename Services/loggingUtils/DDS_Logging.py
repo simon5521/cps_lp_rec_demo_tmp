@@ -14,7 +14,6 @@ def start_publisher(host_id, service_type, config_xml, domain_participant_pub, d
             url=config_xml) as connector:
 
         output = connector.get_output(data_writer)
-        output.instance["source"] = str(host_id)
 
         while(True):
             raw_data = dds_logging_output_buffer.get()
