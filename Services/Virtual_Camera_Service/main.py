@@ -93,7 +93,7 @@ if __name__ == '__main__':
         # change the dimensions of the image
         blueprint.set_attribute('image_size_x', f'{IM_WIDTH}')
         blueprint.set_attribute('image_size_y', f'{IM_HEIGHT}')
-        blueprint.set_attribute('fov', '20')
+        blueprint.set_attribute('fov', '6')
 
         # Adjust sensor relative to vehicle
         spawn_point = carla.Transform(carla.Location(x=15.5, y=4.5, z=0.6), carla.Rotation(yaw=90))
