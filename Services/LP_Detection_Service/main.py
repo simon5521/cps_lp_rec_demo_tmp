@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import uuid
+import json
 
 import cv2
 import numpy as np
@@ -11,6 +12,7 @@ from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_decoder, start_encoder
 from videoUtils.mjpeg_streamer import start_mjpeg_server
 from loggingUtils.DDS_Logging import start_dds_logger
+from videoUtils.mqtt_streamer import start_mqtt_streamer
 
 # pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
@@ -21,7 +23,14 @@ LABELMAP_NAME = 'labelmap.txt'
 min_conf_threshold = float(0.90)
 use_TPU = True
 headlessMode = True
-nodeid = str(uuid.uuid1())
+
+base_path = 'LP_Detection_Service/'
+with open( base_path + 'nodeid.json') as json_file:
+    nodeid = json.load(json_file)['nodeid']
+if nodeid == '':
+    nodeid = str(uuid.uuid1())
+    with open(base_path + 'nodeid.json', 'w') as json_file:
+        json.dump({'nodeid': nodeid}, json_file)
 
 logging_buffer = start_dds_logger(nodeid, 'LP_Detection')
 time.sleep(1)
@@ -29,14 +38,23 @@ time.sleep(1)
 # initialize mjpeg streamers
 camera_imageBuffer, mjpeg_camera_process = start_mjpeg_server(
     port=8080, buffer_size=3)
-dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
-    nodeid, "DDS_config.xml",
-    data_writer="MyPublisher::ImageWriter",
-    data_reader="MySubscriber::RawReader",
-    input_buffer_size=10, output_buffer_size=10,
-    logging_buffer=logging_buffer)
-encoder_input_buffer = start_encoder(dds_streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
-decoder_output_buffer = start_decoder(dds_streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
+
+with open('config.json') as json_file:
+    config = json.load(json_file)
+
+if config['protocol'] == 'MQTT':
+    streamer_input_buffer, streamer_output_buffer = start_mqtt_streamer(nodeid, broker = config['mqtt_host'], port = 1883, topic_pub = 'detected_image', topic_sub = 'raw_image', logging_buffer=logging_buffer)
+else:
+
+    streamer_input_buffer, streamer_output_buffer = start_dds_streamer(
+        nodeid, "DDS_config.xml",
+        data_writer="MyPublisher::ImageWriter",
+        data_reader="MySubscriber::RawReader",
+        input_buffer_size=10, output_buffer_size=10,
+        logging_buffer=logging_buffer)
+        
+encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
+decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
 
 time.sleep(1)
 
