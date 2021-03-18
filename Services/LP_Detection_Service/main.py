@@ -8,6 +8,8 @@ import json
 
 import cv2
 import numpy as np
+
+sys.path.append('.')
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_decoder, start_encoder
 from videoUtils.mjpeg_streamer import start_mjpeg_server

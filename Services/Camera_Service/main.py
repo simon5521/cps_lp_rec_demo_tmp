@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import uuid
 import json
+import sys
 
 import cv2
 import numpy as np
 
+sys.path.append('.')
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_encoder
 from loggingUtils.DDS_Logging import start_dds_logger
@@ -20,7 +22,7 @@ if nodeid == '':
         json.dump({'nodeid': nodeid}, json_file)
 
 CID = nodeid
-logging_buffer = start_dds_logger(nodeid, 'LP_Detection')
+logging_buffer = start_dds_logger(nodeid, 'Camera_Service')
 
 with open('config.json') as json_file:
     config = json.load(json_file)
@@ -42,6 +44,7 @@ encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffe
 data = None
 debug = True
 validdata = True
+cap = cv2.VideoCapture(0)
 
 while True:
 
@@ -62,6 +65,6 @@ while True:
     validdata = data['validdata']
 
     if(debug or validdata):
-
+        _, frame = cap.read()
         encoder_input_buffer.put(
             {"pixels": frame, 'debug': debug, 'validdata': validdata})

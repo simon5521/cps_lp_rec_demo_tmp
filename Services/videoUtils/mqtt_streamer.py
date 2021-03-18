@@ -23,7 +23,7 @@ def on_message(client, userdata, message):
             mqtt_input_buffer.get()
             mqtt_input_buffer.put(data)
             if mqtt_logging_buffer != None:
-                mqtt_logging_buffer.put({'measurement': '', 'component': 'dds_streamer', 'data': 'mqtt_input_buffer'})
+                mqtt_logging_buffer.put({'measurement': '', 'component': 'mqtt_streamer', 'data': 'mqtt_input_buffer'})
 
 def on_connect(client, userdata, flags, rc):
     global mqtt_topic_sub
