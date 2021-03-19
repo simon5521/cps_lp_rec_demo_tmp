@@ -1,0 +1,11 @@
+const int32 MAX_IMAGE_SIZE=30000000;
+
+struct RAWRGBImage{
+    int32 size;
+    string<128> source;
+    string<128> destination;
+    octet pixels[MAX_IMAGE_SIZE];
+    boolean debug;
+    boolean validdata;
+
+};

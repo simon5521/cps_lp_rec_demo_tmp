@@ -1,0 +1,21 @@
+struct Position{
+    float ymin;
+    float xmin;
+    float ymax;
+    float xmax;
+};
+ const int32 MAX_IMAGE_SIZE=30000000;
+
+struct RGBImage{
+    string<128> source;
+    string<128> destination;
+    boolean debug;
+    boolean validdata;
+    octet pixels[MAX_IMAGE_SIZE];
+    int32 size;
+    
+    int32 cameraid;
+    Position position;
+    string<128> platenumber;
+    
+};
