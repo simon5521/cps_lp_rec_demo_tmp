@@ -33,7 +33,7 @@ def on_connect(client, userdata, flags, rc):
         print("Bad connection Returned code=",rc)
 
 def start_subscriber(broker, port, username, password):
-    client = paho.Client("client sub at " + broker) 
+    client = paho.Client() 
     client.on_connect=on_connect
     client.on_message=on_message
     if(username != None):
@@ -43,7 +43,7 @@ def start_subscriber(broker, port, username, password):
 
 def start_publisher(broker, port, topic_pub, username, password):
     global mqtt_output_buffer
-    client = paho.Client("client pub at " + broker) 
+    client = paho.Client() 
     if(username != None):
         client.username_pw_set(username, password)
     client.connect(broker, port)
