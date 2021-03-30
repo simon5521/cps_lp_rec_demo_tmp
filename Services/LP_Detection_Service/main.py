@@ -22,7 +22,7 @@ MODEL_NAME = 'LP_Detection_Service/ssd_mobilenet_v2_quantized_TFLite_model'
 GRAPH_NAME = 'detect.tflite'
 EDGETPU_GRAPH_NAME = 'detect_edgetpu.tflite'
 LABELMAP_NAME = 'labelmap.txt'
-min_conf_threshold = float(0.90)
+min_conf_threshold = float(0.75)
 use_TPU = True
 headlessMode = True
 
@@ -126,7 +126,11 @@ freq = cv2.getTickFrequency()
 def preprocessImage(image):
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = image.copy()
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    x_ofs = int(( frame.shape[1]-frame.shape[0])/2)
+    if x_ofs > 0:
+        frame = frame[0:, x_ofs:-x_ofs]
+    frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frame_rgb = cv2.cvtColor(frame_gray, cv2.COLOR_GRAY2RGB)
     frame_resized = cv2.resize(frame_rgb, (width, height))
     input_data = np.expand_dims(frame_resized, axis=0)
     # Normalize pixel values if using a floating model (i.e. if model is non-quantized)
@@ -153,6 +157,7 @@ def detect(input_data):
 def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
     frame = data['pixels'].copy()
     height, width, channels = frame.shape
+    x_ofs = int(( frame.shape[1]-frame.shape[0])/2)
     # Loop over all detections and draw detection box if confidence is above minimum threshold
     for i in range(len(scores)):
         if ((scores[i] > min_conf_threshold) and (scores[i] <= 1.0)):
@@ -160,9 +165,9 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
             # Get bounding box coordinates and draw box
             # Interpreter can return coordinates that are outside of image dimensions, need to force them to be within image using max() and min()
             ymin = int(max(1, (boxes[i][0] * height)))
-            xmin = int(max(1, (boxes[i][1] * width)))
+            xmin = int(max(1, (boxes[i][1] * height)))+x_ofs
             ymax = int(min(height, (boxes[i][2] * height)))
-            xmax = int(min(width, (boxes[i][3] * width)))
+            xmax = int(min(height, (boxes[i][3] * height)))+x_ofs
 
             cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
 
