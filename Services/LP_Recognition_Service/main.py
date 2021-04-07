@@ -1,5 +1,7 @@
 # text recognition👽️
 import datetime
+import json
+
 import easyocr
 
 import cv2
@@ -15,13 +17,22 @@ from multiprocessing import Process, Queue
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_decoder, start_encoder
 
-from loggingUtils.db_manager import save_car_rec_loss,save_lp,save_rec_rt,save_rec_net_dly
+from loggingUtils.DDS_Logging import start_dds_logger
 
 import uuid
 
 import rticonnextdds_connector as rti
 
+from videoUtils.mqtt_streamer import start_mqtt_streamer
+
 print("server has been started")
+
+nodeid = "recognition-pc"
+
+logging_buffer = start_dds_logger(nodeid, 'LP_Recognition')
+time.sleep(1)
+print("logger has been started")
+
 
 #url='http://192.168.0.73:8081/cam.mjpg'
 #url='http://192.168.1.51:8081/cam.mjpg'
@@ -63,9 +74,9 @@ def lp_rec_proc(lp_queue,diag_queue):
         t3 = time.time()
         # pytessercat
         #frame=image_preprocess(frame)
-        result = reader.readtext(frame)
         #text = pytesseract.image_to_string(frame, config=config)
-        if(len(result)>0):
+        try:
+            result = reader.readtext(frame)
             print(result)
             text = str(result[0][0][1])
             print(text)
@@ -73,15 +84,25 @@ def lp_rec_proc(lp_queue,diag_queue):
             text=text.upper()
             t4 = time.time()
             rectime_s=t4-t3
-            save_rec_rt(rectime_s)
+            #save_rec_rt(rectime_s)
+            logging_buffer.put({'measurement': 'runtime',
+                                'component': 'recognition',
+                                'time': time.time(),
+                                'data': str(rectime_s)})
+
             lp=re.findall(lp_pattern,text)
             if len(lp)>0 :
                 lp_num=lp[0]
-                save_lp(lp_num)
+                #save_lp(lp_num)
+                logging_buffer.put({'measurement': 'detection_loss',
+                                    'component': 'recognition',
+                                    'time': time.time(),
+                                    'data': lp_num})
+
                 print("LP found: ", lp_num)
             else:
                 print("No LP found",text)
-        else:
+        except:
             print("No LP found",result)
 
 
@@ -95,11 +116,19 @@ def lp_rec_proc(lp_queue,diag_queue):
 
 
 if __name__ == '__main__':
-    dds_streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
-        uuid.uuid1(), "DDS_config.xml",
-        data_reader="MySubscriber::ImageReader",
-        input_buffer_size=10, output_buffer_size=10)
-    decoder_output_buffer = start_decoder(dds_streamer_input_buffer, decoder_output_buffer_size=10)
+
+
+    with open('config.json') as json_file:
+        config = json.load(json_file)
+
+    if config['protocol'] == 'MQTT':
+        streamer_input_buffer , _ = start_mqtt_streamer(nodeid, broker=config['mqtt_host'], topic_sub='detected_image')  # , logging_buffer=logging_buffer)
+    else:
+        streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
+            uuid.uuid1(), "DDS_config.xml",
+            data_reader="MySubscriber::ImageReader",
+            input_buffer_size=15, output_buffer_size=10)
+    decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10)
     diag_queue=Queue(1)
     print("creating processes")
     p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))

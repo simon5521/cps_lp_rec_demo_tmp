@@ -58,6 +58,7 @@ else:
 encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
 decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
 
+
 time.sleep(1)
 
 # Import TensorFlow libraries
@@ -226,7 +227,7 @@ try:
 
         readtime = cv2.getTickCount() - t1
         #videoUtils.db_manager.save_det_net_dly(readtime)
-        logging_buffer.put({'measurement': '', 'component': 'detector', 'data': str(readtime)})
+        logging_buffer.put({'measurement': 'net_delay', 'component': 'detector', 'data': str(readtime)})
 
         t1 = cv2.getTickCount()
 
@@ -253,7 +254,7 @@ try:
         frame_rate_calc = 1/time1
 
         # videoUtils.db_manager.save_det_rt(time1)
-        logging_buffer.put({'measurement': '', 'component': 'detector', 'data': str(time1)})
+        logging_buffer.put({'measurement': 'runtime', 'component': 'detector', 'data': str(time1)})
 
         if not headlessMode:
             cv2.imshow('Licence Plate Detector', frame)
