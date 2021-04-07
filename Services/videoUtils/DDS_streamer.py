@@ -18,7 +18,12 @@ def start_publisher(host_id, config_xml, domain_participant_pub, data_writer, lo
         while(True):
             data_to_send = dds_streamer_output_buffer.get()
             output.instance.set_dictionary(data_to_send)
+            t1 = time.perf_counter()
             output.write()
+            output.wait()
+            delay = time.perf_counter() - t1
+            if logging_buffer != None:
+                logging_buffer.put({'measurement': 'net_delay', 'component': 'dds_streamer', 'data': str(delay)})
 
 def start_subscriber(host_id, config_xml, domain_participant_sub, data_reader, logging_buffer):
     global dds_streamer_input_buffer, dds_streamer_output_buffer
@@ -41,7 +46,7 @@ def start_subscriber(host_id, config_xml, domain_participant_sub, data_reader, l
                         dds_streamer_input_buffer.get()
                         dds_streamer_input_buffer.put(data)
                         if logging_buffer != None:
-                            logging_buffer.put({'measurement': '', 'component': 'dds_streamer', 'data': 'dds_streamer_input_buffer'})
+                            logging_buffer.put({'measurement': 'test', 'component': 'dds_streamer', 'data': 'dds_streamer_input_buffer'})
 
 def start_dds_streamer(host_id, config_xml, domain_participant_pub = "MyParticipantLibrary::ImagePubParticipant", data_writer = None, domain_participant_sub = "MyParticipantLibrary::ImageSubParticipant", data_reader = None, input_buffer_size = 10, output_buffer_size = 10, logging_buffer=None):
     global dds_streamer_input_buffer, dds_streamer_output_buffer
