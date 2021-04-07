@@ -227,7 +227,7 @@ try:
 
         readtime = cv2.getTickCount() - t1
         #videoUtils.db_manager.save_det_net_dly(readtime)
-        logging_buffer.put({'measurement': 'net_delay', 'component': 'detector', 'data': str(readtime)})
+        #logging_buffer.put({'measurement': 'net_delay', 'component': 'detector', 'data': str(readtime)})
 
         t1 = cv2.getTickCount()
 
