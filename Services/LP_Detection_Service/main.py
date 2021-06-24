@@ -23,7 +23,6 @@ GRAPH_NAME = 'detect.tflite'
 EDGETPU_GRAPH_NAME = 'detect_edgetpu.tflite'
 LABELMAP_NAME = 'labelmap.txt'
 min_conf_threshold = float(0.75)
-use_TPU = True
 headlessMode = True
 
 base_path = 'LP_Detection_Service/'
@@ -58,6 +57,7 @@ else:
 encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
 decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
 
+use_TPU = config['lp_detection']['use_tpu']
 
 time.sleep(1)
 

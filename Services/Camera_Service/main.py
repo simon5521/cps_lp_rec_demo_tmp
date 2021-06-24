@@ -44,7 +44,7 @@ encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffe
 data = None
 debug = True
 validdata = True
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(config['camera']['source'])
 
 while True:
 

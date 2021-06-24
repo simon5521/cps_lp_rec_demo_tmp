@@ -1,4 +1,10 @@
 {
-    "protocol": "DDS",
-    "mqtt_host": "192.168.0.207"
+    "protocol": "MQTT",
+    "mqtt_host": "mqtt-broker",
+    "camera": {
+        "source": 0
+    },
+    "lp_detection": {
+        "use_tpu": true
+    }
 }

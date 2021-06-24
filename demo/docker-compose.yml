@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+    restart: unless-stopped
+
+  demo-camera:
+    build:
+      context: ../Services
+      dockerfile: camera_service_demo.Dockerfile
+    volumes:
+      - ./video:/video
+      - ./config.json:/config.json
+    restart: unless-stopped
+    entrypoint: ["python3", "main.py"]
+
+  lp-detection:
+    build:
+      context: ../Services
+      dockerfile: lp_detection_service.Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ./config.json:/config.json
+    privileged: true
+    restart: unless-stopped
+    entrypoint: ["python3", "main.py"]
