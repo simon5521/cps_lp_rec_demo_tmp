@@ -1,3 +1,4 @@
+Cython
 pytz>=2018.7
 typing>=3.6.2
 rfc3339>=6.0
