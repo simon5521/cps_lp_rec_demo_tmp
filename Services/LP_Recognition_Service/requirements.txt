@@ -12,9 +12,7 @@ paho-mqtt
 Pillow
 torch
 torchvision>=0.5
-numpy
 scikit-image
 python-bidi
 PyYAML
 easyocr
-influxdb
