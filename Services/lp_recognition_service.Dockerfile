@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/l4t-base:r32.5.0 AS PYTHON_STAGE
 
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
-    python3-dev python3-pip python3-setuptools
+    python3.7-dev python3-pip python3-setuptools
 
 RUN pip3 -q install pip --upgrade
 
