@@ -1,8 +1,13 @@
 FROM nvcr.io/nvidia/l4t-base:r32.5.0 AS PYTHON_STAGE
 
+RUN apt update && apt install -y locales locales-all
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
-    python3.7-dev python3-pip python3-setuptools
+    python3.7 python3.7-dev python3.7-pip python3.7-setuptools
 
 RUN pip3 -q install pip --upgrade
 
@@ -45,10 +50,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 FROM PIP_STAGE AS lp_recognition_service_pc_gpu
 
-RUN apt update && apt install -y locales locales-all
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
 
 COPY ./LP_Recognition_Service/lp3.jpeg .
 COPY ./LP_Recognition_Service/easy_ocr_test.py .
