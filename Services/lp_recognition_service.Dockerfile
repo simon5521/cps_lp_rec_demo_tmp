@@ -1,4 +1,4 @@
-FROM l4t-base AS PYTHON_STAGE
+FROM nvcr.io/nvidia/l4t-base:r32.5.0 AS PYTHON_STAGE
 
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
