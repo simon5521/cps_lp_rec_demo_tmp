@@ -39,14 +39,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
-RUN pip install torch torchvision -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+RUN pip3 install torch torchvision -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
 COPY ./LP_Recognition_Service/requirements2 .
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    pip install -r requirements2
+    pip3 install -r requirements2
 
 FROM PIP_STAGE AS lp_recognition_service_pc_gpu
 
