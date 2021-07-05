@@ -34,7 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
-RUN pip install torch torchvision torchaudio -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+RUN pip install torch -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
