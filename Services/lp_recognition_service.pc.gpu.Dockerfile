@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.2.1-base-ubuntu18.04 AS PYTHON_STAGE
+#FROM nvidia/cuda:11.2.1-base-ubuntu18.04 AS PYTHON_STAGE
+FROM nvidia/cuda:10.1-base-ubuntu18.04 AS PYTHON_STAGE
 
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
@@ -32,12 +33,16 @@ RUN apt-get update \
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && apt-get install python3-opencv -y
 
-FROM CV2_STAGE AS PIP_STAGE
+FROM CV2_STAGE AS  PYTORCH_STAGE
+
+RUN pip install torch torchvision torchaudio -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+
+FROM PYTORCH_STAGE AS PIP_STAGE
 
 COPY ./LP_Recognition_Service/requirements.txt .
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    pip install -r requirements.txt
+    pip install -r requirements2
 
 FROM PIP_STAGE AS lp_recognition_service_pc_gpu
 
