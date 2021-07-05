@@ -9,10 +9,12 @@ RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
     python3.7 python3.7-dev python3-pip python3-setuptools
 
-RUN pip3 -q install pip --upgrade
-RUN python3 -m pip install --upgrade pip
 
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1
+
+#RUN pip3 -q install pip --upgrade
+RUN python3 -m pip install --upgrade pip
+
 
 RUN python3 --version
 
