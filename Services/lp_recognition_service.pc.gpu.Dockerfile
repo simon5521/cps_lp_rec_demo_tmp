@@ -1,7 +1,13 @@
-#FROM nvidia/cuda:11.2.1-base-ubuntu18.04 AS PYTHON_STAGE
 FROM nvidia/cuda:10.1-base-ubuntu18.04 AS PYTHON_STAGE
 
-RUN apt update && apt install -y --no-install-recommends \
+
+RUN apt-get update && apt-get install -y --no-install-recommends git
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    python3-dev python3-pip python3-setuptools
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git build-essential \
     python3-dev python3-pip python3-setuptools
 
