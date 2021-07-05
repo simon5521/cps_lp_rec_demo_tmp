@@ -13,6 +13,8 @@ RUN apt update && apt install -y --no-install-recommends \
 
 RUN pip3 -q install pip --upgrade
 
+RUN python3 --version
+
 FROM PYTHON_STAGE AS CV2_STAGE
 
 
