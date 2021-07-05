@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.1-base-ubuntu18.04 AS PYTHON_STAGE
+FROM l4t-base AS PYTHON_STAGE
 
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
