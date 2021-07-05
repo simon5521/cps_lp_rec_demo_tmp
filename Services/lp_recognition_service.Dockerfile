@@ -11,7 +11,7 @@ RUN apt update && apt install -y --no-install-recommends \
 
 RUN pip3 -q install pip --upgrade
 
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 1
 
 RUN python3 --version
 
