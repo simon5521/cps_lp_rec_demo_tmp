@@ -1,4 +1,3 @@
-#FROM nvidia/cuda:11.2.1-base-ubuntu18.04 AS PYTHON_STAGE
 FROM nvidia/cuda:10.1-base-ubuntu18.04 AS PYTHON_STAGE
 
 RUN apt update && apt install -y --no-install-recommends \
