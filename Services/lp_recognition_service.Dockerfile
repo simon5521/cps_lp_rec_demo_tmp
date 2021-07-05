@@ -38,7 +38,7 @@ RUN pip install torch -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
-COPY ./LP_Recognition_Service/requirements.txt .
+COPY ./LP_Recognition_Service/requirements2 .
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     pip install -r requirements2
