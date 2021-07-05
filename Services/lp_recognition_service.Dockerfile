@@ -7,7 +7,7 @@ ENV LANGUAGE en_US.UTF-8
 
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
-    python3.7 python3.7-dev python3.7-pip python3.7-setuptools
+    python3.7 python3.7-dev python3-pip python3-setuptools
 
 RUN pip3 -q install pip --upgrade
 
