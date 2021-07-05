@@ -12,7 +12,6 @@ pinform
 rticonnextdds_connector
 paho-mqtt
 Pillow
-torchvision>=0.5
 scikit-image
 python-bidi
 PyYAML
