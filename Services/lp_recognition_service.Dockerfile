@@ -5,6 +5,8 @@ ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
+RUN apt update && apt remove -y --purge python3.6
+
 RUN apt update && apt install -y --no-install-recommends \
     git build-essential \
     python3.7 python3.7-dev python3-pip python3-setuptools
