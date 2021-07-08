@@ -4,7 +4,6 @@ pytz
 typing
 rfc3339
 numpy
-pandas
 influxdb
 six
 python_dateutil
