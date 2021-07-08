@@ -45,7 +45,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update && apt-get install -y python3-opencv && apt install python-opencv
+    apt-get update && apt-get install -y python3-opencv
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
@@ -55,7 +55,7 @@ FROM CV2_STAGE AS  PYTORCH_STAGE
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
-RUN apt update && apt install -y python3-skimage
+RUN apt update && apt install -y python3-skimage && apt install python-opencv
 
 RUN python3 -m pip install scikit-build
 COPY ./LP_Recognition_Service/requirements2 .
