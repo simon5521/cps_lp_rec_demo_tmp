@@ -54,7 +54,7 @@ FROM CV2_STAGE AS  PYTORCH_STAGE
 
 
 FROM PYTORCH_STAGE AS PIP_STAGE
-RUN python3 -m pip install scikit-buil
+RUN python3 -m pip install scikit-build
 COPY ./LP_Recognition_Service/requirements2 .
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
