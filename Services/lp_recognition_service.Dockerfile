@@ -1,7 +1,7 @@
 ARG BASE_IMG=nvcr.io/nvidia/l4t-pytorch:r32.5.0-pth1.7-py3
 #ARG BASE_IMG=nvcr.io/nvidia/l4t-base:r32.5.0
 
-FROM  BASE_IMG AS PYTHON_STAGE
+FROM  ${BASE_IMG} AS PYTHON_STAGE
 
 RUN apt update && apt install -y locales locales-all
 ENV LC_ALL en_US.UTF-8
