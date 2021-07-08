@@ -46,7 +46,40 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
-RUN python3 -m pip install torch torchvision -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+#RUN python3 -m pip install torch torchvision -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+
+ARG PYTORCH_URL=https://nvidia.box.com/shared/static/lufbgr3xu2uha40cs9ryq1zn4kxsnogl.whl
+ARG PYTORCH_WHL=torch-1.2.0-cp36-cp36m-linux_aarch64.whl
+
+RUN wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
+    pip3 install ${PYTORCH_WHL} --verbose && \
+    rm ${PYTORCH_WHL}
+
+
+#
+# torchvision 0.4
+#
+ARG TORCHVISION_VERSION=v0.4.0
+ARG PILLOW_VERSION=pillow<7
+ARG TORCH_CUDA_ARCH_LIST="5.3;6.2;7.2"
+
+RUN printenv && echo "torchvision version = $TORCHVISION_VERSION" && echo "pillow version = $PILLOW_VERSION" && echo "TORCH_CUDA_ARCH_LIST = $TORCH_CUDA_ARCH_LIST"
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+		  git \
+		  build-essential \
+            libjpeg-dev \
+		  zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone -b ${TORCHVISION_VERSION} https://github.com/pytorch/vision torchvision && \
+    cd torchvision && \
+    python3 setup.py install && \
+    cd ../ && \
+    rm -rf torchvision && \
+    pip3 install "${PILLOW_VERSION}"
+
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
