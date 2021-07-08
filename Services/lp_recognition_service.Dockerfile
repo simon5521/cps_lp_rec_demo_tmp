@@ -45,7 +45,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update && apt-get install -y python3-opencv
+    apt-get update && apt-get install -y python3-opencv && apt install python-opencv
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
