@@ -11,7 +11,7 @@ python_dateutil
 pinform
 rticonnextdds_connector
 paho-mqtt
-Pillow
+Pillow<7
 scikit-image
 python-bidi
 PyYAML
