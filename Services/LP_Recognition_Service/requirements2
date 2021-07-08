@@ -10,7 +10,6 @@ python_dateutil
 pinform
 rticonnextdds_connector
 paho-mqtt
-scikit-image
 python-bidi
 PyYAML
 easyocr
