@@ -46,7 +46,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
-RUN pip3 install torch torchvision -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
+RUN python3 -m pip3 install torch torchvision -f https://download.pytorch.org/whl/lts/1.8/torch_lts.html
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
