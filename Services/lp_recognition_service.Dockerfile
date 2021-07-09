@@ -59,8 +59,8 @@ FROM CV2_STAGE AS  PYTORCH_STAGE
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
-# RUN apt update && apt install -y python3-skimage && apt install -y python-opencv
-RUN python3 -m pip install --no-cache-dir -U scikit-image
+RUN apt update && apt install -y python3-skimage #  && apt install -y python-opencv
+RUN python3 -m pip install --upgrade scikit-image
 RUN python3 -m pip install scikit-build
 COPY ./LP_Recognition_Service/requirements2 .
 
