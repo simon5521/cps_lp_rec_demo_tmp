@@ -1,4 +1,4 @@
-ARG BASE_IMG=nvcr.io/nvidia/l4t-pytorch:r32.5.0-pth1.6-py3
+ARG BASE_IMG=nvcr.io/nvidia/l4t-ml:r32.5.0-py3
 #ARG BASE_IMG=nvcr.io/nvidia/l4t-base:r32.5.0
 
 FROM  ${BASE_IMG} AS PYTHON_STAGE
@@ -48,8 +48,8 @@ RUN apt-get update \
         libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/*
 
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get update && apt-get install -y python3-opencv
+#RUN export DEBIAN_FRONTEND=noninteractive && \
+#    apt-get update && apt-get install -y python3-opencv
 
 FROM CV2_STAGE AS  PYTORCH_STAGE
 
@@ -59,7 +59,7 @@ FROM CV2_STAGE AS  PYTORCH_STAGE
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
-RUN apt update && apt install -y python3-skimage && apt install -y python-opencv
+RUN apt update && apt install -y python3-skimage # && apt install -y python-opencv
 
 RUN python3 -m pip install scikit-build
 COPY ./LP_Recognition_Service/requirements2 .
