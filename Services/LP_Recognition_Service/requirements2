@@ -1,0 +1,15 @@
+PyHamcrest
+Cython
+pytz
+typing
+rfc3339
+numpy
+influxdb
+six
+python_dateutil
+pinform
+rticonnextdds_connector
+paho-mqtt
+python-bidi
+PyYAML
+easyocr

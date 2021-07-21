@@ -1,3 +1,4 @@
+Cython
 pytz>=2018.7
 typing>=3.6.2
 rfc3339>=6.0
@@ -12,9 +13,7 @@ paho-mqtt
 Pillow
 torch
 torchvision>=0.5
-numpy
 scikit-image
 python-bidi
 PyYAML
 easyocr
-influxdb

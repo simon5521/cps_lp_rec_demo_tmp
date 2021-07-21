@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run -v /dev/bus/usb:/dev/bus/usb --runtime nvidia --network="host" --privileged lp_recognition_service:initial
