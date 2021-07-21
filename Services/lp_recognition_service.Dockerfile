@@ -72,10 +72,12 @@ FROM PIP_STAGE AS lp_recognition_service_pc_gpu
 
 COPY ./LP_Recognition_Service/lp3.jpeg .
 COPY ./LP_Recognition_Service/easy_ocr_test.py .
+COPY ./LP_Recognition_Service/main.py .
+COPY ./DDS_config.xml ./videoUtils/DDS_config.xml
+COPY . .
 
 
-
-CMD ["python3", "./easy_ocr_test.py"]
+CMD ["python3", "./main.py"]
 
 
 

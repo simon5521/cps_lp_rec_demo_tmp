@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 import time
 import re
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from torch.distributions.utils import lazy_property
 from multiprocessing import Process, Queue
 
@@ -24,6 +24,7 @@ import uuid
 import rticonnextdds_connector as rti
 
 from videoUtils.mqtt_streamer import start_mqtt_streamer
+
 
 print("server has been started")
 
@@ -64,7 +65,9 @@ def image_preprocess(img):
 
 def lp_rec_proc(lp_queue,diag_queue):
     lp=""
+    print("initializing easy ocr reader")
     reader = easyocr.Reader(['en'])
+    print("easy ocr reader is initialized")
     while True:
         try:
             frame=lp_queue.get(True,20)['pixels']
