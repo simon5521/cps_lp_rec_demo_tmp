@@ -19,6 +19,7 @@ import cv2
 import numpy as np
 from numpy import record
 
+sys.path.append('.')
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_encoder
 from videoUtils.mqtt_streamer import start_mqtt_streamer
