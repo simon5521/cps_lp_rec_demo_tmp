@@ -4,7 +4,7 @@ import rticonnextdds_connector as rti
 from multiprocessing import Process, Queue
 import datetime
 
-dds_logging_output_buffer = Queue(3)
+dds_logging_output_buffer = Queue(10)
 TIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
 
 def start_publisher(host_id, service_type, config_xml, domain_participant_pub, data_writer):

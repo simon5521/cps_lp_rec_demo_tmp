@@ -4,7 +4,7 @@ import os
 import sys
 
 
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 import carla
 
@@ -19,7 +19,6 @@ import cv2
 import numpy as np
 from numpy import record
 
-sys.path.append('.')
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_encoder
 from videoUtils.mqtt_streamer import start_mqtt_streamer
@@ -29,7 +28,6 @@ record=False
 out=0
 k=0
 
-carla_loc="/mnt/sdcard/carla/carla/"
 
 x=246
 y=-166
@@ -136,10 +134,10 @@ if __name__ == '__main__':
             print("carla has been already started")
 
         print("load Town4")
-        os.system("python3 "+"carla_loc"+"PythonAPI/util/config.py --map Town04")
+        os.system("python3 /opt/carla-simulator/PythonAPI/util/config.py --map Town04")
 
         print("start Sumo")
-        os.system("cd "+"carla_loc"+"Co-Simulation/Sumo && python3 run_synchronization.py examples/Town04.sumocfg --sumo-gui > ~/Documents/sumolog.txt &")
+        os.system("cd /opt/carla-simulator/Co-Simulation/Sumo && python3 run_synchronization.py examples/Town04.sumocfg --sumo-gui > ~/Documents/sumolog.txt &")
         print("start camera client")
         time.sleep(10.0)
         client=carla.Client('localhost',2000)
