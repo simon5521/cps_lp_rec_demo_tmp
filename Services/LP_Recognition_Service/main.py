@@ -95,7 +95,14 @@ def lp_rec_proc(lp_queue,diag_queue):
                                 'time': time.time(),
                                 'data': str(rectime_s)})
 
-            lp=re.findall(lp_pattern,text)
+            for r in result:
+                text = r[1]
+                text = re.sub(r'[^a-zA-Z0-9-]', '', text)
+                if len(text) > 5 and len(text) < 9:
+                    print("LP found:", text)
+                    break
+            lp=text
+            #lp=re.findall(lp_pattern,text)
             if len(lp)>0 :
                 lp_num=lp[0]
                 #save_lp(lp_num)

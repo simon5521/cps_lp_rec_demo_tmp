@@ -9,8 +9,8 @@ from influxdb import InfluxDBClient
 def main(host='localhost', port=8086):
     print("""Instantiate a connection to the InfluxDB.""")
     """Instantiate a connection to the InfluxDB."""
-    user = 'root'
-    password = 'root'
+    user = 'admin'
+    password = 'LaborImage'
     dbname = 'example'
     dbuser = 'smly'
     dbuser_password = 'my_secret_password'
