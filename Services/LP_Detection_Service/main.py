@@ -155,7 +155,7 @@ def detect(input_data):
     return boxes, classes, scores
 
 
-def DrawBoxesandSendCroppedImages(boxes, classes, scores, data):
+def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
     frame = data['pixels'].copy()
     height, width, channels = frame.shape
     x_ofs = int(( frame.shape[1]-frame.shape[0])/2)
@@ -204,10 +204,14 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data):
             }
 
             try:
-                encoder_input_buffer.put_nowait(data)
+                output_buffer.put_nowait(data)
+                print('asd')
             except:
-                encoder_input_buffer.get()
-                encoder_input_buffer.put(data)
+                try:
+                    output_buffer.get_nowait()
+                except:
+                    pass
+                output_buffer.put(data)
                 #videoUtils.db_manager.save_car_det_loss()
                 logging_buffer.put({'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'})
 
@@ -235,7 +239,7 @@ try:
         boxes, classes, scores = detect(input_data)
 
         frame = DrawBoxesandSendCroppedImages(
-            boxes, classes, scores, data)
+            boxes, classes, scores, data, encoder_input_buffer)
 
         # Draw framerate in corner of frame
         cv2.putText(frame, 'FPS: {0:.2f}'.format(
