@@ -4,7 +4,7 @@ import os
 import sys
 
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 import carla
 
@@ -19,9 +19,12 @@ import cv2
 import numpy as np
 from numpy import record
 
+sys.path.append('.')
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_encoder
 from videoUtils.mqtt_streamer import start_mqtt_streamer
+
+carla_ip="192.168.1.10"
 
 debug=True
 record=False
@@ -63,8 +66,8 @@ def process_img(image):
     i = np.array(image.raw_data)  # convert to an array
     i2 = i.reshape((IM_HEIGHT, IM_WIDTH, 4))  # was flattened, so we're going to shape it.
     i3 = i2[:, :, :3]  # remove the alpha (basically, remove the 4th index  of every pixel. Converting RGBA to RGB)
-    cv2.imshow("", i3)  # show it.
-    cv2.waitKey(1)
+    #cv2.imshow("", i3)  # show it.
+    #cv2.waitKey(1)
     k=k+1
     if record and k<30*120 and record:
         # write the flipped frame
@@ -121,7 +124,7 @@ if __name__ == '__main__':
     actor_list = []
     try:
 
-        if not is_port_in_use(2000):
+        if False : # not is_port_in_use(2000):
 
             print("start carla")
             os.system("DISPLAY= /opt/carla-simulator/CarlaUE4.sh -opengl -quality-level=Epic > ~/Documents/carlalog.txt &")
@@ -134,13 +137,13 @@ if __name__ == '__main__':
             print("carla has been already started")
 
         print("load Town4")
-        os.system("python3 /opt/carla-simulator/PythonAPI/util/config.py --map Town04")
-
+        os.system("python3 ~/carla/carla/PythonAPI/util/config.py --host "+carla_ip+" --map Town04")
+        time.sleep(10.0)
         print("start Sumo")
-        os.system("cd /opt/carla-simulator/Co-Simulation/Sumo && python3 run_synchronization.py examples/Town04.sumocfg --sumo-gui > ~/Documents/sumolog.txt &")
+        os.system("cd ~/carla/carla/PythonAPI/examples && python3 spawn_npc.py -n 200 --host "+carla_ip+" > ~/Documents/sumolog.txt &")
         print("start camera client")
         time.sleep(10.0)
-        client=carla.Client('localhost',2000)
+        client=carla.Client(carla_ip,2000)
         print("get world")
         world = client.get_world()
         print("get world")

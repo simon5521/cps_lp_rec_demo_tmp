@@ -9,9 +9,10 @@ import cv2
 import numpy as np
 import time
 import re
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from torch.distributions.utils import lazy_property
 from multiprocessing import Process, Queue
+from queue import Full
 
 
 from videoUtils.DDS_streamer import start_dds_streamer
@@ -24,6 +25,7 @@ import uuid
 import rticonnextdds_connector as rti
 
 from videoUtils.mqtt_streamer import start_mqtt_streamer
+
 
 print("server has been started")
 
@@ -64,7 +66,9 @@ def image_preprocess(img):
 
 def lp_rec_proc(lp_queue,diag_queue):
     lp=""
+    print("initializing easy ocr reader")
     reader = easyocr.Reader(['en'])
+    print("easy ocr reader is initialized")
     while True:
         try:
             frame=lp_queue.get(True,20)['pixels']
@@ -75,6 +79,7 @@ def lp_rec_proc(lp_queue,diag_queue):
         # pytessercat
         #frame=image_preprocess(frame)
         #text = pytesseract.image_to_string(frame, config=config)
+        text=''
         try:
             result = reader.readtext(frame)
             print(result)
@@ -90,7 +95,14 @@ def lp_rec_proc(lp_queue,diag_queue):
                                 'time': time.time(),
                                 'data': str(rectime_s)})
 
-            lp=re.findall(lp_pattern,text)
+            for r in result:
+                text = r[1]
+                text = re.sub(r'[^a-zA-Z0-9-]', '', text)
+                if len(text) > 5 and len(text) < 9:
+                    print("LP found:", text)
+                    break
+            lp=text
+            #lp=re.findall(lp_pattern,text)
             if len(lp)>0 :
                 lp_num=lp[0]
                 #save_lp(lp_num)
@@ -105,11 +117,11 @@ def lp_rec_proc(lp_queue,diag_queue):
         except:
             print("No LP found",result)
 
-
         try:
-            diag_queue.put((frame,text),False)
-        except:
-            print("diag error")
+            diag_queue.put_nowait((frame,text))
+        except Full:
+            print("-------------------------------------------------")
+            print("diag error: Full")
             continue
 
 
@@ -132,11 +144,11 @@ if __name__ == '__main__':
     diag_queue=Queue(1)
     print("creating processes")
     p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
-    p_rec_2 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
-    p_rec_3 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
-    p_rec_4 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
-    p_rec_5 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
-    p_rec_6 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    #p_rec_2 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    #p_rec_3 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    #p_rec_4 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    #p_rec_5 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    #p_rec_6 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     print("starting processes")
     p_rec_1.start()
     #time.sleep(0.3)
@@ -155,11 +167,15 @@ if __name__ == '__main__':
 
     while True:
         frame,text=diag_queue.get()
+        print('>>>>getframe for diag>>>>>')
         h,w,c=frame.shape
         frame=cv2.resize(frame,(w*4,h*4))
         frame=cv2.rectangle(frame,(0,0),(w*3,30),(255,255,255),-1)
         frame=cv2.putText(frame,text,org=(10,27),fontFace=1,fontScale=2,color=(0,50,150),thickness=2)
+
         cv2.imshow("Output",frame)
+        print('>>>>putframe for diag>>>>')
         cv2.waitKey(1)
+        print('>>>>end>>>>')
 
 

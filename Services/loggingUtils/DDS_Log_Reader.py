@@ -7,9 +7,13 @@ from influxdb import InfluxDBClient
 
 DEBUG=True
 
-client = InfluxDBClient(host='localhost', port=8086, database='smartcity')
-client.create_database('smartcity')
-client.switch_database('smartcity')
+db_name='smartcity'
+db_port=8086
+db_ip='localhost'
+
+client = InfluxDBClient(host=db_ip, port=db_port, database=db_name)
+client.create_database(db_name)
+client.switch_database(db_port)
 
 
 
@@ -32,7 +36,7 @@ def start_subscriber(config_xml, domain_participant_sub, data_reader):
                 if DEBUG:
                     print(data)
 
-                client.write(data,{'db':"smartcity"},204,'json')
+                client.write(data,{'db':db_name},204,'json')
 
 
 def start_dds_log_reader(config_xml = "DDS_config.xml", domain_participant_sub = "MyParticipantLibrary::ImageSubParticipant", data_reader = "MySubscriber::LogReader"):

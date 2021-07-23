@@ -59,8 +59,8 @@ FROM CV2_STAGE AS  PYTORCH_STAGE
 
 FROM PYTORCH_STAGE AS PIP_STAGE
 
-RUN apt update && apt install -y python3-skimage #  && apt install -y python-opencv
-RUN python3 -m pip install --upgrade scikit-image
+#RUN apt update && apt install -y python3-skimage #  && apt install -y python-opencv
+RUN python3 -m pip install  scikit-image  --no-cache-dir -vvv --no-compile
 RUN python3 -m pip install scikit-build
 COPY ./LP_Recognition_Service/requirements2 .
 
@@ -72,10 +72,12 @@ FROM PIP_STAGE AS lp_recognition_service_pc_gpu
 
 COPY ./LP_Recognition_Service/lp3.jpeg .
 COPY ./LP_Recognition_Service/easy_ocr_test.py .
+COPY ./LP_Recognition_Service/main.py .
+COPY ./DDS_config.xml ./videoUtils/DDS_config.xml
+COPY . .
 
 
-
-CMD ["python3", "./easy_ocr_test.py"]
+CMD ["python3", "./main.py"]
 
 
 
