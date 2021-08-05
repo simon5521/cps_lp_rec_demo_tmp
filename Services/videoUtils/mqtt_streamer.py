@@ -47,6 +47,7 @@ def start_telemetry_publisher(host_id, broker, port, topic_sub, username, passwo
     if(username != None):
         client.username_pw_set(username, password)
     client.connect(broker, port)
+    client.loop_start()
     while True:
         data = {'qsize': input_buffer.qsize(),
                 'topic': f'{topic_sub}-{host_id}'}
@@ -107,6 +108,7 @@ def start_publisher(host_id, broker, port, topic_pub, username, password, output
     client.connect(broker, port)
     topic = None
     last_update_time = 0
+    client.loop_start()
     while True:
         try:
             telemetry = telemetry_buffer.get_nowait()
