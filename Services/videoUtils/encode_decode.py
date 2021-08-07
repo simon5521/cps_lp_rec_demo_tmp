@@ -8,29 +8,30 @@ import numpy as np
 
 def encode_immage(encoder_input_buffer, encoder_output_buffer, logging_buffer):
     while(True):
-        frame = encoder_input_buffer.get()
-        _, numpy_jpeg_array = cv2.imencode('.jpg', frame['pixels'], [
+        data = encoder_input_buffer.get()
+        _, numpy_jpeg_array = cv2.imencode('.jpg', data['pixels'], [
                                            int(cv2.IMWRITE_JPEG_QUALITY), 30])
         im_bytes = numpy_jpeg_array.tobytes()
         im_b64 = base64.b64encode(im_bytes)
         base64_message = im_b64.decode('ascii')
 
-        frame['pixels'] = base64_message
+        data['pixels'] = base64_message
 
-        encoder_output_buffer.put(frame)
+        encoder_output_buffer.put(data)
 
 
 def decode_immage(decoder_input_buffer, decoder_output_buffer, logging_buffer):
     while True:
-        frame = decoder_input_buffer.get()
+        data = decoder_input_buffer.get()
 
-        base64_message = frame['pixels']
+        base64_message = data['pixels']
         im_b64 = base64_message.encode('ascii')
         im_bytes = base64.b64decode(im_b64)
-        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
-        frame['pixels'] = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+        # im_arr is one-dim Numpy array
+        im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
+        image = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        decoder_output_buffer.put(frame)
+        decoder_output_buffer.put({'data': data, 'image': image})
 
 
 def start_encoder(encoder_output_buffer, encoder_input_buffer_size=10, logging_buffer=None):

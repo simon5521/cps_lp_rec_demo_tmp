@@ -1,22 +1,21 @@
 #!/usr/bin/python3
 import importlib.util
+import json
 import os
 import sys
 import time
 import uuid
-import json
 
 import cv2
 import numpy as np
 
 sys.path.append('.')
+from loggingUtils.DDS_Logging import start_dds_logger
 from videoUtils.DDS_streamer import start_dds_streamer
 from videoUtils.encode_decode import start_decoder, start_encoder
 from videoUtils.mjpeg_streamer import start_mjpeg_server
-from loggingUtils.DDS_Logging import start_dds_logger
 from videoUtils.mqtt_streamer import start_mqtt_streamer
 
-# pip3 install https://dl.google.com/coral/python/tflite_runtime-2.1.0.post1-cp37-cp37m-linux_armv7l.whl
 
 MODEL_NAME = 'LP_Detection_Service/ssd_mobilenet_v2_quantized_TFLite_model'
 GRAPH_NAME = 'detect.tflite'
@@ -26,7 +25,7 @@ min_conf_threshold = float(0.75)
 headlessMode = True
 
 base_path = 'LP_Detection_Service/'
-with open( base_path + 'nodeid.json') as json_file:
+with open(base_path + 'nodeid.json') as json_file:
     nodeid = json.load(json_file)['nodeid']
 if nodeid == '':
     nodeid = str(uuid.uuid1())
@@ -44,7 +43,8 @@ with open('config.json') as json_file:
     config = json.load(json_file)
 
 if config['protocol'] == 'MQTT':
-    streamer_input_buffer, streamer_output_buffer = start_mqtt_streamer(nodeid, broker = config['mqtt_host'], port = 1883, topic_pub = 'detected_image', topic_sub = 'raw_image', logging_buffer=logging_buffer)
+    streamer_input_buffer, streamer_output_buffer = start_mqtt_streamer(
+        nodeid, broker=config['mqtt_host'], port=1883, topic_pub='detected_image', topic_sub='raw_image', logging_buffer=logging_buffer)
 else:
 
     streamer_input_buffer, streamer_output_buffer = start_dds_streamer(
@@ -53,9 +53,11 @@ else:
         data_reader="MySubscriber::RawReader",
         input_buffer_size=10, output_buffer_size=10,
         logging_buffer=logging_buffer)
-        
-encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
-decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
+
+encoder_input_buffer = start_encoder(
+    streamer_output_buffer, encoder_input_buffer_size=10, logging_buffer=logging_buffer)
+decoder_output_buffer = start_decoder(
+    streamer_input_buffer, decoder_output_buffer_size=10, logging_buffer=logging_buffer)
 
 use_TPU = config['lp_detection']['use_tpu']
 
@@ -127,7 +129,7 @@ freq = cv2.getTickFrequency()
 def preprocessImage(image):
     # Acquire frame and resize to expected shape [1xHxWx3]
     frame = image.copy()
-    x_ofs = int(( frame.shape[1]-frame.shape[0])/2)
+    x_ofs = int((frame.shape[1]-frame.shape[0])/2)
     if x_ofs > 0:
         frame = frame[0:, x_ofs:-x_ofs]
     frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -156,9 +158,10 @@ def detect(input_data):
 
 
 def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
-    frame = data['pixels'].copy()
+    frame = data['image'].copy()
+    data['data']['licence_plate'] = []
     height, width, channels = frame.shape
-    x_ofs = int(( frame.shape[1]-frame.shape[0])/2)
+    x_ofs = int((frame.shape[1]-frame.shape[0])/2)
     # Loop over all detections and draw detection box if confidence is above minimum threshold
     for i in range(len(scores)):
         if ((scores[i] > min_conf_threshold) and (scores[i] <= 1.0)):
@@ -187,33 +190,26 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
             cv2.putText(frame, label, (xmin, label_ymin-7),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)  # Draw label text
 
-            # send cropped images
-            cut_factor = 0.3 / 2
-            v_cut = (ymax - ymin) * cut_factor
-            h_cut = (xmax - xmin) * cut_factor
-            h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
+            data['data']['licence_plate'].append({
+                'position': {
+                    'ymin': ymin,
+                    'xmin': xmin,
+                    'ymax': ymax,
+                    'xmax': xmax
+                }
+            })
 
-            croppedframe = frame[int(
-                ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
-            data['pixels'] = croppedframe
-            data['position'] = {
-                'ymin': ymin,
-                'xmin': xmin,
-                'ymax': ymax,
-                'xmax': xmax
-            }
-
-            try:
-                output_buffer.put_nowait(data)
-                print('asd')
-            except:
-                try:
-                    output_buffer.get_nowait()
-                except:
-                    pass
-                output_buffer.put(data)
-                #videoUtils.db_manager.save_car_det_loss()
-                logging_buffer.put({'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'})
+    try:
+        output_buffer.put_nowait(data['data'])
+    except:
+        try:
+            output_buffer.get_nowait()
+        except:
+            pass
+        output_buffer.put(data['data'])
+        # videoUtils.db_manager.save_car_det_loss()
+        logging_buffer.put({'measurement': 'detection_loss', 'component': 'detector',
+                           'time': time.time(), 'data': 'streamer_output_buffer'})
 
     return frame
 
@@ -221,15 +217,15 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
 try:
     while True:
         data = decoder_output_buffer.get()
-        data['cameraid'] = int(data["source"])
+        data['data']['cameraid'] = int(data['data']["source"])
 
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()
 
-        frame = data["pixels"]
+        frame = data['image']
 
         readtime = cv2.getTickCount() - t1
-        #videoUtils.db_manager.save_det_net_dly(readtime)
+        # videoUtils.db_manager.save_det_net_dly(readtime)
         #logging_buffer.put({'measurement': 'net_delay', 'component': 'detector', 'data': str(readtime)})
 
         t1 = cv2.getTickCount()
@@ -239,14 +235,14 @@ try:
         boxes, classes, scores = detect(input_data)
 
         frame = DrawBoxesandSendCroppedImages(
-            boxes, classes, scores, data, encoder_input_buffer)
+            boxes, classes, scores, data, streamer_output_buffer)
 
         # Draw framerate in corner of frame
         cv2.putText(frame, 'FPS: {0:.2f}'.format(
             frame_rate_calc), (30, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2, cv2.LINE_AA)
 
         try:
-            if data["debug"]:
+            if data['data']["debug"]:
                 camera_imageBuffer.put_nowait(frame)
         except:
             pass
@@ -257,7 +253,8 @@ try:
         frame_rate_calc = 1/time1
 
         # videoUtils.db_manager.save_det_rt(time1)
-        logging_buffer.put({'measurement': 'runtime', 'component': 'detector', 'data': str(time1)})
+        logging_buffer.put(
+            {'measurement': 'runtime', 'component': 'detector', 'data': str(time1)})
 
         if not headlessMode:
             cv2.imshow('Licence Plate Detector', frame)
