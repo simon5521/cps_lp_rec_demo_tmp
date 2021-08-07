@@ -17,13 +17,7 @@ def encode_immage(encoder_input_buffer, encoder_output_buffer, logging_buffer):
 
         frame['pixels'] = base64_message
 
-        try:
-            encoder_output_buffer.put_nowait(frame)
-        except:
-            encoder_output_buffer.get()
-            encoder_output_buffer.put(frame)
-            if logging_buffer != None:
-                logging_buffer.put({'measurement': '', 'component': 'encoder', 'data': 'encoder_output_buffer'})
+        encoder_output_buffer.put(frame)
 
 
 def decode_immage(decoder_input_buffer, decoder_output_buffer, logging_buffer):
@@ -36,13 +30,7 @@ def decode_immage(decoder_input_buffer, decoder_output_buffer, logging_buffer):
         im_arr = np.frombuffer(im_bytes, dtype=np.uint8)  # im_arr is one-dim Numpy array
         frame['pixels'] = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        try:
-            decoder_output_buffer.put_nowait(frame)
-        except:
-            decoder_output_buffer.get()
-            decoder_output_buffer.put(frame)
-            if logging_buffer != None:
-                logging_buffer.put({'measurement': '', 'component': 'encoder', 'data': 'decoder_output_buffer'})
+        decoder_output_buffer.put(frame)
 
 
 def start_encoder(encoder_output_buffer, encoder_input_buffer_size=10, logging_buffer=None):
