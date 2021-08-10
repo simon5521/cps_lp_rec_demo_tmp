@@ -1,6 +1,6 @@
 {
     "protocol": "MQTT",
-    "mqtt_host": "mqtt-broker",
+    "mqtt_host": "localhost",
     "camera": {
         "source": 0
     },

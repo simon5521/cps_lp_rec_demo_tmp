@@ -155,7 +155,7 @@ def detect(input_data):
     return boxes, classes, scores
 
 
-def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
+def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
     frame = data['pixels'].copy()
     height, width, channels = frame.shape
     x_ofs = int(( frame.shape[1]-frame.shape[0])/2)
@@ -187,30 +187,33 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, send=True):
             cv2.putText(frame, label, (xmin, label_ymin-7),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)  # Draw label text
 
-            if(send):
-                # send cropped images
-                cut_factor = 0.3 / 2
-                v_cut = (ymax - ymin) * cut_factor
-                h_cut = (xmax - xmin) * cut_factor
-                h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
+            # send cropped images
+            cut_factor = 0.3 / 2
+            v_cut = (ymax - ymin) * cut_factor
+            h_cut = (xmax - xmin) * cut_factor
+            h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
 
-                croppedframe = frame[int(
-                    ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
-                data['pixels'] = croppedframe
-                data['position'] = {
-                    'ymin': ymin,
-                    'xmin': xmin,
-                    'ymax': ymax,
-                    'xmax': xmax
-                }
+            croppedframe = frame[int(
+                ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
+            data['pixels'] = croppedframe
+            data['position'] = {
+                'ymin': ymin,
+                'xmin': xmin,
+                'ymax': ymax,
+                'xmax': xmax
+            }
 
+            try:
+                output_buffer.put_nowait(data)
+                print('asd')
+            except:
                 try:
-                    encoder_input_buffer.put_nowait(data)
+                    output_buffer.get_nowait()
                 except:
-                    encoder_input_buffer.get()
-                    encoder_input_buffer.put(data)
-                    #videoUtils.db_manager.save_car_det_loss()
-                    logging_buffer.put({'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'})
+                    pass
+                output_buffer.put(data)
+                #videoUtils.db_manager.save_car_det_loss()
+                logging_buffer.put({'measurement': 'detection_loss', 'component': 'detector', 'time': time.time(), 'data': 'encoder_input_buffer'})
 
     return frame
 
@@ -236,7 +239,7 @@ try:
         boxes, classes, scores = detect(input_data)
 
         frame = DrawBoxesandSendCroppedImages(
-            boxes, classes, scores, data, data["validdata"])
+            boxes, classes, scores, data, encoder_input_buffer)
 
         # Draw framerate in corner of frame
         cv2.putText(frame, 'FPS: {0:.2f}'.format(

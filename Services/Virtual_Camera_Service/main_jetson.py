@@ -143,10 +143,10 @@ if __name__ == '__main__':
             print("carla has been already started")
 
         print("load Town4")
-        os.system("python3 ~/carla/carla/PythonAPI/util/config.py --host "+carla_ip+" --map Town04")
+        os.system("python3 /mnt/sdcard/carla/carla/PythonAPI/util/config.py --host "+carla_ip+" --map Town04")
         time.sleep(10.0)
         print("start Sumo")
-        os.system("cd ~/carla/carla/PythonAPI/examples && python3 spawn_npc.py -n 200 --host "+carla_ip+" > ~/Documents/sumolog.txt &")
+        os.system("cd /mnt/sdcard/carla/carla/PythonAPI/examples && python3 spawn_npc.py -n 200 --host "+carla_ip+" > ~/Documents/sumolog.txt &")
         print("start camera client")
         time.sleep(10.0)
         client=carla.Client(carla_ip,2000)
