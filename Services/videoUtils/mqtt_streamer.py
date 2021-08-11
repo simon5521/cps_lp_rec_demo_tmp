@@ -75,7 +75,7 @@ def on_message_telemetry(client, userdata, message, host_id, telemetry_buffer, t
                     telemetry_buffer.get_nowait()
                 except:
                     pass
-                telemetry_buffer.put(telemetry_table[min_key])
+                mqtt_telemetry_buffer.put(telemetry_table[min_key])
             break
         if(len(telemetry_table.keys()) == 0):
             break
