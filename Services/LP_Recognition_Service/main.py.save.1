@@ -67,7 +67,7 @@ def image_preprocess(img):
 def lp_rec_proc(lp_queue,diag_queue):
     lp=""
     print("initializing easy ocr reader")
-    reader = easyocr.Reader(['en'])
+    reader = easyocr.Reader(['en'],)
     print("easy ocr reader is initialized")
     while True:
         try:
@@ -98,7 +98,7 @@ def lp_rec_proc(lp_queue,diag_queue):
             for r in result:
                 text = r[1]
                 text = re.sub(r'[^a-zA-Z0-9-]', '', text)
-                if len(text) >= 5 and len(text) < 9:
+                if len(text) > 5 and len(text) < 9:
                     print("LP found:", text)
                     break
             lp=text
@@ -117,12 +117,12 @@ def lp_rec_proc(lp_queue,diag_queue):
         except:
             print("No LP found",result)
 
-        #try:
-        #    diag_queue.put_nowait((frame,text))
-        #except Full:
-        #    print("-------------------------------------------------")
-        #    print("diag error: Full")
-        #    continue
+        try:
+            diag_queue.put_nowait((frame,text))
+        except Full:
+            print("-------------------------------------------------")
+            print("diag error: Full")
+            continue
 
 
 
@@ -143,15 +143,14 @@ if __name__ == '__main__':
     decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10)
     diag_queue=Queue(1)
     print("creating processes")
-    #p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_2 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_3 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_4 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_5 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_6 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     print("starting processes")
-    lp_rec_proc(decoder_output_buffer,diag_queue)
-    #p_rec_1.start()
+    p_rec_1.start()
     #time.sleep(0.3)
     #p_rec_2.start()
     #time.sleep(0.3)
@@ -174,9 +173,9 @@ if __name__ == '__main__':
         frame=cv2.rectangle(frame,(0,0),(w*3,30),(255,255,255),-1)
         frame=cv2.putText(frame,text,org=(10,27),fontFace=1,fontScale=2,color=(0,50,150),thickness=2)
 
-        #cv2.imshow("Output",frame)
+        cv2.imshow("Output",frame)
         print('>>>>putframe for diag>>>>')
-        #cv2.waitKey(1)
+        cv2.waitKey(1)
         print('>>>>end>>>>')
 
 

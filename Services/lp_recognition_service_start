@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -v /dev/bus/usb:/dev/bus/usb --runtime nvidia --network="host" --privileged lp_recognition_service:initial
+docker run -v /dev/bus/usb:/dev/bus/usb --runtime nvidia --network="host" --privileged  -v /mnt/sdcard/easyocr_model:/root/.EasyOCR//model/ --name lp-recognition-service lp_recognition_service:initial
