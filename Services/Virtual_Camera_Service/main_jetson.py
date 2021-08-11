@@ -63,7 +63,7 @@ yaw=186.2
 pitch=-5.4
 """
 
-def process_img(image):
+def process_img(image,si):
     global debug, k
     i = np.array(image.raw_data)  # convert to an array
     i2 = i.reshape((IM_HEIGHT, IM_WIDTH, 4))  # was flattened, so we're going to shape it.
@@ -79,8 +79,8 @@ def process_img(image):
         out.release()
         print("out release")
     try:
-        encoder_input_buffer.put_nowait(
-            {"pixels": i3, 'debug': debug, 'validdata': True},)
+        encoder_input_buffer[si].put_nowait(
+            {"pixels": i3, 'debug': True, 'validdata': True},)
     except:
         print("communication error: no reciever")
     return i3/255.0  # normalize
@@ -179,12 +179,12 @@ if __name__ == '__main__':
 
 
         print("listening")
-        for sensor in sensors:
-            sensor.listen(lambda data: process_img(data))
+        for i in range(nodenum):
+            sensors[i].listen(lambda data: process_img(data,i))
     except:
         print("error")
     while (1):
-        try:
+        """try:
             for i in range(nodenum):
                 data = streamer_input_buffer[i].get()
                 if data['debug'] == 'True':
@@ -192,6 +192,6 @@ if __name__ == '__main__':
                 if data['debug'] == 'False':
                     debug = False
         except:
-            pass
+            pass"""
         time.sleep(1.0)
 

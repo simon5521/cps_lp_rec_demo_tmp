@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 import time
 import re
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 from torch.distributions.utils import lazy_property
 from multiprocessing import Process, Queue
 from queue import Full
@@ -26,14 +26,6 @@ import rticonnextdds_connector as rti
 
 from videoUtils.mqtt_streamer import start_mqtt_streamer
 
-
-print("server has been started")
-
-nodeid = "recognition-pc"
-
-logging_buffer = start_dds_logger(nodeid, 'LP_Recognition')
-time.sleep(1)
-print("logger has been started")
 
 
 #url='http://192.168.0.73:8081/cam.mjpg'
@@ -59,8 +51,8 @@ def image_preprocess(img):
     kernel = np.ones((2, 2), np.uint8)
     #img = cv2.erode(img, kernel, iterations=1)
     #img = cv2.dilate(img, kernel, iterations=1)
-    #plt.imshow(gray)
-    #plt.show()
+    plt.imshow(gray)
+    plt.show()
     return img
 
 
@@ -71,51 +63,71 @@ def lp_rec_proc(lp_queue,diag_queue):
     print("easy ocr reader is initialized")
     while True:
         try:
-            frame=lp_queue.get(True,20)['pixels']
+            data=lp_queue.get(True,20)
+            print("new incoming image...")
         except:
             print("lp queue is empty, timeout happend")
             continue
-        t3 = time.time()
-        # pytessercat
-        #frame=image_preprocess(frame)
-        #text = pytesseract.image_to_string(frame, config=config)
-        text=''
-        try:
-            result = reader.readtext(frame)
-            print(result)
-            text = str(result[0][0][1])
-            print(text)
-            text = re.sub(r'[^a-zA-Z0-9-]', '', text)
-            text=text.upper()
-            t4 = time.time()
-            rectime_s=t4-t3
-            #save_rec_rt(rectime_s)
-            logging_buffer.put({'measurement': 'runtime',
-                                'component': 'recognition',
-                                'time': time.time(),
-                                'data': str(rectime_s)})
 
-            for r in result:
-                text = r[1]
+        image=data["image"]
+        data=data["data"]
+
+        for lp_data in data["licenseplate"]:
+
+            xmax=data["position"]["xmax"]
+            xmin=data["position"]["xmin"]
+            ymax=data["position"]["ymax"]
+            ymin=data["position"]["ymin"]
+
+            cut_factor = 0.3 / 2
+            v_cut = (ymax - ymin) * cut_factor
+            h_cut = (xmax - xmin) * cut_factor
+            h_cut2 = (ymax - ymin) * (cut_factor * 0.2)
+
+            frame=image[int(
+                ymin + v_cut):int(ymax - v_cut), int(xmin + h_cut):int(xmax - h_cut2)]
+            t3 = time.time()
+
+            # pytessercat
+            #frame=image_preprocess(frame)
+            #text = pytesseract.image_to_string(frame, config=config)
+            text=''
+            try:
+                result = reader.readtext(frame)
+                print(result)
+                text = str(result[0][0][1])
+                print(text)
                 text = re.sub(r'[^a-zA-Z0-9-]', '', text)
-                if len(text) > 5 and len(text) < 9:
-                    print("LP found:", text)
-                    break
-            lp=text
-            #lp=re.findall(lp_pattern,text)
-            if len(lp)>0 :
-                lp_num=lp[0]
-                #save_lp(lp_num)
-                logging_buffer.put({'measurement': 'detection_loss',
+                text=text.upper()
+                t4 = time.time()
+                rectime_s=t4-t3
+                #save_rec_rt(rectime_s)
+                """logging_buffer.put({'measurement': 'runtime',
                                     'component': 'recognition',
                                     'time': time.time(),
-                                    'data': lp_num})
+                                    'data': str(rectime_s)})"""
 
-                print("LP found: ", lp_num)
-            else:
-                print("No LP found",text)
-        except:
-            print("No LP found",result)
+                for r in result:
+                    text = r[1]
+                    text = re.sub(r'[^a-zA-Z0-9-]', '', text)
+                    if len(text) > 5 and len(text) < 9:
+                        print("LP found:", text)
+                        break
+                lp=text
+                #lp=re.findall(lp_pattern,text)
+                if len(lp)>0 :
+                    lp_num=lp[0]
+                    #save_lp(lp_num)
+                    """logging_buffer.put({'measurement': 'detection_loss',
+                                        'component': 'recognition',
+                                        'time': time.time(),
+                                        'data': lp_num})"""
+
+                    print("LP found: ", lp_num)
+                else:
+                    print("No LP found",text)
+            except:
+                print("No LP found",result)
 
         try:
             diag_queue.put_nowait((frame,text))
@@ -129,6 +141,13 @@ def lp_rec_proc(lp_queue,diag_queue):
 
 if __name__ == '__main__':
 
+    print("recognition server has been started")
+
+    nodeid = "recognition-pc"
+
+    #logging_buffer = start_dds_logger(nodeid, 'LP_Recognition')
+    time.sleep(1)
+    print("logger has been started")
 
     with open('config.json') as json_file:
         config = json.load(json_file)
