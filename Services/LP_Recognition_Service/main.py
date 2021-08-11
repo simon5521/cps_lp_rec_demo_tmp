@@ -56,7 +56,7 @@ def image_preprocess(img):
     return img
 
 
-def lp_rec_proc(lp_queue,diag_queue):
+def lp_rec_proc(lp_queue,out_queue):
     lp=""
     print("initializing easy ocr reader")
     reader = easyocr.Reader(['en'])
@@ -72,7 +72,7 @@ def lp_rec_proc(lp_queue,diag_queue):
         image=data["image"]
         data=data["data"]
 
-        for lp_data in data["licenseplate"]:
+        for lp_data in data["license_plate"]:
 
             xmax=data["position"]["xmax"]
             xmin=data["position"]["xmin"]
@@ -106,34 +106,40 @@ def lp_rec_proc(lp_queue,diag_queue):
                                     'component': 'recognition',
                                     'time': time.time(),
                                     'data': str(rectime_s)})"""
-
+                si=0
                 for r in result:
                     text = r[1]
                     text = re.sub(r'[^a-zA-Z0-9-]', '', text)
                     if len(text) > 5 and len(text) < 9:
-                        print("LP found:", text)
+                        print("LP found ",si," : ", text)
+                        lp_data["lp_text"]=text
                         break
-                lp=text
+                    else:
+                        print("No LP found ",si," : ", text)
+
+                """lp=text
                 #lp=re.findall(lp_pattern,text)
                 if len(lp)>0 :
                     lp_num=lp[0]
                     #save_lp(lp_num)
-                    """logging_buffer.put({'measurement': 'detection_loss',
+                    logging_buffer.put({'measurement': 'detection_loss',
                                         'component': 'recognition',
                                         'time': time.time(),
-                                        'data': lp_num})"""
+                                        'data': lp_num})
 
                     print("LP found: ", lp_num)
                 else:
-                    print("No LP found",text)
+                    print("No LP found",text)"""
             except:
-                print("No LP found",result)
+
+                lp_data["lp_text"] = ""
+                print("No LP found at all :",result)
 
         try:
-            diag_queue.put_nowait((frame,text))
+            out_queue.put_nowait(data)
         except Full:
             print("-------------------------------------------------")
-            print("diag error: Full")
+            print("out queue error: Full")
             continue
 
 
@@ -153,7 +159,7 @@ if __name__ == '__main__':
         config = json.load(json_file)
 
     if config['protocol'] == 'MQTT':
-        streamer_input_buffer , _ = start_mqtt_streamer(nodeid, broker=config['mqtt_host'], topic_sub='detected_image')  # , logging_buffer=logging_buffer)
+        streamer_input_buffer , streamer_output_buffer = start_mqtt_streamer(nodeid, broker=config['mqtt_host'], topic_sub='detected_image', topic_pub='recognized_image')  # , logging_buffer=logging_buffer)
     else:
         streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
             uuid.uuid1(), "DDS_config.xml",
@@ -162,7 +168,7 @@ if __name__ == '__main__':
     decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10)
     diag_queue=Queue(1)
     print("creating processes")
-    p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
+    p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,streamer_output_buffer))
     #p_rec_2 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_3 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_4 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
