@@ -1,2 +1,4 @@
 #!/bin/bash
+docker container stop lp-recognition-service
+docker container rm lp-recognition-service
 docker run -v /dev/bus/usb:/dev/bus/usb --runtime nvidia --network="host" --privileged  -v /mnt/sdcard/easyocr_model:/root/.EasyOCR//model/ --name lp-recognition-service lp_recognition_service:initial

@@ -217,7 +217,7 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
 try:
     while True:
         data = decoder_output_buffer.get()
-        data['data']['cameraid'] = int(data['data']["source"])
+        data['data']['cameraid'] = data['data']["source"]
 
         # Start timer (for calculating frame rate)
         t1 = cv2.getTickCount()

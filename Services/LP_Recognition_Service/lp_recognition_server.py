@@ -133,6 +133,9 @@ if __name__ == '__main__':
     print("all processes has been started")
 
     while True:
+        pass
+        time.sleep(2.5)
+        continue
         frame,text=diag_queue.get()
         h,w,c=frame.shape
         frame=cv2.resize(frame,(w*4,h*4))

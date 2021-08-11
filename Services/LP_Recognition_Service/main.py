@@ -64,7 +64,7 @@ def lp_rec_proc(lp_queue,out_queue):
     while True:
         try:
             data=lp_queue.get(True,20)
-            print("new incoming image...")
+            #print("new incoming image...")
         except:
             print("lp queue is empty, timeout happend")
             continue
@@ -72,12 +72,13 @@ def lp_rec_proc(lp_queue,out_queue):
         image=data["image"]
         data=data["data"]
 
-        for lp_data in data["license_plate"]:
 
-            xmax=data["position"]["xmax"]
-            xmin=data["position"]["xmin"]
-            ymax=data["position"]["ymax"]
-            ymin=data["position"]["ymin"]
+        for lp_data in data["licence_plate"]:
+
+            xmax=lp_data["position"]["xmax"]
+            xmin=lp_data["position"]["xmin"]
+            ymax=lp_data["position"]["ymax"]
+            ymin=lp_data["position"]["ymin"]
 
             cut_factor = 0.3 / 2
             v_cut = (ymax - ymin) * cut_factor
@@ -110,11 +111,12 @@ def lp_rec_proc(lp_queue,out_queue):
                 for r in result:
                     text = r[1]
                     text = re.sub(r'[^a-zA-Z0-9-]', '', text)
-                    if len(text) > 5 and len(text) < 9:
+                    if len(text) >= 5 and len(text) < 9:
                         print("LP found ",si," : ", text)
                         lp_data["lp_text"]=text
                         break
                     else:
+                        lp_data["lp_text"]=""
                         print("No LP found ",si," : ", text)
 
                 """lp=text
@@ -136,7 +138,8 @@ def lp_rec_proc(lp_queue,out_queue):
                 print("No LP found at all :",result)
 
         try:
-            out_queue.put_nowait(data)
+            print("sending image...")
+            out_queue.put(data)
         except Full:
             print("-------------------------------------------------")
             print("out queue error: Full")
@@ -168,6 +171,7 @@ if __name__ == '__main__':
     decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10)
     diag_queue=Queue(1)
     print("creating processes")
+    lp_rec_proc(decoder_output_buffer,streamer_output_buffer)
     p_rec_1 = Process(target=lp_rec_proc, args=(decoder_output_buffer,streamer_output_buffer))
     #p_rec_2 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
     #p_rec_3 = Process(target=lp_rec_proc, args=(decoder_output_buffer,diag_queue))
@@ -192,6 +196,8 @@ if __name__ == '__main__':
     print("all processes has been started")
 
     while True:
+        time.sleep(2.5)
+        continue
         frame,text=diag_queue.get()
         print('>>>>getframe for diag>>>>>')
         h,w,c=frame.shape

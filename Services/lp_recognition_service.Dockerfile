@@ -69,6 +69,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 FROM PIP_STAGE AS lp_recognition_service_pc_gpu
 
+RUN apt update && apt-get install -y python3-tk 
 
 COPY ./LP_Recognition_Service/lp3.jpeg .
 COPY ./LP_Recognition_Service/easy_ocr_test.py .
