@@ -38,6 +38,8 @@ z=3
 yaw=186.2
 pitch=-5.4
 
+id=0
+
 spawn_points = [
     carla.Transform(
         carla.Location(x=236, y=-166.8, z=3),
@@ -80,7 +82,8 @@ def process_img(image,encoder_input_buffer):
         print("out release")
     try:
         encoder_input_buffer.put_nowait(
-            {"pixels": i3, 'debug': True, 'validdata': True},)
+            {"pixels": i3, 'debug': True, 'validdata': True,'frame_id':id},)
+        id=id+1
     except:
         print("communication error : no reciever")
     return i3/255.0  # normalize
