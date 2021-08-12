@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//model/Communication/Support/DeMux1to4.sct=UTF-8
+encoding//model/Communication/Support/Sink4To1.sct=UTF-8
+encoding//model/Interfaces/Interfaces.sct=UTF-8
+encoding//model/LoadBalance/V1/LB_Provider.sct=UTF-8
+encoding//model/LoadBalance/V1/LB_Subscriber.sct=UTF-8
+encoding//model/LoadBalance/V2/Provider.sct=UTF-8
+encoding//model/LoadBalance/V2/Subscriber.sct=UTF-8
+encoding//model/Test/Test1.sct=UTF-8
