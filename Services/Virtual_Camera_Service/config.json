@@ -1,6 +1,6 @@
 {
     "protocol": "MQTT",
-    "mqtt_host": "192.168.1.8",
+    "mqtt_host": "localhost",
     "camera": {
         "source": 0
     },
@@ -12,6 +12,6 @@
     "bucket" : "main-bucket",
     "org" : "ftsrg",
     "url" : "http://192.168.1.8:8086",
-    "token" : "rC4P0SYuetbO3KQa6WpdnFLCTZBSreIjAa4byXtOLINy-2ha5ZZDqjxGfZTWl9FJZNxAo5Whh3val77c5Xfp1g=="
+    "token" : "2zwAg0Z0T6ZLCfMfNmCM_hX2UVNqfm00CsxHuxVzeYQziI9dqNaxtC5OFsaDmvQLlOfO9VhZkMSV1Q8jma7IlA=="
 
 }

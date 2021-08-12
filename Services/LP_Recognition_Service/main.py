@@ -116,7 +116,7 @@ def lp_rec_proc(lp_queue,out_queue):
                         lp_data["lp_text"]=text
                         break
                     else:
-                        lp_data["lp_text"]=""
+                        lp_data["lp_text"]="text"
                         print("No LP found ",si," : ", text)
 
                 """lp=text
@@ -167,8 +167,8 @@ if __name__ == '__main__':
         streamer_input_buffer, dds_streamer_output_buffer = start_dds_streamer(
             uuid.uuid1(), "DDS_config.xml",
             data_reader="MySubscriber::ImageReader",
-            input_buffer_size=15, output_buffer_size=10)
-    decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=10)
+            input_buffer_size=50, output_buffer_size=50)
+    decoder_output_buffer = start_decoder(streamer_input_buffer, decoder_output_buffer_size=50)
     diag_queue=Queue(1)
     print("creating processes")
     lp_rec_proc(decoder_output_buffer,streamer_output_buffer)

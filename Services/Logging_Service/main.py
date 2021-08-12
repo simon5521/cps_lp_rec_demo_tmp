@@ -13,6 +13,7 @@ with open('config.json') as json_file:
 
 
 
+
 bucket = config["bucket"]
 org = config["org"]
 url = config["url"]
@@ -38,35 +39,50 @@ data_topics=set()
 
 
 def on_message(client, userdata, message):
-    playload=str(message.payload.decode("utf-8"))
+    payload=str(message.payload.decode("utf-8"))
     #print("message received " ,playload)
-    playload=json.loads(playload)
+    payload=json.loads(payload)
     #print("message topic=",message.topic)
     #print("message qos=",message.qos)
     #print("message retain flag=",message.retain)
 
     if telemetry in message.topic:
-        data_topics.add(playload["topic"])
+        if payload["topic"] not in data_topics:
+            data_topics.add(payload["topic"])
+            client.subscribe(payload["topic"])
         #save telemetry
         service=message.topic.replace(telemetry,"")
         p = influxdb_client.Point("telemetry").tag("test",tag)\
             .tag("service_type",service)\
-            .field("id",playload["topic"].replace(service+"-",""))\
-            .field("queue_len",playload["qsize"])
-        write_api.write(bucket=bucket, org=org, record=p)
+            .field("id",payload["topic"].replace(service+"-",""))\
+            .field("queue_len",payload["qsize"])
+        write_api.write(bucket=bucket, org=org, record=p,token=token)
 
 
     else:
         for topic in topics:
             if topic in message.topic:
+                del payload['pixels']
+                #print( message.topic," : ",payload)
                 #save data
                 p = influxdb_client.Point("message").tag("test",tag) \
                     .tag("service_type", topic) \
                     .field("id", message.topic.replace(topic + "-", ""))
-                playload.pop('pixels')
+                
                 for key in payload:
-                    p.field(key,playload[key])
-                write_api.write(bucket=bucket, org=org, record=p)
+                    if key == "licence_plate":
+                        for lp in payload["licence_plate"]:
+                            lp_point = influxdb_client.Point("licese_plate").tag("test",tag) \
+                                .tag("service_type", topic) \
+                                .field("id", message.topic.replace(topic + "-", "")) \
+                                .tag("frame_id",payload["frame_id"])
+                            for key in lp:
+                                if key != "position":
+                                    lp_point.field(key,lp[key])
+                            write_api.write(bucket=bucket, org=org, record=lp_point,token=token)
+                    else:
+                        p.field(key,payload[key])
+                write_api.write(bucket=bucket, org=org, record=p,token=token)
                 break
 
 
@@ -78,16 +94,19 @@ def on_message(client, userdata, message):
 
 
 print("creating Influxdb client...")
-client = influxdb_client.InfluxDBClient(
+iclient = influxdb_client.InfluxDBClient(
    url=url,
    token=token,
-   org=org
+   org=org,
+   username='admin',
+   password='LaborImage',
+   ssl=True, 
+   verify_ssl=True
 )
-write_api = client.write_api(write_options=SYNCHRONOUS)
-
+write_api = iclient.write_api(write_options=SYNCHRONOUS)
 
 print("creating MQTT client...")
-client = Client(client_id=id, clean_session=True, userdata=None, protocol=MQTTv311, transport="tcp")
+client = mqtt.Client(client_id=id)
 client.on_message=on_message
 
 
@@ -99,4 +118,4 @@ print("subscribing to the telemetry topics")
 for topic in topics:
     client.subscribe(topic+telemetry)
 
-client.loop_start()
+client.loop_forever()

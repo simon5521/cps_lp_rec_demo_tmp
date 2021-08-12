@@ -42,6 +42,12 @@ id=0
 
 spawn_points = [
     carla.Transform(
+        carla.Location(x=250, y=-165.8, z=3),
+        carla.Rotation(yaw=186.2, pitch=-5.4)),
+    carla.Transform(
+      carla.Location(x=15.5, y=4.5, z=1.6),
+      carla.Rotation(yaw=90,pitch=-6.0)),
+    carla.Transform(
         carla.Location(x=236, y=-166.8, z=3),
         carla.Rotation(yaw=549.0, pitch=-7.8)),
     carla.Transform(
@@ -49,13 +55,7 @@ spawn_points = [
         carla.Rotation(yaw=90, pitch=-6.0)),
     carla.Transform(
         carla.Location(x=240, y=-166, z=3),
-        carla.Rotation(yaw=550.0, pitch=-7)),
-    carla.Transform(
-        carla.Location(x=250, y=-165.8, z=3),
-        carla.Rotation(yaw=186.2, pitch=-5.4)),
-    carla.Transform(
-      carla.Location(x=15.5, y=4.5, z=1.6),
-      carla.Rotation(yaw=90,pitch=-6.0))
+        carla.Rotation(yaw=550.0, pitch=-7))
 ]
 """
 x=250
@@ -66,7 +66,7 @@ pitch=-5.4
 """
 
 def process_img(image,encoder_input_buffer):
-    global debug, k
+    global debug, k, id
     i = np.array(image.raw_data)  # convert to an array
     i2 = i.reshape((IM_HEIGHT, IM_WIDTH, 4))  # was flattened, so we're going to shape it.
     i3 = i2[:, :, :3]  # remove the alpha (basically, remove the 4th index  of every pixel. Converting RGBA to RGB)
@@ -81,8 +81,8 @@ def process_img(image,encoder_input_buffer):
         out.release()
         print("out release")
     try:
-        encoder_input_buffer.put_nowait(
-            {"pixels": i3, 'debug': True, 'validdata': True,'frame_id':id},)
+        encoder_input_buffer.put(
+            {"pixels": i3, 'debug': True, 'validdata': True,'frame_id':id})
         id=id+1
     except:
         print("communication error : no reciever")
@@ -96,7 +96,7 @@ def is_port_in_use(port):
 
 
 CID = 0
-nodenum=5
+nodenum=2
 nodeid=["virtual_camera_"+str(i) for i in range(nodenum)]
 
 with open('config.json') as json_file:
@@ -115,7 +115,7 @@ else:
                     str(CID), 'DDS_config.xml',
                     data_writer='MyPublisher::RawWriter',
                     data_reader='MySubscriber::CameraControllReader',
-                    input_buffer_size=10, output_buffer_size=10#,
+                    input_buffer_size=10, output_buffer_size=50#,
                     #logging_buffer=logging_buffer
     )
 
@@ -184,17 +184,17 @@ if __name__ == '__main__':
         #sensors = [world.spawn_actor(blueprint, spawn_points[i]) for i in range(nodenum)]
         sensor0=world.spawn_actor(blueprint, spawn_points[0])
         sensor1=world.spawn_actor(blueprint, spawn_points[1])
-        sensor2=world.spawn_actor(blueprint, spawn_points[2])
-        sensor3=world.spawn_actor(blueprint, spawn_points[3])
-        sensor4=world.spawn_actor(blueprint, spawn_points[4])
+        #sensor2=world.spawn_actor(blueprint, spawn_points[2])
+        #sensor3=world.spawn_actor(blueprint, spawn_points[3])
+        #sensor4=world.spawn_actor(blueprint, spawn_points[4])
         #print("sensors: ", sensors)
 
         print("listening")
         sensor0.listen(lambda data: process_img(data,encoder_input_buffer[0]))
         sensor1.listen(lambda data: process_img(data,encoder_input_buffer[1]))
-        sensor2.listen(lambda data: process_img(data,encoder_input_buffer[2]))
-        sensor3.listen(lambda data: process_img(data,encoder_input_buffer[3]))
-        sensor4.listen(lambda data: process_img(data,encoder_input_buffer[4]))
+        #sensor2.listen(lambda data: process_img(data,encoder_input_buffer[2]))
+        #sensor3.listen(lambda data: process_img(data,encoder_input_buffer[3]))
+        #sensor4.listen(lambda data: process_img(data,encoder_input_buffer[4]))
         """for i in range(nodenum):
             print("listening: ", i)
             sensors[i].listen(lambda data: process_img(data,encoder_input_buffer[i]))"""

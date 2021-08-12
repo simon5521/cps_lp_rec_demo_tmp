@@ -30,8 +30,7 @@ RUN pip3 install -r requirements.txt
 FROM PIP_STAGE AS LP_Detection_Service
 
 COPY ./LP_Detection_Service/main.py .
-COPY ./DDS_config.xml ./videoUtils/DDS_config.xml
-COPY . .
+
 #RUN ls -a
 #RUN ls LP_Detection_Srevice -a
 #RUN ls LP_Detection_Srevice/ssd_mobilenet_v2_quantized_TFLite_model -a
