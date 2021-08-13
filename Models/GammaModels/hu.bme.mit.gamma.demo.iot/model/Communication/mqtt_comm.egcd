@@ -1,0 +1,82 @@
+package mqtt_comm
+import "Interfaces"
+import "demux1to4"
+import "sink4to1"
+environment MQTT_Communication[
+	
+	port InData1 : requires TopicDataStream
+	port InData2 : requires TopicDataStream
+	port InData3 : requires TopicDataStream
+	port InData4 : requires TopicDataStream
+	
+	
+	port OutData1 : provides DataStream
+	port OutData2 : provides DataStream
+	port OutData3 : provides DataStream
+	port OutData4 : provides DataStream
+	
+	
+]{
+	
+	delay NetDelayComp1 port In : requires TopicDataStream -> port Out : provides TopicDataStream {
+		Out.* : exponential rate=10.0;
+	}
+ 	
+	delay NetDelayComp2 port In : requires TopicDataStream -> port Out : provides TopicDataStream {
+		Out.* : exponential rate=10.0;
+	}
+ 	
+	delay NetDelayComp3 port In : requires TopicDataStream -> port Out : provides TopicDataStream {
+		Out.* : exponential rate=10.0;
+	}
+ 	
+	delay NetDelayComp4 port In : requires TopicDataStream -> port Out : provides TopicDataStream {
+		Out.* : exponential rate=10.0;
+	}
+ 	
+ 	bind InData1 -> NetDelayComp1.In
+ 	bind InData2 -> NetDelayComp2.In
+ 	bind InData3 -> NetDelayComp3.In
+ 	bind InData4 -> NetDelayComp4.In
+ 	
+	component Demux1 : DeMux1to4
+	component Demux2 : DeMux1to4
+	component Demux3 : DeMux1to4
+	component Demux4 : DeMux1to4  
+	
+	component Sink1 : Sink4To1
+	component Sink2 : Sink4To1
+	component Sink3 : Sink4To1
+	component Sink4 : Sink4To1
+	
+	channel [NetDelayComp1.Out] -o)- [Demux1.In]
+	channel [NetDelayComp2.Out] -o)- [Demux2.In]
+	channel [NetDelayComp3.Out] -o)- [Demux3.In]
+	channel [NetDelayComp4.Out] -o)- [Demux4.In]
+	
+	channel [Demux1.Out1] -o)- [Sink1.In1]
+	channel [Demux1.Out2] -o)- [Sink2.In1]
+	channel [Demux1.Out3] -o)- [Sink3.In1]
+	channel [Demux1.Out4] -o)- [Sink4.In1]
+	
+	channel [Demux2.Out1] -o)- [Sink1.In2]
+	channel [Demux2.Out2] -o)- [Sink2.In2]
+	channel [Demux2.Out3] -o)- [Sink3.In2]
+	channel [Demux2.Out4] -o)- [Sink4.In2]
+	
+	channel [Demux3.Out1] -o)- [Sink1.In3]
+	channel [Demux3.Out2] -o)- [Sink2.In3]
+	channel [Demux3.Out3] -o)- [Sink3.In3]
+	channel [Demux3.Out4] -o)- [Sink4.In3]
+	
+	channel [Demux4.Out1] -o)- [Sink1.In4]
+	channel [Demux4.Out2] -o)- [Sink2.In4]
+	channel [Demux4.Out3] -o)- [Sink3.In4]
+	channel [Demux4.Out4] -o)- [Sink4.In4]
+	
+	bind OutData1 -> Sink1.Out
+	bind OutData2 -> Sink2.Out
+	bind OutData3 -> Sink3.Out
+	bind OutData4 -> Sink4.Out
+	
+}
