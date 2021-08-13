@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
-  <sgraph:Statechart xmi:id="_6VguQPnWEeu6WL2OKvpnyg" specification="internal:&#xA;&#x9;var sel:integer=0&#xA;&#xA;interface In:&#xA;&#x9;in event NewEvent:integer&#xA;&#xA;interface Out1:&#xA;&#x9;out event NewEvent&#xA; &#xA;interface Out2:&#xA;&#x9;out event NewEvent&#xA; &#xA;interface Out3:&#xA;&#x9;out event NewEvent&#xA; &#xA;interface Out4:&#xA;&#x9;out event NewEvent&#xA; " name="DeMux1to4">
+  <sgraph:Statechart xmi:id="_6VguQPnWEeu6WL2OKvpnyg" specification="internal:&#xA;&#x9;var sel:integer=0&#xA;&#xA;interface In:&#xA;&#x9;in event NewData:integer&#xA;&#xA;interface Out1:&#xA;&#x9;out event NewData&#xA; &#xA;interface Out2:&#xA;&#x9;out event NewData&#xA; &#xA;interface Out3:&#xA;&#x9;out event NewData&#xA; &#xA;interface Out4:&#xA;&#x9;out event NewData&#xA; " name="DeMux1to4">
     <regions xmi:id="_6VhVU_nWEeu6WL2OKvpnyg" name="main region">
       <vertices xsi:type="sgraph:Entry" xmi:id="_6Vh8ZvnWEeu6WL2OKvpnyg">
         <outgoingTransitions xmi:id="_6VjxkfnWEeu6WL2OKvpnyg" target="_6Vije_nWEeu6WL2OKvpnyg"/>
       </vertices>
       <vertices xsi:type="sgraph:State" xmi:id="_6Vije_nWEeu6WL2OKvpnyg" specification="" name="StateA" incomingTransitions="_6VjxkfnWEeu6WL2OKvpnyg _P4QzIPnZEeuA8Lr_KazbLg _Q_oD0PnZEeuA8Lr_KazbLg _SdH8kPnZEeuA8Lr_KazbLg _Tx5XIPnZEeuA8Lr_KazbLg _VC3PwPnZEeuA8Lr_KazbLg">
-        <outgoingTransitions xmi:id="_HLnMEPnZEeuA8Lr_KazbLg" specification="In.NewEvent/&#xA;sel=valueof(In.NewEvent)" target="_HLkv0PnZEeuA8Lr_KazbLg"/>
+        <outgoingTransitions xmi:id="_HLnMEPnZEeuA8Lr_KazbLg" specification="In.NewData/&#xA;sel=valueof(In.NewData)" target="_HLkv0PnZEeuA8Lr_KazbLg"/>
       </vertices>
       <vertices xsi:type="sgraph:Choice" xmi:id="_HLkv0PnZEeuA8Lr_KazbLg" incomingTransitions="_HLnMEPnZEeuA8Lr_KazbLg">
-        <outgoingTransitions xmi:id="_P4QzIPnZEeuA8Lr_KazbLg" specification="[sel==1]/raise Out1.NewEvent" target="_6Vije_nWEeu6WL2OKvpnyg"/>
-        <outgoingTransitions xmi:id="_Q_oD0PnZEeuA8Lr_KazbLg" specification="[sel==2]/raise Out2.NewEvent" target="_6Vije_nWEeu6WL2OKvpnyg"/>
-        <outgoingTransitions xmi:id="_SdH8kPnZEeuA8Lr_KazbLg" specification="[sel==3]/raise Out3.NewEvent" target="_6Vije_nWEeu6WL2OKvpnyg"/>
-        <outgoingTransitions xmi:id="_Tx5XIPnZEeuA8Lr_KazbLg" specification="[sel==4]/raise Out4.NewEvent" target="_6Vije_nWEeu6WL2OKvpnyg"/>
+        <outgoingTransitions xmi:id="_P4QzIPnZEeuA8Lr_KazbLg" specification="[sel==1]/raise Out1.NewData" target="_6Vije_nWEeu6WL2OKvpnyg"/>
+        <outgoingTransitions xmi:id="_Q_oD0PnZEeuA8Lr_KazbLg" specification="[sel==2]/raise Out2.NewData" target="_6Vije_nWEeu6WL2OKvpnyg"/>
+        <outgoingTransitions xmi:id="_SdH8kPnZEeuA8Lr_KazbLg" specification="[sel==3]/raise Out3.NewData" target="_6Vije_nWEeu6WL2OKvpnyg"/>
+        <outgoingTransitions xmi:id="_Tx5XIPnZEeuA8Lr_KazbLg" specification="[sel==4]/raise Out4.NewData" target="_6Vije_nWEeu6WL2OKvpnyg"/>
         <outgoingTransitions xmi:id="_VC3PwPnZEeuA8Lr_KazbLg" specification="default" target="_6Vije_nWEeu6WL2OKvpnyg"/>
       </vertices>
     </regions>
