@@ -1,0 +1,16 @@
+package pc
+import "Interfaces"
+environment PC [
+	port Freezing : provides EventStream
+	port Restart : provides EventStream
+] {
+	periodic source Jetson1Freezing port Out : provides EventStream {
+		*.* : exponential rate=0.001; 
+	}
+	
+	delay Jetson1RestartDelay port Freezing : requires EventStream -> port Restart : provides EventStream {
+		*.* : exponential rate=0.1;
+	}
+	
+	channel [Jetson1Freezing]
+}
