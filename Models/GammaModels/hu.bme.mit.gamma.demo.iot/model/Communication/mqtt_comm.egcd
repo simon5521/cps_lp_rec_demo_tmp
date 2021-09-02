@@ -1,12 +1,12 @@
 package mqtt_comm
 import "Interfaces"
-import "demux1to4"
+import "demux1to4" 
 import "sink4to1"
 environment MQTT_Communication[
 	
 	port InData1 : requires TopicDataStream
 	port InData2 : requires TopicDataStream
-	port InData3 : requires TopicDataStream
+	port InData3 : requires TopicDataStream 
 	port InData4 : requires TopicDataStream
 	
 	
