@@ -1,0 +1,29 @@
+package demux1to4
+import "/hu.bme.mit.gamma.demo.iot/model/Interfaces/Interfaces.gcd"
+@TransitionPriority = order-based
+statechart DeMux1to4 [
+	port Out2 : provides DataStream
+	port In : requires TopicDataStream
+	port Out3 : provides DataStream
+	port Out1 : provides DataStream
+	port Out4 : provides DataStream
+] {
+	var sel : integer := 0
+	transition from Choice1 to StateA [sel = 1] /
+	raise Out1.NewData;
+	transition from Choice1 to StateA [sel = 2] /
+	raise Out2.NewData;
+	transition from Choice1 to StateA [sel = 3] /
+	raise Out3.NewData;
+	transition from Choice1 to StateA [sel = 4] /
+	raise Out4.NewData;
+	transition from Choice1 to StateA [else]
+	transition from Entry0 to StateA
+	transition from StateA to Choice1 when In.NewData /
+	sel := In.NewData::NewDataValue;
+	region main_region {
+		initial Entry0
+		state StateA
+		choice Choice1
+	}
+}

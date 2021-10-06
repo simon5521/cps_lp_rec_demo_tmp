@@ -1,0 +1,13 @@
+import "Interfaces"
+import external "DeMux1to4.sct"
+statechart {
+	statechart : DeMux1to4 
+	mappings {
+		map In = TopicDataStream as required
+		map Out1 = DataStream as provided
+		map Out2 = DataStream as provided
+		map Out3 = DataStream as provided
+		map Out4 = DataStream as provided
+				
+	}
+}

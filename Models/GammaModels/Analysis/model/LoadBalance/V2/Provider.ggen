@@ -1,0 +1,17 @@
+import "Interfaces"
+import external "Provider.sct"
+statechart {
+	statechart : Provider 
+	mappings {
+		map InComm1 = Telemetry as required
+		map InComm2 = Telemetry as required
+		map InComm3 = Telemetry as required
+		map InStream = DataStream as required
+		map Logger = Losses as provided
+		map OutStream = TopicDataStream as provided
+		map OutStreamAck = DataStream as required
+		map Starting = EventStream as required
+		map Stopping = EventStream as required
+		map Timer = EventStream as required
+	}
+}

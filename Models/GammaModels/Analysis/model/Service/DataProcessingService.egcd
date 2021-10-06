@@ -1,0 +1,35 @@
+package DataProcessingService
+import "Interfaces/Interfaces.egcd"
+import "LoadBalance/V2/Provider.gcd"
+import "LoadBalance/V2/Subscriber.gcd"
+environment DataProcessingService[
+	port InData : requires DataStream
+	port OutData : provides TopicDataStream
+	port HWRestart : requires EventStream
+	port HWFreeze : requires EventStream
+	port ProcessingRequest : provides DataStream
+	port ProcessingProviging : requires DataStream
+]
+{
+	
+	component Subscriber : Subscriber
+	component Provider : Provider
+	
+	periodic source Timer port Events : provides EventStream {
+		*.* : exponential rate=1.0;
+	}
+	
+	bind HWFreeze -> Provider.Stopping
+	bind HWFreeze -> Subscriber.Stopping
+	
+	bind HWRestart -> Provider.Starting
+	bind HWRestart -> Subscriber.Starting
+	
+	bind InData -> Subscriber.InStream
+	bind OutData -> Provider.OutStream
+	
+	bind ProcessingRequest -> Subscriber.OutStream
+	bind ProcessingProviging -> Provider.InStream
+	
+	
+}

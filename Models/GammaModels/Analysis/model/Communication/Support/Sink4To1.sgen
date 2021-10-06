@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::java {
+
+	statechart Sink4To1 {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.gamma.environment.systems.iot"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+	}
+}
