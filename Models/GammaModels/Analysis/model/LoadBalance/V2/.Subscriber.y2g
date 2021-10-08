@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="ASCII"?>
+<hu.bme.mit.gamma.yakindu.transformation:Y2GTrace xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hu.bme.mit.gamma.yakindu.transformation="http://www.mit.bme.hu/gamma/yakindu/transformation/Traceability">
+  <yakinduStatechart href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_q8Jf8PnIEeu6WL2OKvpnyg"/>
+  <gammaStatechart href="Subscriber.gcd#//@components.0"/>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_q8Jf8PnIEeu6WL2OKvpnyg"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_q8Jf8PnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_q8KuGfnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_2MvqcPnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_2MzU0PnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_2MzU0fnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_q8L8M_nIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_5NgFsPnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_ocXOUPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.1/@stateNodes.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_DzNgIPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_pnnggPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.1/@stateNodes.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_6R9zYPnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#__CGhkPnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_9hq0IPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_X0bywPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.4"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_TsScMPnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@regions.0/@stateNodes.0/@regions.0/@stateNodes.5"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_NgYTkPnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.11"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_ZBusUPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_az3i4PnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_rMArcPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.8"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_UfqZ4PnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_rstkwPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.12"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_-QZX0PnIEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.7"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_impisPnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.9"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_ySGu8PnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_eNIkwPnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.4"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_i7pXwPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_RrthAPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.6"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_lfoXcPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_BAAjQPnKEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#_G-2VsPnJEeu6WL2OKvpnyg"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.scopes0.max_req_num"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.scopes0.id"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.scopes0.queue_length"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.scopes0.queue_max_length"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.scopes0.provider_id"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.4"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.0/@members.4/@initialValue/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.0/@expression"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.0/@members.0/@initialValue/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.3/@expression"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.0/@members.1/@initialValue/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.2/@expression"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.0/@members.2/@initialValue/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@variableDeclarations.1/@expression"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.3"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.7"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.5"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.2"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.1"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.3"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.6"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.4"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.8"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.5"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.2"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.6"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@scopes.4"/>
+    <to href="Subscriber.gcd#//@components.0/@ports.7"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.OutStream.NewData"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.4/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.Starting.NewEvent"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.Stopping.NewEvent"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.InStream.NewData"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.4/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.OutStreamAck.NewData"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.4/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.OutComm.NewWorker"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.0/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.Logger.DataLoss"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.1/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_Subscriber.Timer.NewEvent"/>
+    <to href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd#//@interfaces.2/@events.0/@event"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.1/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.1/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.12/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.9/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.2/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.11/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.0/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@trigger/@triggers.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@trigger"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.4/@outgoingTransitions.1/@trigger"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.2/@guard"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:Trace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.5/@outgoingTransitions.1/@trigger"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.4/@guard"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.4/@outgoingTransitions.0/@trigger/@guard/@expression/@leftOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.1/@guard/@leftOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.4/@outgoingTransitions.0/@trigger/@guard/@expression/@rightOperand/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.1/@guard/@rightOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.4/@outgoingTransitions.0/@trigger/@guard/@expression"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.1/@guard"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.5/@outgoingTransitions.0/@trigger/@guard/@expression/@leftOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.3/@guard/@leftOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.5/@outgoingTransitions.0/@trigger/@guard/@expression/@rightOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.3/@guard/@rightOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.5/@outgoingTransitions.0/@trigger/@guard/@expression"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.3/@guard"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.0/@varRef"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.0/@expression/@leftOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.0/@rhs/@leftOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.0/@expression/@rightOperand/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.0/@rhs/@rightOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.0/@expression"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.1/@event"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.0/@effect/@actions.1"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.13/@effects.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@varRef"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@expression/@leftOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.0/@rhs/@operands.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@expression/@rightOperand/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.0/@rhs/@operands.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@expression"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.1/@event"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.1"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.5/@effects.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.1/@effect/@actions.0/@varRef"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.1/@effect/@actions.0/@expression/@leftOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14/@effects.0/@rhs/@operands.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.1/@effect/@actions.0/@expression/@rightOperand/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14/@effects.0/@rhs/@operands.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.1/@effect/@actions.0/@expression"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.2/@outgoingTransitions.1/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.14/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@varRef"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.0/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@expression/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.0/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.0/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.1/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@event"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.12/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.1/@vertices.1/@outgoingTransitions.0/@effect/@actions.0/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.12/@effects.0/@arguments.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.1/@vertices.1/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.12/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.0/@effect/@actions.0/@event"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.9/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.0/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.9/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.0/@varRef"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.0/@lhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.0/@expression/@leftOperand"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.0/@rhs/@leftOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.0/@expression/@rightOperand/@value"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.0/@rhs/@rightOperand"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.0/@expression"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.0/@rhs"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.0"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.0"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.1/@event"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.1"/>
+  </traces>
+  <traces xsi:type="hu.bme.mit.gamma.yakindu.transformation:ExpressionTrace">
+    <from href="platform:/resource/hu.bme.mit.gamma.environment.systems.iot/model/LoadBalance/V2/Subscriber.sct#SCT_/0/@regions.0/@vertices.1/@regions.0/@vertices.3/@outgoingTransitions.1/@effect/@actions.1"/>
+    <to href="Subscriber.gcd#//@components.0/@transitions.10/@effects.1"/>
+  </traces>
+</hu.bme.mit.gamma.yakindu.transformation:Y2GTrace>

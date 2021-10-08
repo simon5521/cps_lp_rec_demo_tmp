@@ -1,0 +1,26 @@
+package traffic
+import "Interfaces"
+environment Traffic [
+	port Camera1 : provides DataStream,
+	port Camera2 : provides DataStream,
+	port Camera3 : provides DataStream,
+	port Camera4 : provides DataStream,
+	port Camera5 : provides DataStream,
+	port Camera6 : provides DataStream
+]{
+	simulation SumoSimulator port Cars : requires EventStream <-> port Camera1 : provides DataStream, 
+																  port Camera2 : provides DataStream, 
+																  port Camera3 : provides DataStream, 
+																  port Camera4 : provides DataStream, 
+																  port Camera5 : provides DataStream, 
+																  port Camera6 : provides DataStream 
+																  with class = "Sumo_Town4_scenario_1"
+	
+	bind Camera1 -> SumoSimulator.Camera1
+	bind Camera2 -> SumoSimulator.Camera2
+	bind Camera3 -> SumoSimulator.Camera3
+	bind Camera4 -> SumoSimulator.Camera4
+	bind Camera5 -> SumoSimulator.Camera5
+	bind Camera6 -> SumoSimulator.Camera6
+		
+}

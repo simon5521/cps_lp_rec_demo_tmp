@@ -1,0 +1,11 @@
+GeneratorModel for yakindu::java {
+
+	statechart DeMux1to4 {
+
+		feature Outlet {
+			targetProject = "hu.bme.mit.gamma.demo.iot"
+			targetFolder = "src-gen"
+			libraryTargetFolder = "src"
+		}
+	}
+}

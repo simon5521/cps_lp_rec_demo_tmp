@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021. aug. 27., péntek, 11:48:54 CEST by Eclipse SUMO netedit Version 1.6.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/net/Town04.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/net/Town04.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/osm_cameras2.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e2Detector id="Camera1" lane="-17.0.00_2" pos="48.70" length="3.00" freq="1.00" name="Camera1" file="Camera1.xml"/>
+    <e2Detector id="Camera2" lane="17.0.00_3" pos="48.87" length="3.00" freq="1.00" name="Camera2" file="Camera2.xml"/>
+    <e2Detector id="Camera3" lane="29.0.00_3" pos="51.73" length="3.00" freq="1.00" name="Camera3" file="Camera3.xml"/>
+    <e2Detector id="Camera4" lane="-29.0.00_3" pos="52.17" length="3.00" freq="1.00" name="Camera4" file="Camera4.xml"/>
+    <e2Detector id="Camera5" lane="-9.0.00_1" pos="47.79" length="3.00" freq="1.00" name="Camera5" file="Camera5.xml"/>
+    <e2Detector id="Camera6" lane="9.0.00_2" pos="47.68" length="3.00" freq="1.00" name="Camera6" file="Camera6.xml"/>
+    <e2Detector id="Camera7" lane="14.0.00_1" pos="11.95" length="3.00" freq="1.00" name="Camera7" file="Camera7.xml"/>
+    <e2Detector id="Camera8" lane="-14.0.00_1" pos="11.77" length="3.00" freq="1.00" name="Camera8" file="Camera8.xml"/>
+</additional>

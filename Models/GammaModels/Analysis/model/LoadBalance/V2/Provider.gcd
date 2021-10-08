@@ -1,0 +1,120 @@
+package provider
+import "/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd"
+@TransitionPriority = order-based
+statechart Provider [
+	port Timer : requires EventStream
+	port InComm2 : requires Telemetry
+	port Logger : provides Losses
+	port InComm3 : requires Telemetry
+	port Stopping : requires EventStream
+	port InComm1 : requires Telemetry
+	port Starting : requires EventStream
+	port OutStreamAck : requires DataStream
+	port InStream : requires DataStream
+	port OutStream : provides TopicDataStream
+] {
+	var worker_id : integer := 0
+	var queue_length : integer := 0
+	var queue_max_length : integer := 30
+	var max_req_num : integer := 10
+	var id : integer := 0
+	var provider_id : integer
+	var out_queue_len : integer := 10000
+	transition from Active to Passive when Stopping.NewEvent
+	transition from Choice10 to NotFull [else]
+	transition from Choice10 to FullWaiting [queue_length = queue_max_length]
+	transition from Choice11 to SelectWorker1 [out_queue_len >= InComm1.NewWorker::NewWorkerValue] /
+	worker_id := 1;
+	out_queue_len := InComm1.NewWorker::NewWorkerValue;
+	transition from Choice11 to SelectWorker1 [else]
+	transition from Choice6 to Empty [queue_length = 0]
+	transition from Choice6 to Working [else]
+	transition from Choice7 to Full [queue_length = queue_max_length]
+	transition from Choice7 to Working [else]
+	transition from Choice8 to SelectWorker2 [out_queue_len >= InComm2.NewWorker::NewWorkerValue] /
+	worker_id := 1;
+	out_queue_len := InComm2.NewWorker::NewWorkerValue;
+	transition from Choice8 to SelectWorker2 [else]
+	transition from Choice9 to SelectWorker3 [out_queue_len >= InComm3.NewWorker::NewWorkerValue] /
+	worker_id := 1;
+	out_queue_len := InComm3.NewWorker::NewWorkerValue;
+	transition from Choice9 to SelectWorker3 [else]
+	transition from Empty to Working when InStream.NewData /
+	queue_length := queue_length + 1;
+	raise OutStream.NewData(worker_id);
+	transition from Entry0 to Waiting
+	transition from Entry1 to SelectWorker1
+	transition from Entry2 to NotFull
+	transition from Entry3 to SelectWorker3
+	transition from Entry4 to SelectWorker2
+	transition from Entry5 to Empty
+	transition from Full to Full when InStream.NewData /
+	raise Logger.DataLoss;
+	transition from Full to Working when OutStreamAck.NewData /
+	queue_length := queue_length - 1;
+	raise OutStream.NewData(worker_id);
+	transition from FullWaiting to FullWaiting when InStream.NewData /
+	raise Logger.DataLoss;
+	transition from NotFull to Choice10 when InStream.NewData /
+	queue_length := queue_length + 1;
+	transition from Passive to Waiting when Starting.NewEvent /
+	queue_length := 0;
+	worker_id := 0;
+	out_queue_len := 10000;
+	transition from SelectWorker1 to Choice11 when InComm1.NewWorker
+	transition from SelectWorker2 to Choice8 when InComm2.NewWorker
+	transition from SelectWorker3 to Choice9 when InComm3.NewWorker
+	transition from Waiting to Passive when Stopping.NewEvent /
+	queue_length := 0;
+	transition from Waiting to Active when InComm1.NewWorker /
+	worker_id := 1;
+	out_queue_len := InComm1.NewWorker::NewWorkerValue;
+	transition from Waiting to Active when InComm2.NewWorker /
+	worker_id := 2;
+	out_queue_len := InComm2.NewWorker::NewWorkerValue;
+	transition from Waiting to Active when InComm3.NewWorker /
+	worker_id := 3;
+	out_queue_len := InComm3.NewWorker::NewWorkerValue;
+	transition from Working to Choice6 when OutStreamAck.NewData /
+	queue_length := queue_length - 1;
+	raise OutStream.NewData(worker_id);
+	transition from Working to Choice7 when InStream.NewData /
+	queue_length := queue_length + 1;
+	region main_region {
+		state Waiting {
+			region r1 {
+				initial Entry2
+				state NotFull
+				state FullWaiting
+				choice Choice10
+			}
+		}
+		state Active {
+			region Telemetry3 {
+				initial Entry3
+				state SelectWorker3
+				choice Choice9
+			}
+			region Telemetry1 {
+				initial Entry1
+				state SelectWorker1
+				choice Choice11
+			}
+			region QueueManager {
+				initial Entry5
+				state Full
+				state Empty
+				state Working
+				choice Choice6
+				choice Choice7
+			}
+			region Telemetry2 {
+				initial Entry4
+				state SelectWorker2
+				choice Choice8
+			}
+		}
+		initial Entry0
+		state Passive
+	}
+}

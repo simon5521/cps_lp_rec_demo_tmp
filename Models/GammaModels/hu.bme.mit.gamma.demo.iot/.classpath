@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="model/Communication/|model/Communication/Support/|model/Environment/|model/HWModel/|model/Interfaces/|model/LoadBalance/V1/|model/LoadBalance/V2/|model/System/|model/Test/|model/|src/Sumo/|src/Sumo/net/|src/Sumo/rou/|src/" kind="src" path=""/>
+	<classpathentry excluding="Sumo/" kind="src" path="src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
