@@ -27,6 +27,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      - /dev/apex_0
       - /dev/bus/usb:/dev/bus/usb
       - ./config.json:/config.json
     privileged: true

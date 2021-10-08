@@ -173,6 +173,9 @@ def DrawBoxesandSendCroppedImages(boxes, classes, scores, data, output_buffer):
             ymax = int(min(height, (boxes[i][2] * height)))
             xmax = int(min(height, (boxes[i][3] * height)))+x_ofs
 
+            if(min(frame.shape[0]/3, (xmax - xmin) * 0.8) < (ymax - ymin)):
+                continue
+
             cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
 
             # Draw label

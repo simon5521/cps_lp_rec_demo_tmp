@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.24.0 (4a2a0458)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: lp-detection
+  name: lp-detection
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: lp-detection
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.24.0 (4a2a0458)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: lp-detection
+    spec:
+      containers:
+        - command:
+            - python3
+            - main.py
+          image: lp-detection
+          name: lp-detection
+          ports:
+            - containerPort: 8080
+          resources: {}
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /dev/apex_0
+              name: lp-detection-claim0
+            - mountPath: /dev/bus/usb
+              name: lp-detection-claim1
+            - mountPath: /config.json
+              name: lp-detection-claim2
+      restartPolicy: Always
+      volumes:
+        - name: lp-detection-claim0
+          persistentVolumeClaim:
+            claimName: lp-detection-claim0
+        - name: lp-detection-claim1
+          persistentVolumeClaim:
+            claimName: lp-detection-claim1
+        - name: lp-detection-claim2
+          persistentVolumeClaim:
+            claimName: lp-detection-claim2
+status: {}

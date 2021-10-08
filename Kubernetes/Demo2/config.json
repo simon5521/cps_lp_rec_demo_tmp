@@ -1,0 +1,10 @@
+{
+    "protocol": "MQTT",
+    "mqtt_host": "mqtt-broker",
+    "camera": {
+        "source": "video/test.mkv"
+    },
+    "lp_detection": {
+        "use_tpu": true
+    }
+}
