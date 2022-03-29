@@ -2,7 +2,7 @@ import glob
 import json
 import os
 import sys
-
+from copy import copy
 
 #import matplotlib.pyplot as plt
 
@@ -38,22 +38,24 @@ z=3
 yaw=186.2
 pitch=-5.4
 
+id=0
+
 spawn_points = [
-    carla.Transform(
-        carla.Location(x=236, y=-166.8, z=3),
-        carla.Rotation(yaw=549.0, pitch=-7.8)),
-    carla.Transform(
-        carla.Location(x=240, y=-166, z=3),
-        carla.Rotation(yaw=550.0, pitch=-7)),
     carla.Transform(
         carla.Location(x=250, y=-165.8, z=3),
         carla.Rotation(yaw=186.2, pitch=-5.4)),
     carla.Transform(
+      carla.Location(x=15.5, y=4.5, z=1.6),
+      carla.Rotation(yaw=90,pitch=-6.0)),
+    carla.Transform(
+        carla.Location(x=236, y=-166.8, z=3),
+        carla.Rotation(yaw=549.0, pitch=-7.8)),
+    carla.Transform(
         carla.Location(x=15.5, y=4.5, z=2.1),
         carla.Rotation(yaw=90, pitch=-6.0)),
     carla.Transform(
-      carla.Location(x=15.5, y=4.5, z=1.6),
-      carla.Rotation(yaw=90,pitch=-6.0))
+        carla.Location(x=240, y=-166, z=3),
+        carla.Rotation(yaw=550.0, pitch=-7))
 ]
 """
 x=250
@@ -63,26 +65,27 @@ yaw=186.2
 pitch=-5.4
 """
 
-def process_img(image,si):
-    global debug, k
+def process_img(image,encoder_input_buffer):
+    global debug, k, id
     i = np.array(image.raw_data)  # convert to an array
     i2 = i.reshape((IM_HEIGHT, IM_WIDTH, 4))  # was flattened, so we're going to shape it.
     i3 = i2[:, :, :3]  # remove the alpha (basically, remove the 4th index  of every pixel. Converting RGBA to RGB)
     #cv2.imshow("", i3)  # show it.
     #cv2.waitKey(1)
     k=k+1
-    if record and k<30*120 and record:
+    #if record and k<30*120 and record:
         # write the flipped frame
-        out.write(i3)
+        #out.write(i3)
 
     if k>30*120 and record:
         out.release()
         print("out release")
     try:
-        encoder_input_buffer[si].put_nowait(
-            {"pixels": i3, 'debug': True, 'validdata': True},)
+        encoder_input_buffer.put(
+            {"pixels": i3, 'debug': True, 'validdata': True,'frame_id':id})
+        id=id+1
     except:
-        print("communication error: no reciever")
+        print("communication error : no reciever")
     return i3/255.0  # normalize
 
 def is_port_in_use(port):
@@ -93,8 +96,8 @@ def is_port_in_use(port):
 
 
 CID = 0
-nodenum=5
-nodeid=["virtual_camera_1","virtual_camera_2","virtual_camera_3","virtual_camera_4","virtual_camera_5"]
+nodenum=2
+nodeid=["virtual_camera_"+str(i) for i in range(nodenum)]
 
 with open('config.json') as json_file:
     config = json.load(json_file)
@@ -104,6 +107,7 @@ if config['protocol'] == 'MQTT':
     streamer_input_buffer=[0 for i in range(nodenum)]
     streamer_output_buffer=[0 for i in range(nodenum)]
     for i in range(nodenum):
+        print("nodeid: ",nodeid[i])
         streamer_input_buffer[i], streamer_output_buffer[i] = start_mqtt_streamer(nodeid[i], broker = config['mqtt_host'], port = 1883, topic_pub = 'raw_image', topic_sub = 'camera_controll')#, logging_buffer=logging_buffer)
 else:
     print('DDS config')
@@ -111,11 +115,13 @@ else:
                     str(CID), 'DDS_config.xml',
                     data_writer='MyPublisher::RawWriter',
                     data_reader='MySubscriber::CameraControllReader',
-                    input_buffer_size=10, output_buffer_size=10#,
+                    input_buffer_size=10, output_buffer_size=50#,
                     #logging_buffer=logging_buffer
     )
 
-encoder_input_buffer = start_encoder(streamer_output_buffer, encoder_input_buffer_size=10)
+encoder_input_buffer=[0 for i in range(nodenum)]
+for i in range(nodenum):
+    encoder_input_buffer[i] = start_encoder(streamer_output_buffer[i], encoder_input_buffer_size=10)
 
 if record:
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
@@ -152,7 +158,7 @@ if __name__ == '__main__':
         client=carla.Client(carla_ip,2000)
         print("get world")
         world = client.get_world()
-        print("get world")
+        print("get blueprint")
         blueprint_library = world.get_blueprint_library()
 
         IM_WIDTH = 850
@@ -175,12 +181,23 @@ if __name__ == '__main__':
 
         # spawn the sensor and attach to vehicle.
 
-        sensors = [world.spawn_actor(blueprint, spawn_point[i]) for i in range(nodenum)]
-
+        #sensors = [world.spawn_actor(blueprint, spawn_points[i]) for i in range(nodenum)]
+        sensor0=world.spawn_actor(blueprint, spawn_points[0])
+        sensor1=world.spawn_actor(blueprint, spawn_points[1])
+        #sensor2=world.spawn_actor(blueprint, spawn_points[2])
+        #sensor3=world.spawn_actor(blueprint, spawn_points[3])
+        #sensor4=world.spawn_actor(blueprint, spawn_points[4])
+        #print("sensors: ", sensors)
 
         print("listening")
-        for i in range(nodenum):
-            sensors[i].listen(lambda data: process_img(data,i))
+        sensor0.listen(lambda data: process_img(data,encoder_input_buffer[0]))
+        sensor1.listen(lambda data: process_img(data,encoder_input_buffer[1]))
+        #sensor2.listen(lambda data: process_img(data,encoder_input_buffer[2]))
+        #sensor3.listen(lambda data: process_img(data,encoder_input_buffer[3]))
+        #sensor4.listen(lambda data: process_img(data,encoder_input_buffer[4]))
+        """for i in range(nodenum):
+            print("listening: ", i)
+            sensors[i].listen(lambda data: process_img(data,encoder_input_buffer[i]))"""
     except:
         print("error")
     while (1):

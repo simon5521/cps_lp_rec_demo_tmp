@@ -1,0 +1,24 @@
+package sink4to1
+import "/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd"
+@TransitionPriority = order-based
+statechart Sink4To1 [
+	port In4 : requires DataStream
+	port In2 : requires DataStream
+	port In3 : requires DataStream
+	port Out : provides DataStream
+	port In1 : requires DataStream
+] {
+	transition from Entry0 to Main
+	transition from Main to Main when In1.NewData /
+	raise Out.NewData;
+	transition from Main to Main when In2.NewData /
+	raise Out.NewData;
+	transition from Main to Main when In3.NewData /
+	raise Out.NewData;
+	transition from Main to Main when In3.NewData /
+	raise Out.NewData;
+	region main_region {
+		initial Entry0
+		state Main
+	}
+}

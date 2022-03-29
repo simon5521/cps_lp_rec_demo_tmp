@@ -1,0 +1,16 @@
+package Interfaces
+interface Telemetry {
+	out event NewWorker(NewWorkerValue : integer)
+}
+interface Losses {
+	out event DataLoss
+}
+interface EventStream {
+	out event NewEvent
+}
+interface TopicDataStream {
+	out event NewData(NewDataValue : integer)
+}
+interface DataStream {
+	out event NewData
+}

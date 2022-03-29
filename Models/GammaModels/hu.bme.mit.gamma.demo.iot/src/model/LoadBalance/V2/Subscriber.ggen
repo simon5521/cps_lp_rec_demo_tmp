@@ -1,0 +1,15 @@
+import "Interfaces"
+import external "Subscriber"
+statechart {
+	statechart : Subscriber
+	mappings {
+		map InStream = DataStream as required
+		map Logger = Losses as provided
+		map OutComm = Telemetry as provided
+		map OutStream = DataStream as provided
+		map OutStreamAck = DataStream as required
+		map Starting = EventStream as required
+		map Stopping = EventStream as required
+		map Timer = EventStream as required
+	}
+}

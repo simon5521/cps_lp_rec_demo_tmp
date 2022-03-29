@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11"/>
+	<classpathentry kind="src" path="hu.bme.mit.gamma.demo.iot/src"/>
+	<classpathentry kind="src" path="hu.bme.mit.gamma.demo.iot/src-gen"/>
+	<classpathentry kind="output" path="hu.bme.mit.gamma.demo.iot/bin"/>
+</classpath>

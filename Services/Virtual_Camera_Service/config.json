@@ -1,0 +1,17 @@
+{
+    "protocol": "MQTT",
+    "mqtt_host": "localhost",
+    "camera": {
+        "source": 0
+    },
+    "lp_detection": {
+        "use_tpu": true
+    },
+
+
+    "bucket" : "main-bucket",
+    "org" : "ftsrg",
+    "url" : "http://192.168.1.8:8086",
+    "token" : "2zwAg0Z0T6ZLCfMfNmCM_hX2UVNqfm00CsxHuxVzeYQziI9dqNaxtC5OFsaDmvQLlOfO9VhZkMSV1Q8jma7IlA=="
+
+}

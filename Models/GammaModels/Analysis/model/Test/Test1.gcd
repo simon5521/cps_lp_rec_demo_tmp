@@ -1,0 +1,21 @@
+package test1
+import "Interfaces/Interfaces.egcd"
+@TransitionPriority = order-based
+statechart Test1 [
+	port InComm1 : requires Telemetry
+	port OutComm1 : provides Telemetry
+] {
+	var out_queue_len : integer
+	var worker_id : integer
+	transition from Choice1 to SelectWorker1 [out_queue_len > 4] /
+	worker_id := 1;
+	out_queue_len := InComm1.NewWorker::NewWorkerValue;
+	transition from Choice1 to SelectWorker1 [else]
+	transition from Entry0 to SelectWorker1
+	transition from SelectWorker1 to Choice1 when InComm1.NewWorker
+	region main_region {
+		initial Entry0
+		state SelectWorker1
+		choice Choice1
+	}
+}

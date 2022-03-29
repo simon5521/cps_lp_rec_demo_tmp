@@ -1,0 +1,62 @@
+package subscriber
+import "/hu.bme.mit.gamma.environment.systems.iot/model/Interfaces/Interfaces.egcd"
+@TransitionPriority = order-based
+statechart Subscriber [
+	port OutStreamAck : requires DataStream
+	port Starting : requires EventStream
+	port Timer : requires EventStream
+	port OutStream : provides DataStream
+	port Stopping : requires EventStream
+	port OutComm : provides Telemetry
+	port InStream : requires DataStream
+	port Logger : provides Losses
+] {
+	var max_req_num : integer := 10
+	var id : integer := 0
+	var queue_length : integer := 0
+	var queue_max_length : integer := 30
+	var provider_id : integer
+	transition from Active to Passive when Stopping.NewEvent /
+	queue_length := 0;
+	transition from Choice3 to Empty [queue_length = 0]
+	transition from Choice3 to Working [else]
+	transition from Choice4 to Full [queue_length = queue_max_length]
+	transition from Choice4 to Working [else]
+	transition from Empty to Working when InStream.NewData /
+	queue_length := queue_length + 1;
+	raise OutStream.NewData;
+	transition from Entry0 to Active
+	transition from Entry1 to Empty
+	transition from Entry2 to Sending
+	transition from Full to Full when InStream.NewData /
+	raise Logger.DataLoss;
+	transition from Full to Working when OutStreamAck.NewData /
+	queue_length := queue_length - 1;
+	raise OutStream.NewData;
+	transition from Passive to Active when Starting.NewEvent
+	transition from Sending to Sending when Timer.NewEvent /
+	raise OutComm.NewWorker(queue_length);
+	transition from Working to Choice3 when OutStreamAck.NewData /
+	queue_length := queue_length - 1;
+	raise OutStream.NewData;
+	transition from Working to Choice4 when InStream.NewData /
+	queue_length := queue_length + 1;
+	region main_region {
+		state Active {
+			region QueueManagement {
+				initial Entry1
+				state Full
+				state Empty
+				state Working
+				choice Choice3
+				choice Choice4
+			}
+			region Telemetry {
+				initial Entry2
+				state Sending
+			}
+		}
+		initial Entry0
+		state Passive
+	}
+}

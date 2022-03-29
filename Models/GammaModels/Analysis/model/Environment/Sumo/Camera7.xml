@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021. aug. 27., péntek, 14:15:29 CEST by Eclipse SUMO GUI Version 1.6.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/net/Town04.net.xml"/>
+        <route-files value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/carlavtypes.rou.xml,/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/rou/Town04.rou.xml"/>
+        <additional-files value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/osm_cameras.add.xml"/>
+    </input>
+
+    <gui_only>
+        <gui-settings-file value="/home/simon5521/Projects/CPS_demo/Models/GammaModels/hu.bme.mit.gamma.demo.iot/src/Sumo/viewsettings.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e2_file.xsd">
+</detector>

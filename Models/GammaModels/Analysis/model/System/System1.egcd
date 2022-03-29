@@ -1,0 +1,17 @@
+package system1
+import "Interfaces/Interfaces.egcd"
+import "Communication/CommunicationMQTT.egcd"
+import "Environment/Traffic.egcd"
+import "HWModel/PC.egcd"
+import "LoadBalance/V2/Provider.gcd"
+import "LoadBalance/V2/Subscriber.gcd"
+environment System1[
+	
+]
+{
+	
+	 environment component Town4Traffic : Traffic
+	 
+
+	
+}

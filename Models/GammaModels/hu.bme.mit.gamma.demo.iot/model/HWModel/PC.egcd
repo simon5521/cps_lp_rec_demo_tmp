@@ -1,0 +1,21 @@
+package pc
+import "Interfaces"
+environment PC [
+	port Freezing : provides EventStream
+	port Restart : provides EventStream
+] {
+	periodic source FreezingSource port Out : provides EventStream {
+		*.* : exponential rate=0.001; 
+	}
+	
+	delay RestartDelay port Freezing : requires EventStream -> port Restart : provides EventStream {
+		*.* : exponential rate=0.1;
+	}
+	
+	channel [FreezingSource.Out] -o)- [RestartDelay.Freezing]
+	
+	bind Freezing -> FreezingSource.Out
+	
+	bind Restart  -> RestartDelay.Restart
+	
+}

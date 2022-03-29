@@ -1,0 +1,9 @@
+import "Interfaces"
+import external "Test1.sct"
+statechart {
+	statechart : Test1
+	mappings {
+		map InComm1 = Telemetry as required
+		map OutComm1 = Telemetry as provided
+	}
+}

@@ -1,0 +1,42 @@
+package rapberry4workernode
+import "Interfaces"
+environment JetsonWorkerNode [
+	port Freezing : provides EventStream
+	port Restart : provides EventStream
+	port CPUIntensiveRequest : requires DataStream
+	port TPUIntensiveRequest : requires DataStream
+	port CPUIntensiveProviding : provides DataStream
+	port TPUIntensiveProviding : provides DataStream
+] {
+	periodic source FreezingSource port Out : provides EventStream {
+		*.* : exponential rate=0.001; 
+	}
+	
+	delay RestartDelay port Freezing : requires EventStream -> port Restart : provides EventStream {
+		*.* : exponential rate=0.1;
+	}
+	
+	channel [FreezingSource.Out] -o)- [RestartDelay.Freezing]
+	
+	bind Freezing -> FreezingSource.Out
+	
+	bind Restart  -> RestartDelay.Restart
+	
+	delay GPUDelay port InData : requires DataStream -> port OutData : provides DataStream {
+		*.* : exponential rate=0.05;
+	}
+	
+	delay CPUDelay port InData : requires DataStream -> port OutData : provides DataStream {
+		*.* : exponential rate=0.2;
+	}
+	
+	delay TPUDelay port InData : requires DataStream -> port OutData : provides DataStream {
+		*.* : exponential rate=0.01;
+	}
+	
+	bind CPUIntensiveRequest -> CPUDelay.InData
+	bind TPUIntensiveRequest -> TPUDelay.InData
+	bind CPUIntensiveProviding -> CPUDelay.OutData
+	bind TPUIntensiveProviding -> TPUDelay.OutData
+	
+}

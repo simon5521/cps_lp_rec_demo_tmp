@@ -1,0 +1,12 @@
+import "Interfaces"
+import external "Sink4To1.sct"
+statechart {
+	statechart : Sink4To1
+	mappings {
+		map Out = DataStream as provided
+		map In1 = DataStream as required
+		map In2 = DataStream as required
+		map In3 = DataStream as required
+		map In4 = DataStream as required
+	}
+}
