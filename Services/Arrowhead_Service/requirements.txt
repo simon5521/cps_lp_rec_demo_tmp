@@ -1,0 +1,9 @@
+FastAPI
+aiohttp[standard]
+uvicorn
+Flask>=1.0.2
+requests>=2.21
+cryptography
+jwcrypto==0.8
+six
+arrowhead-client==0.3.0a0
