@@ -1,4 +1,4 @@
 #!/bin/bash
-docker container stop lp-recognition-service
-docker container rm lp-recognition-service
+docker container stop test-consumer-service
+docker container rm test-consumer-service
 docker run --network="host" --name test-consumer-service test_consumer:initial
