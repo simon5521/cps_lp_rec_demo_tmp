@@ -1,5 +1,7 @@
 FROM python:alpine3.15 AS PIP_STAGE
 
+COPY requirements.txt .
+
 RUN pip3 install -r requirements.txt
 
 
