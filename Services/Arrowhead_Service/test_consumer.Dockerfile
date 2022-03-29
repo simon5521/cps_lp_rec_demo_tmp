@@ -1,4 +1,11 @@
-FROM python:alpine3.15 AS PIP_STAGE
+FROM debian:buster AS PRE_STAGE
+
+RUN apt-get update; apt-get install -y apt-utils
+RUN apt-get update; apt-get install curl -y
+RUN apt-get update; apt-get install -y python3
+RUN apt-get update; apt-get install  -y python3-setuptools && apt-get install -y python3-pip
+
+FROM PRE_STAGE AS PIP_STAGE
 
 COPY requirements.txt .
 
