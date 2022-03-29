@@ -1,4 +1,4 @@
-FROM debian:buster AS PRE_STAGE
+FROM debian:latest AS PRE_STAGE
 
 RUN apt-get update; apt-get install -y apt-utils
 RUN apt-get update; apt-get install curl -y
