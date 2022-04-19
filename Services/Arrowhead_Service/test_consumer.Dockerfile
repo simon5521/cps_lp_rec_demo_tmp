@@ -16,4 +16,6 @@ FROM PIP_STAGE AS AHT_CONSUMER
 
 COPY consumer.py .
 
+COPY core_services_defaults.py ./usr/local/lib/python3.9/dist-packages/arrowhead_client/client/core_services_defaults.py
+
 CMD ["python3", "consumer.py" ]
