@@ -2,7 +2,7 @@ import arrowhead_client.api as ar
 
 consumer = ar.ArrowheadHttpClient(
         system_name='mqtt-client',
-        address='127.0.0.1',
+        address='192.168.1.3',
         port=17100,
 )
 
