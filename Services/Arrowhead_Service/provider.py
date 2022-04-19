@@ -10,6 +10,7 @@ provider = ar.ArrowheadHttpClient(
 @provider.provided_service(
         service_definition='echo',
         service_uri='echo',
+        address='192.168.1.3',
         protocol='HTTP',
         method='GET',
         payload_format='JSON', # Ha TEXT szerepel, akkor orchestration empty
@@ -21,6 +22,7 @@ def echo(request):
 @provider.provided_service(
         service_definition='get-broker-address',
         service_uri='address',
+        address='192.168.1.3',
         protocol='HTTP',
         method='GET',
         payload_format='JSON',
